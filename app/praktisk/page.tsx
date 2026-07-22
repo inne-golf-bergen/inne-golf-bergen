@@ -126,7 +126,7 @@ export default function PraktiskPage() {
                   src="/assets/praktisk-sandviken-2.png"
                   alt="Gatefoto av parkeringen vis-à-vis Babyland"
                   fill
-                  sizes="(max-width: 767px) 100vw, 50vw"
+                  sizes="(max-width: 767px) 150vw, 50vw"
                   className={s.photoImg}
                 />
               </div>

@@ -22,12 +22,15 @@ export default function BedriftPage() {
       {/* ============ Hero ============ */}
       <section className={`${sub.hero} ${s.hero}`}>
         <div aria-hidden="true" className={sub.heroBg}>
+          {/* 300vw on mobile: the portrait cover crop is height-constrained, so
+              100vw would serve a ~750px file upscaled ~2.6× */}
           <Image
             src="/assets/photos/bedrift-bay.jpg"
             alt=""
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 768px) 300vw, 100vw"
+            quality={85}
             className={`${sub.heroImg} ${s.heroImg}`}
           />
           <div className={s.gradV} />

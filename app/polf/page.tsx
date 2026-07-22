@@ -58,7 +58,8 @@ export default function PolfPage() {
             alt=""
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 768px) 300vw, 100vw"
+            quality={85}
             className={`${sub.heroImg} ${s.heroImg}`}
           />
           <div className={s.gradV} />
