@@ -111,7 +111,11 @@ export default function Home() {
       {/* ============ Hero ============ */}
       <section id="top" className={s.hero}>
         <div aria-hidden="true" className={s.heroBg}>
-          <HeroVideo src="/uploads/vg3_explainer_short_optimized_v3.mp4" className={s.heroVideo} />
+          <HeroVideo
+            src="/uploads/vg3_explainer_short_optimized_v3.mp4"
+            mobileSrc="/uploads/vg3_explainer_short_mobile_optimized_v3.mp4"
+            className={s.heroVideo}
+          />
           <div className={s.heroGradV} />
           <div className={s.heroGradH} />
           <div className={s.heroBlob} />

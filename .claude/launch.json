@@ -5,7 +5,9 @@
       "name": "inne-golf-bergen",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 3000
+      "env": { "NEXT_DIST_DIR": ".next-claude" },
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }
