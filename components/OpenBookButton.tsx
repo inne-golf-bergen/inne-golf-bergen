@@ -7,19 +7,16 @@ import Button from "./Button";
 export default function OpenBookButton({
   size = "lg",
   fullWidth = false,
-  magnetic = false,
   children,
 }: {
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
-  magnetic?: boolean;
   children: ReactNode;
 }) {
   return (
     <Button
       size={size}
       fullWidth={fullWidth}
-      magnetic={magnetic}
       onClick={() => window.dispatchEvent(new CustomEvent("inne-open-book"))}
     >
       {children}

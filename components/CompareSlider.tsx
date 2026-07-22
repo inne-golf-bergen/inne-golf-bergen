@@ -109,7 +109,7 @@ export default function CompareSlider() {
   }, []);
 
   return (
-    <div ref={wrapRef} id="vg3-compare" data-st="true" className={styles.wrap}>
+    <div ref={wrapRef} id="vg3-compare" className={styles.wrap}>
       <Image
         src="/assets/vg3-lofoten-render.webp"
         alt="Samme hull gjengitt i Virtual Golf 3"
@@ -129,7 +129,7 @@ export default function CompareSlider() {
         />
       </div>
       <div className={styles.overlay}>
-        <div data-st="true" className={styles.overlayText}>
+        <div className={styles.overlayText}>
           <h2 className={styles.title}>Så ekte er det.</h2>
           <p className={styles.copy}>
             Til venstre: ekte Lofoten Links. Til høyre: samme hull i Virtual Golf 3 — TrackMans nyeste grafikkmotor,
