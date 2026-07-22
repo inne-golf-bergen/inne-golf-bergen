@@ -67,9 +67,11 @@
   margin: 22px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  /* the second term caps narrow screens so the nowrap "Hele året." line
-     fits the gutter ("Hele året." ≈ 9.5× font-size); it only bites below ~470px */
-  font-size: min(clamp(44px, 8.5vw, 150px), calc(10vw - 4px));
+  /* "Hele året." is a nowrap line ≈ 9.4× the font-size. Two caps keep it inside
+     the hero: calc(10vw - 4px) fits the gutter on narrow screens (bites below
+     ~470px); the 140px cap keeps it within the 1440-wide content box on large
+     screens (above ~140px it overflows the box and the mask clips the period). */
+  font-size: min(clamp(44px, 8.5vw, 140px), calc(10vw - 4px));
   line-height: 0.95;
   /* display sizes want tighter optical tracking than the -0.01/-0.02 body scale */
   letter-spacing: -0.028em;
@@ -83,8 +85,11 @@
 .lineMask {
   display: block;
   overflow: hidden;
-  padding: 0.08em 0.06em 0.06em;
-  margin: -0.08em -0.06em -0.06em;
+  /* top padding must clear the Å/å ring (ink rises ~0.8em); line-height 0.95
+     pushes the ring above the line box, so the mask needs the headroom.
+     Matching negative margins keep the headline's position unchanged. */
+  padding: 0.22em 0.06em 0.1em;
+  margin: -0.22em -0.06em -0.1em;
 }
 
 .lineIn {
