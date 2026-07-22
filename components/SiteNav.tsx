@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -11,8 +12,7 @@ type MenuId = "sentre" | "selskap" | "turn";
 function Lockup() {
   return (
     <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/assets/logo-ball.png" alt="" className={styles.logoImg} />
+      <Image src="/assets/logo-ball.png" alt="" width={51} height={46} className={styles.logoImg} />
       <span className={styles.logoText}>
         <span className={styles.logoName}>INNE</span>
         <span className={styles.logoSub}>GOLF BERGEN</span>

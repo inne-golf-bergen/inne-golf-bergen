@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
@@ -21,8 +22,14 @@ export default function BedriftPage() {
       {/* ============ Hero ============ */}
       <section className={`${sub.hero} ${s.hero}`}>
         <div aria-hidden="true" className={sub.heroBg}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/photos/bedrift-bay.jpg" alt="" className={`${sub.heroImg} ${s.heroImg}`} />
+          <Image
+            src="/assets/photos/bedrift-bay.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={`${sub.heroImg} ${s.heroImg}`}
+          />
           <div className={s.gradV} />
         </div>
         <div className={sub.heroContent}>

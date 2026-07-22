@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Button";
 import CompareSlider from "@/components/CompareSlider";
@@ -172,8 +173,14 @@ export default function Home() {
             <div id="asane" data-st="true" className={s.centreCard}>
               <span id="book-asane" aria-hidden="true" className={s.centreAnchor} />
               <div className={s.centreMedia}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/photos/asane-bay.jpg" alt="Treningsbay med green i Åsane" className={s.centreImg} />
+                <Image
+                  src="/assets/photos/asane-bay.jpg"
+                  alt="Treningsbay med green i Åsane"
+                  fill
+                  loading="eager"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1440px) 50vw, 660px"
+                  className={s.centreImg}
+                />
               </div>
               <div className={s.centreBody}>
                 <div className={s.centreTitleWrap}>
@@ -189,10 +196,12 @@ export default function Home() {
             <div id="sandviken" data-st="true" className={s.centreCard}>
               <span id="book-sandviken" aria-hidden="true" className={s.centreAnchor} />
               <div className={s.centreMediaWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/assets/photos/sandviken-bay.jpg"
                   alt="Widescreen-bay med barkrakker i Sandviken"
+                  fill
+                  loading="eager"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1440px) 50vw, 660px"
                   className={s.centreImgSandviken}
                 />
                 <span aria-hidden="true" className={s.centreVignette} />
@@ -321,11 +330,12 @@ export default function Home() {
       {/* ============ TrackMan ============ */}
       <section id="simulatorene" className={s.sim}>
         <div aria-hidden="true" className={s.simBg}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             id="sim-photo"
             src="/uploads/why_accuracy_matters_desktop-f3cbab17.webp"
             alt="TrackMan-bay hos INNE — spiller i sving foran simulatorskjermen"
+            fill
+            sizes="100vw"
             className={s.simPhoto}
           />
           <div className={s.simGradA} />
@@ -369,10 +379,11 @@ export default function Home() {
           <div className={s.cardGrid}>
             <Link data-st="true" href="/vip-losjen" className={s.photoCard}>
               <div className={s.photoCardMedia}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/assets/photos/vip-losje.jpg"
                   alt="VIP-losjen med skinnstoler og egen bay"
+                  fill
+                  sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
                   className={s.photoCardImg}
                 />
               </div>
@@ -386,8 +397,13 @@ export default function Home() {
             </Link>
             <Link data-st="true" href="/bursdag" className={s.photoCard}>
               <div className={s.photoCardMediaWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/photos/bursdag-bay.jpg" alt="Bay med green og loungeområde" className={s.photoCardImg} />
+                <Image
+                  src="/assets/photos/bursdag-bay.jpg"
+                  alt="Bay med green og loungeområde"
+                  fill
+                  sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                  className={s.photoCardImg}
+                />
                 <span className={s.photoCardBadge}>450 kr per barn</span>
               </div>
               <div className={s.photoCardBody}>
@@ -400,8 +416,13 @@ export default function Home() {
             </Link>
             <Link data-st="true" href="/bedrift" className={s.photoCard}>
               <div className={s.photoCardMedia}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/photos/lounge-fireplace.jpg" alt="Loungen med peis" className={s.photoCardImg} />
+                <Image
+                  src="/assets/photos/lounge-fireplace.jpg"
+                  alt="Loungen med peis"
+                  fill
+                  sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                  className={s.photoCardImg}
+                />
               </div>
               <div className={s.photoCardBody}>
                 <h3 className={s.photoCardTitle}>Bedrift</h3>

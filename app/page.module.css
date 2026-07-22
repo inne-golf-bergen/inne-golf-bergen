@@ -226,6 +226,7 @@
 }
 
 .centreMedia {
+  position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
 }
@@ -655,6 +656,7 @@
 }
 
 .photoCardMedia {
+  position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
 }

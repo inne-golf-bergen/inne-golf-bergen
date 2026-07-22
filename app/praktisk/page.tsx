@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
 import { SITE } from "@/lib/site";
@@ -38,10 +39,11 @@ export default function PraktiskPage() {
                 <span className={s.photoFrameNote}>Inngang &amp; parkering</span>
               </div>
               <div className={s.photoMedia}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/assets/praktisk-asane-aerial.jpg"
                   alt="Annotert flyfoto av INNE Golf Bergen Åsane med inngang og parkering"
+                  fill
+                  sizes="(max-width: 767px) 100vw, 50vw"
                   className={s.photoImg}
                 />
               </div>
@@ -105,10 +107,11 @@ export default function PraktiskPage() {
                 <span className={s.photoFrameNote}>Inngang</span>
               </div>
               <div className={`${s.photoMedia} ${s.photoMediaWide}`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/assets/praktisk-sandviken-1.png"
                   alt="Gatefoto av inngangen til INNE Golf Bergen Sandviken"
+                  fill
+                  sizes="(max-width: 767px) 100vw, 50vw"
                   className={s.photoImg}
                 />
               </div>
@@ -119,10 +122,11 @@ export default function PraktiskPage() {
                 <span className={s.photoFrameNote}>Parkering ved Babyland</span>
               </div>
               <div className={`${s.photoMedia} ${s.photoMediaWide}`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/assets/praktisk-sandviken-2.png"
                   alt="Gatefoto av parkeringen vis-à-vis Babyland"
+                  fill
+                  sizes="(max-width: 767px) 100vw, 50vw"
                   className={s.photoImg}
                 />
               </div>

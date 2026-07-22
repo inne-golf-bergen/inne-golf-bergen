@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -17,8 +18,7 @@ export default function SiteFooter() {
         <div className={styles.grid}>
           <div className={styles.brandCol}>
             <div className={styles.logo}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/logo-ball.png" alt="INNE Golf Bergen" className={styles.logoImg} />
+              <Image src="/assets/logo-ball.png" alt="INNE Golf Bergen" width={51} height={46} className={styles.logoImg} />
               <span className={styles.logoText}>
                 <span className={styles.logoName}>INNE</span>
                 <span className={styles.logoSub}>GOLF BERGEN</span>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
@@ -52,8 +53,14 @@ export default function PolfPage() {
       {/* ============ Hero ============ */}
       <section className={`${sub.hero} ${s.hero}`}>
         <div aria-hidden="true" className={sub.heroBg}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/photos/sim-data-lounge.jpg" alt="" className={`${sub.heroImg} ${s.heroImg}`} />
+          <Image
+            src="/assets/photos/sim-data-lounge.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={`${sub.heroImg} ${s.heroImg}`}
+          />
           <div className={s.gradV} />
           <div className={s.gradH} />
         </div>

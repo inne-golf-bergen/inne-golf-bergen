@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import styles from "./compare.module.css";
 
@@ -109,20 +110,20 @@ export default function CompareSlider() {
 
   return (
     <div ref={wrapRef} id="vg3-compare" data-st="true" className={styles.wrap}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src="/assets/vg3-lofoten-render.webp"
         alt="Samme hull gjengitt i Virtual Golf 3"
-        loading="lazy"
+        fill
+        sizes="100vw"
         draggable={false}
         className={styles.img}
       />
       <div ref={clipRef} id="vg3-clip" className={styles.clip}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/assets/vg3-lofoten-foto.webp"
           alt="Dronefoto av Lofoten Links"
-          loading="lazy"
+          fill
+          sizes="100vw"
           draggable={false}
           className={styles.img}
         />
