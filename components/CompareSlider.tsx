@@ -110,11 +110,15 @@ export default function CompareSlider() {
 
   return (
     <div ref={wrapRef} id="vg3-compare" className={styles.wrap}>
+      {/* 250vw on mobile: the 440px-min portrait crop is height-constrained, so
+          width-based srcset selection (100vw) would serve a ~750px file and
+          upscale it ~2.5×. Over-declaring fetches the full-width original. */}
       <Image
         src="/assets/vg3-lofoten-render.webp"
         alt="Samme hull gjengitt i Virtual Golf 3"
         fill
-        sizes="100vw"
+        sizes="(max-width: 768px) 250vw, 100vw"
+        quality={90}
         draggable={false}
         className={styles.img}
       />
@@ -123,7 +127,8 @@ export default function CompareSlider() {
           src="/assets/vg3-lofoten-foto.webp"
           alt="Dronefoto av Lofoten Links"
           fill
-          sizes="100vw"
+          sizes="(max-width: 768px) 250vw, 100vw"
+          quality={90}
           draggable={false}
           className={styles.img}
         />

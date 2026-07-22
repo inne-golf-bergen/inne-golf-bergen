@@ -346,12 +346,16 @@ export default function Home() {
       <section id="simulatorene" className={s.sim}>
         <div aria-hidden="true" className={s.simBg}>
           <ParallaxY className={s.simParallax}>
+            {/* 300vw on mobile: the full-height portrait crop is height-
+                constrained, so width-based srcset selection (100vw) would
+                serve a ~750px file and upscale it ~4×. */}
             <Image
               id="sim-photo"
               src="/uploads/why_accuracy_matters_desktop-f3cbab17.webp"
               alt="TrackMan-bay hos INNE — spiller i sving foran simulatorskjermen"
               fill
-              sizes="100vw"
+              sizes="(max-width: 768px) 300vw, 100vw"
+              quality={85}
               className={s.simPhoto}
             />
           </ParallaxY>
