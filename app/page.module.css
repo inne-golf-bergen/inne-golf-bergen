@@ -67,7 +67,9 @@
   margin: 22px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(44px, 8.5vw, 150px);
+  /* the second term caps narrow screens so the nowrap "Hele året." line
+     fits the gutter ("Hele året." ≈ 9.5× font-size); it only bites below ~470px */
+  font-size: min(clamp(44px, 8.5vw, 150px), calc(10vw - 4px));
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
