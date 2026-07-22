@@ -1,49 +1,544 @@
+/* ============================================================
+   INNE Golf Bergen — «Kobber & eik» design tokens
+   Palette + shared rules ported from the Claude Design handoff
+   (site.css overrides layered on the DS token set).
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ink — warm charcoal neutrals */
+  --ink-950: #0d0a08;
+  --ink-900: #171310;
+  --ink-850: #1d1814;
+  --ink-800: #241e19;
+  --ink-700: #302822;
+  --ink-600: #3c332b;
+  --ink-500: #4f4337;
+  --gray-400: #8a7d70;
+  --gray-300: #a99b8d;
+  --gray-200: #cfc4b8;
+  --gray-100: #e9e1d7;
+  --white: #f4ede6;
+
+  /* kobber — the single accent */
+  --orange-300: #e2a67f;
+  --orange-400: #d6936d;
+  --orange-500: #c9825c;
+  --orange-600: #b4714e;
+  --orange-700: #96593b;
+  --orange-subtle: rgba(201, 130, 92, 0.14);
+
+  --forest-950: #0a130e;
+  --forest-900: #0e1a14;
+
+  /* text on copper surfaces */
+  --text-on-accent: #171008;
+
+  /* hairlines (warm white at low alpha) */
+  --line-8: rgba(244, 237, 230, 0.08);
+  --line-10: rgba(244, 237, 230, 0.1);
+  --line-12: rgba(244, 237, 230, 0.12);
+  --line-14: rgba(244, 237, 230, 0.14);
+  --line-16: rgba(244, 237, 230, 0.16);
+  --line-18: rgba(244, 237, 230, 0.18);
+
+  --scrim: rgba(13, 10, 8, 0.74);
+
+  /* typography (font files land via next/font on <body>) */
+  --font-display: var(--font-syne), system-ui, sans-serif;
+  --font-body: var(--font-schibsted), "Helvetica Neue", Arial, sans-serif;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 120ms;
+
+  --focus-ring: 0 0 0 2px var(--ink-900), 0 0 0 4px var(--orange-500);
+
+  /* forms */
+  --field-bg: var(--ink-900);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
-  height: 100%;
+  scroll-behavior: smooth;
 }
 
-html,
 body {
-  max-width: 100vw;
+  margin: 0;
+  background: var(--ink-900);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  text-wrap: balance;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
+p {
   margin: 0;
+  text-wrap: pretty;
+}
+
+strong {
+  font-weight: 600;
+}
+
+img {
+  display: block;
 }
 
 a {
-  color: inherit;
+  color: var(--orange-400);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+a:hover {
+  color: var(--orange-300);
+}
+
+::selection {
+  background: var(--orange-500);
+  color: #171008;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* layout helpers */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   Buttons — DS Button spec (actions/Button.jsx) with site tokens
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn[disabled] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.btn--sm {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+.btn--md {
+  height: 44px;
+  padding: 0 24px;
+  font-size: 14px;
+}
+
+.btn--lg {
+  height: 52px;
+  padding: 0 32px;
+  font-size: 15px;
+}
+
+.btn--primary {
+  background: var(--orange-500);
+  color: var(--text-on-accent);
+}
+
+.btn--primary:hover {
+  background: var(--orange-400);
+  color: var(--text-on-accent);
+}
+
+.btn--primary:active {
+  background: var(--orange-600);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--ink-500);
+}
+
+.btn--secondary:hover {
+  border-color: var(--gray-300);
+  background: var(--ink-800);
+  color: var(--white);
+}
+
+.btn--secondary:active {
+  background: var(--ink-950);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* ============================================================
+   Nav / responsive visibility
+   ============================================================ */
+.nav-d {
+  display: flex;
+}
+
+.nav-m {
+  display: none;
+}
+
+@media (max-width: 1099px) {
+  .nav-d {
+    display: none !important;
+  }
+
+  .nav-m {
+    display: flex;
+  }
+}
+
+.m-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .m-only {
+    display: flex;
+  }
+
+  #site-footer {
+    padding-bottom: 104px !important;
+  }
+
+  #hero-ticker {
+    padding-bottom: 96px;
+  }
+}
+
+/* ============================================================
+   Link sweeps
+   ============================================================ */
+a[data-sweep] {
+  position: relative;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+a[data-sweep]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 1px;
+  background: var(--orange-400);
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a[data-sweep]:hover::after {
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+}
+
+a[data-sweep-in] {
+  position: relative;
+  text-decoration: none;
+}
+
+a[data-sweep-in]::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 9px;
+  height: 1px;
+  background: var(--orange-400);
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a[data-sweep-in]:hover::after {
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+}
+
+/* ============================================================
+   FAQ (native <details>)
+   ============================================================ */
+details.inne-faq > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details.inne-faq > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.inne-faq[open] .faq-x {
+  transform: rotate(45deg);
+}
+
+.faq-x {
+  transition: transform 0.25s ease;
+}
+
+/* ============================================================
+   Forms
+   ============================================================ */
+.fieldLabel {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--gray-300);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.fieldInput {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--field-bg);
+  border: 1px solid var(--line-18);
+  border-radius: 0;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 0 14px;
+  height: 50px;
+  outline: none;
+}
+
+.fieldInput:focus {
+  border-color: var(--orange-500);
+}
+
+textarea.fieldInput {
+  height: auto;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+input[type="date"].fieldInput,
+select.fieldInput {
+  color-scheme: dark;
+}
+
+.fieldInput::placeholder {
+  color: var(--gray-400);
+  opacity: 1;
+}
+
+.formSubmit {
+  align-self: flex-start;
+  height: 52px;
+  padding: 0 32px;
+  background: var(--orange-500);
+  color: var(--text-on-accent);
+  border: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.formSubmit:hover {
+  background: var(--orange-400);
+}
+
+.formSubmit:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ============================================================
+   Legal pages (vilkår / personvern)
+   ============================================================ */
+@media (max-width: 820px) {
+  .legal-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .legal-toc {
+    position: static !important;
+    top: auto !important;
+    border-bottom: 1px solid var(--line-10);
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+  }
+}
+
+/* ============================================================
+   Landing one-offs: ambience, sim section, compare slider
+   ============================================================ */
+#inne-glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 520px;
+  height: 520px;
+  margin-left: -260px;
+  margin-top: -260px;
+  z-index: 30;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(214, 147, 109, 0.11), transparent 62%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  will-change: transform;
+}
+
+#inne-grain {
+  position: fixed;
+  inset: -120px;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-size: 260px 260px;
+  animation: inne-grain 8s steps(8) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.sim-text {
+  max-width: 600px;
+}
+
+#sim-scrim-mobile {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+@media (max-width: 900px) {
+  .sim-text {
+    max-width: 100%;
+  }
+
+  #sim-scrim-mobile {
+    opacity: 1;
+  }
+}
+
+#vg3-compare,
+#vg3-compare * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#vg3-compare ::selection {
+  background: transparent;
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes inne-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(201, 130, 92, 0.55);
+  }
+
+  50% {
+    opacity: 0.55;
+    box-shadow: 0 0 0 6px rgba(201, 130, 92, 0);
+  }
+}
+
+@keyframes inne-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes inne-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@keyframes inne-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(9vw, 7vh, 0) scale(1.18);
+  }
+}
+
+@keyframes inne-grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  16% {
+    transform: translate(-8%, 4%);
+  }
+
+  33% {
+    transform: translate(5%, -7%);
+  }
+
+  50% {
+    transform: translate(-4%, 8%);
+  }
+
+  66% {
+    transform: translate(7%, 2%);
+  }
+
+  83% {
+    transform: translate(-5%, -5%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

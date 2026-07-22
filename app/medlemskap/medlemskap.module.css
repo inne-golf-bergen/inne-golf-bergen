@@ -1,0 +1,428 @@
+.heroH1 {
+  margin: 26px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(46px, 9vw, 150px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.heroLine {
+  display: block;
+}
+
+.heroAccent {
+  color: var(--orange-400);
+}
+
+.heroLead {
+  margin: 28px 0 0;
+  max-width: 52ch;
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.82);
+  text-wrap: pretty;
+}
+
+.heroCtaWrap {
+  margin-top: 34px;
+}
+
+/* ============ Priser ============ */
+.priserSection {
+  background: var(--ink-950);
+  border-top: 1px solid var(--line-10);
+  padding: clamp(72px, 10vh, 110px) clamp(20px, 4vw, 56px);
+}
+
+.priserH2 {
+  margin: 20px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(40px, 5.5vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.priserLead {
+  margin: 18px 0 0;
+  max-width: 40ch;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.75);
+  text-wrap: pretty;
+}
+
+.priserCtaWrap {
+  margin-top: 28px;
+}
+
+.priceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  border-top: 1px solid var(--line-16);
+  padding: 18px 0;
+}
+
+.priceLabelWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.priceLabel {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: rgba(244, 237, 230, 0.85);
+  text-transform: uppercase;
+}
+
+.priceLabelAccent {
+  color: var(--orange-400);
+}
+
+.priceLabelSub {
+  font-size: 12.5px;
+  color: var(--gray-400);
+}
+
+.priceValue {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.priceValueAccent {
+  color: var(--orange-400);
+}
+
+.priceIncluded {
+  border-top: 1px solid var(--line-16);
+  padding: 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.priceIncludedLabel {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+}
+
+.priceIncludedItem {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.75);
+}
+
+/* ============ Medlemskapstige ============ */
+.ladder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 4vh, 44px);
+  max-width: 920px;
+  margin-top: clamp(40px, 7vh, 64px);
+}
+
+.ladderLine {
+  position: absolute;
+  left: 19px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--orange-500) 0%, var(--orange-700) 100%);
+  z-index: 0;
+}
+
+.step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: clamp(16px, 2.4vw, 28px);
+  align-items: flex-start;
+}
+
+.stepBullet {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--orange-500);
+  color: var(--text-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 17px;
+  margin-top: clamp(24px, 3vw, 34px);
+}
+
+.stepCard {
+  flex: 1;
+  background: var(--ink-850);
+  border: 1px solid var(--line-12);
+  padding: clamp(24px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.stepCardFeatured {
+  border-color: var(--orange-500);
+  box-shadow:
+    0 0 0 1px rgba(201, 130, 92, 0.25),
+    0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.stepHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stepHeadTop {
+  align-items: flex-start;
+}
+
+.stepTitleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stepTitleWrapBadge {
+  gap: 8px;
+}
+
+.stepBadge {
+  align-self: flex-start;
+  padding: 5px 11px;
+  background: var(--orange-500);
+  color: var(--text-on-accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.stepTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(22px, 2.4vw, 30px);
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.stepTitleSub {
+  font-size: 12.5px;
+  color: var(--gray-400);
+}
+
+.stepPrice {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 30px);
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.stepBenefit {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border-top: 1px solid var(--line-12);
+  padding-top: 18px;
+}
+
+.stepBenefitPct {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(24px, 2.6vw, 34px);
+  color: var(--orange-400);
+}
+
+.stepBenefitText {
+  font-size: 15px;
+  color: rgba(244, 237, 230, 0.85);
+}
+
+.listLabel {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.benefitList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.benefitItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.benefitDot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--orange-500);
+  margin-top: 8px;
+}
+
+.benefitText {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(244, 237, 230, 0.78);
+}
+
+.stepFootnote {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray-400);
+  text-wrap: pretty;
+}
+
+.stepCtaWrap {
+  margin-top: 4px;
+}
+
+.valueGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line-12);
+  border: 1px solid var(--line-12);
+}
+
+.valueCell {
+  background: var(--ink-900);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.valueCellLabel {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+}
+
+.valueCellNum {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 38px);
+  color: var(--white);
+}
+
+.valueCellNumAccent {
+  color: var(--orange-400);
+}
+
+.stepCopy {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.82);
+  text-wrap: pretty;
+}
+
+/* ============ Partner accordions ============ */
+.partnerLead {
+  margin: 18px 0 0;
+  max-width: 38ch;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.7);
+  text-wrap: pretty;
+}
+
+.partnerSummaryText {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.partnerName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.partnerDeal {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+.partnerBody {
+  padding: 0 0 22px;
+  max-width: 62ch;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.partnerText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.72);
+}
+
+.partnerHint {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray-400);
+}
+
+.partnerA {
+  margin: 0;
+  padding: 0 0 22px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.72);
+  max-width: 60ch;
+}

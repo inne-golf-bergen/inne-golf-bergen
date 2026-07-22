@@ -1,142 +1,882 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
+/* ================= Hero ================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  justify-content: flex-end;
+  overflow: hidden;
+  background: var(--ink-900);
 }
 
-.main {
-  display: flex;
-  flex: 1;
+.heroBg {
+  position: absolute;
+  inset: 0;
+}
+
+.heroVideo {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.heroGradV {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(23, 19, 16, 0.34) 0%,
+    rgba(23, 19, 16, 0) 28%,
+    rgba(23, 19, 16, 0.06) 55%,
+    rgba(23, 19, 16, 0.86) 100%
+  );
+}
+
+.heroGradH {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(23, 19, 16, 0.44) 0%, rgba(23, 19, 16, 0.08) 40%, rgba(23, 19, 16, 0) 62%);
+}
+
+.heroBlob {
+  position: absolute;
+  width: 58vw;
+  height: 58vw;
+  left: -14vw;
+  top: -20vw;
+  background: radial-gradient(circle, rgba(201, 130, 92, 0.15), transparent 64%);
+  filter: blur(44px);
+  animation: inne-drift 26s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 110px clamp(20px, 4vw, 56px) 0;
+}
+
+.heroH1 {
+  margin: 22px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(44px, 8.5vw, 150px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.45),
+    0 8px 40px rgba(0, 0, 0, 0.35);
+}
+
+.lineMask {
+  display: block;
+  overflow: hidden;
+  padding: 0.08em 0.06em 0.06em;
+  margin: -0.08em -0.06em -0.06em;
+}
+
+.lineIn {
+  display: block;
+  white-space: nowrap;
+}
+
+.heroLead {
+  margin: clamp(20px, 3vh, 30px) 0 0;
+  max-width: 560px;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.6;
+  color: #fff6ec;
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.6),
+    0 4px 18px rgba(0, 0, 0, 0.4);
+  text-wrap: pretty;
+}
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(24px, 4vh, 40px);
+  max-width: 720px;
+}
+
+.ctaSlot {
+  flex: 1 1 240px;
+  max-width: 352px;
+  display: flex;
+}
+
+.ticker {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1440px;
+  margin: clamp(44px, 7vh, 84px) auto 0;
+  padding: 0 clamp(20px, 4vw, 56px);
+}
+
+.tickerRow {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  align-items: center;
+  row-gap: 16px;
+  column-gap: 32px;
+  border-top: 1px solid var(--line-16);
+  padding: 18px 0 clamp(20px, 3vh, 28px);
 }
 
-.intro {
+.tickerCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tickerStar {
+  color: var(--orange-500);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.tickerScore {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--white);
+}
+
+.tickerLabel {
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  background: var(--orange-500);
+  border-radius: 50%;
+  animation: inne-pulse 2.6s ease-in-out infinite;
+}
+
+/* ================= Shared section bits ================= */
+.section {
+  padding: clamp(88px, 12vh, 128px) clamp(20px, 4vw, 56px);
+}
+
+.bg950 {
+  background: var(--ink-950);
+}
+
+.bg900 {
+  background: var(--ink-900);
+}
+
+.h2 {
+  margin: 20px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(34px, 5vw, 68px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+/* ================= Sentre ================= */
+.sentreGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(20px, 2.5vw, 32px);
+  margin-top: clamp(36px, 6vh, 56px);
+}
+
+.centreCard {
+  position: relative;
+  scroll-margin-top: 100px;
+  background: var(--ink-850);
+  border: 1px solid var(--line-12);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.centreAnchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  scroll-margin-top: 100px;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.centreMedia {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
 }
 
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
+.centreMediaWrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
 }
 
-.ctas {
-  display: flex;
-  flex-direction: row;
+.centreImg {
   width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.92);
 }
 
-.ctas a {
+.centreImgSandviken {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.82) sepia(0.5) saturate(1.5) hue-rotate(-12deg) contrast(1.08);
+}
+
+.centreVignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 35%, transparent 45%, rgba(28, 14, 4, 0.5) 100%);
+}
+
+.centreBody {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 36px);
+  flex: 1;
+}
+
+.centreTitleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.centreName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(26px, 2.6vw, 34px);
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.centreTag {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+.centreRows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.centreRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line-12);
+  padding: 12px 0;
+}
+
+.centreRowLast {
+  padding-bottom: 20px;
+}
+
+.centreRowLabel {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+}
+
+.centreRowValue {
+  font-size: 14px;
+  color: rgba(244, 237, 230, 0.85);
+}
+
+/* ================= Priser ================= */
+.priserH2 {
+  font-size: clamp(44px, 6.5vw, 96px);
+  line-height: 0.95;
+}
+
+.priserLead {
+  margin: 18px 0 0;
+  max-width: 40ch;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.75);
+  text-wrap: pretty;
+}
+
+.priserCtaWrap {
+  margin-top: 28px;
+}
+
+.priceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  border-top: 1px solid var(--line-16);
+  padding: 18px 0;
+}
+
+.priceLabelWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.priceLabel {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: rgba(244, 237, 230, 0.85);
+  text-transform: uppercase;
+}
+
+.priceLabelSub {
+  font-size: 12.5px;
+  color: var(--gray-400);
+}
+
+.priceValue {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.priceLinkLabel {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+.priceValueAccent {
+  color: var(--orange-400);
+}
+
+.priceIncluded {
+  border-top: 1px solid var(--line-16);
+  padding: 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.priceIncludedLabel {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+}
+
+.priceIncludedItem {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.75);
+}
+
+/* ================= Medlemskap ================= */
+.medlemskap {
+  background: var(--ink-950);
+  border-top: 1px solid var(--line-10);
+  border-bottom: 1px solid var(--line-10);
+  padding: clamp(88px, 13vh, 140px) clamp(20px, 4vw, 56px);
+  scroll-margin-top: 60px;
+}
+
+.medlemTall {
+  margin: 26px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(42px, 7.6vw, 128px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.medlemTall span[data-count] {
+  font-variant-numeric: tabular-nums;
+}
+
+.medlemLine {
+  display: block;
+}
+
+.medlemAccent {
+  color: var(--orange-400);
+}
+
+.medlemLead {
+  margin: 26px 0 0;
+  max-width: 56ch;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.8);
+  text-wrap: pretty;
+}
+
+.medlemNote {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--gray-400);
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.chip {
+  padding: 9px 16px;
+  border: 1px solid rgba(214, 147, 109, 0.45);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+.medlemCtaWrap {
+  margin-top: 32px;
+}
+
+/* ================= Slik funker det ================= */
+.slikGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+  margin-top: clamp(28px, 5vh, 44px);
+}
+
+.slikStep {
+  border-top: 1px solid var(--line-16);
+  padding-top: 22px;
+}
+
+.stepNum {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--orange-500);
+}
+
+.stepTitle {
+  margin: 16px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(30px, 3.5vw, 52px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.stepCopy {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.7);
+  text-wrap: pretty;
+}
+
+/* ================= TrackMan / simulatorene ================= */
+.sim {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink-950);
+  overflow: hidden;
+}
+
+.simBg {
+  position: absolute;
+  inset: 0;
+}
+
+.simPhoto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.simGradA {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(13, 10, 8, 0.92) 0%,
+    rgba(13, 10, 8, 0.62) 38%,
+    rgba(13, 10, 8, 0.08) 66%,
+    rgba(13, 10, 8, 0) 100%
+  );
+}
+
+.simGradB {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(13, 10, 8, 0.92) 0%, rgba(13, 10, 8, 0) 42%);
+}
+
+.simGradC {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 10, 8, 0.95) 0%,
+    rgba(13, 10, 8, 0.72) 14%,
+    rgba(13, 10, 8, 0.3) 30%,
+    rgba(13, 10, 8, 0) 48%
+  );
+}
+
+.simScrimMobile {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 10, 8, 0.5);
+}
+
+.simContent {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 120px clamp(20px, 4vw, 56px) 24px;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.simH2 {
+  margin: 20px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(36px, 5.4vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: 0 2px 34px rgba(13, 10, 8, 0.8);
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.simCopy {
+  max-width: 46ch;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.86);
+  text-wrap: pretty;
+  text-shadow: 0 1px 22px rgba(13, 10, 8, 0.85);
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.simCopyFirst {
+  margin: 24px 0 0;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.simCopyNext {
+  margin: 14px 0 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+.simSpacer {
+  height: clamp(40px, 7vh, 72px);
+}
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+.virtualGolf {
+  background: var(--ink-950);
+  padding: clamp(24px, 5vh, 56px) 0 0;
+}
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+/* ================= Selskap / skjer cards ================= */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(20px, 2.5vw, 32px);
+  margin-top: clamp(36px, 6vh, 56px);
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.photoCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--ink-850);
+  border: 1px solid var(--line-12);
+  text-decoration: none;
+  color: var(--white);
+  transition: border-color 0.25s;
+}
+
+.photoCard:hover {
+  border-color: var(--orange-500);
+  color: var(--white);
+}
+
+.photoCardMedia {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.photoCardMediaWrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.photoCardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.9);
+}
+
+.photoCardBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 13px;
+  background: var(--orange-500);
+  color: var(--text-on-accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.photoCardBody {
+  padding: clamp(20px, 2.5vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.photoCardTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 21px;
+  text-transform: uppercase;
+}
+
+.photoCardCopy {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.68);
+  text-wrap: pretty;
+  flex: 1;
+}
+
+.cardCta {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  color: var(--orange-500);
+  text-transform: uppercase;
+}
+
+.lineCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid var(--line-14);
+  text-decoration: none;
+  color: var(--white);
+  transition:
+    border-color 0.25s,
+    background 0.25s;
+}
+
+.lineCard:hover {
+  border-color: var(--orange-500);
+  background: var(--ink-850);
+  color: var(--white);
+}
+
+.lineCardTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.02;
+  min-height: 2.04em;
+  text-transform: uppercase;
+}
+
+.lineCardCopy {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.68);
+  text-wrap: pretty;
+  flex: 1;
+}
+
+/* ================= Gavekort band ================= */
+.gavekort {
+  background: var(--orange-500);
+  padding: clamp(56px, 8vh, 88px) clamp(20px, 4vw, 56px);
+}
+
+.gavekortInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.gavekortText {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gavekortH2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 4.6vw, 60px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #1a100a;
+}
+
+.gavekortCopy {
+  margin: 0;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.5;
+  color: rgba(26, 16, 10, 0.78);
+  text-wrap: pretty;
+}
+
+.darkCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 34px;
+  background: #171008;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.darkCta:hover {
+  background: #302015;
+  color: var(--white);
+}
+
+/* ================= FAQ ================= */
+.faqLead {
+  margin: 18px 0 0;
+  max-width: 38ch;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.7);
+}
+
+.faqLink {
+  color: var(--orange-400);
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+}
+
+.faqItem {
+  border-top: 1px solid var(--line-16);
+}
+
+.faqItemLast {
+  border-bottom: 1px solid var(--line-16);
+}
+
+.faqSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.faqQ {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.faqX {
+  color: var(--orange-500);
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.faqA {
+  margin: 0;
+  padding: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.72);
+  max-width: 60ch;
+}
+
+.faqAPlaceholder {
+  color: var(--gray-400);
 }

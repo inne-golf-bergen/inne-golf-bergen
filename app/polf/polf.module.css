@@ -1,0 +1,326 @@
+.hero {
+  min-height: 88svh;
+  background: var(--ink-950);
+}
+
+.heroImg {
+  filter: brightness(0.6) saturate(1.02);
+}
+
+.gradV {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 10, 8, 0.72) 0%, rgba(13, 10, 8, 0.22) 42%, rgba(13, 10, 8, 0.97) 100%);
+}
+
+.gradH {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(13, 10, 8, 0.7) 0%, rgba(13, 10, 8, 0.06) 58%, rgba(13, 10, 8, 0) 80%);
+}
+
+.heroH1 {
+  font-size: clamp(56px, 13vw, 190px);
+  line-height: 0.86;
+}
+
+.heroLine {
+  display: block;
+}
+
+.heroSub {
+  display: block;
+  color: var(--orange-400);
+  font-size: 0.42em;
+  letter-spacing: -0.01em;
+  margin-top: 0.1em;
+}
+
+/* ============ Hva er POLF ============ */
+.introH2 {
+  font-size: clamp(32px, 4.4vw, 60px);
+}
+
+.introCopy {
+  margin: 0;
+  max-width: 60ch;
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.85);
+  text-wrap: pretty;
+}
+
+/* ============ Sjetongregler ============ */
+.chipGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(20px, 2.5vw, 32px);
+  margin-top: clamp(28px, 4vh, 44px);
+}
+
+.ruleCard {
+  background: var(--ink-850);
+  border: 1px solid var(--line-12);
+  padding: clamp(26px, 3vw, 38px);
+  display: flex;
+  flex-direction: column;
+}
+
+.ruleTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(22px, 2.4vw, 30px);
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.ruleRows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 18px;
+}
+
+.ruleRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line-10);
+  padding: 12px 0;
+}
+
+.ruleRowLast {
+  border-bottom: 1px solid var(--line-10);
+}
+
+.ruleLabel {
+  font-size: 14.5px;
+  color: rgba(244, 237, 230, 0.78);
+}
+
+.ruleValue {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--white);
+}
+
+.ruleValueAccent {
+  color: var(--orange-300);
+}
+
+.ruleFootnote {
+  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.6);
+  text-wrap: pretty;
+}
+
+/* ============ Arrangement ============ */
+.eventGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(20px, 2.5vw, 32px);
+  margin-top: clamp(36px, 5vh, 56px);
+}
+
+.eventCard {
+  background: var(--ink-850);
+  border: 1px solid var(--line-12);
+  padding: clamp(28px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.eventKicker {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--orange-500);
+}
+
+.eventTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(24px, 2.6vw, 34px);
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.eventDate {
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--orange-300);
+  text-transform: uppercase;
+}
+
+.eventList {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.eventItem {
+  display: flex;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(244, 237, 230, 0.82);
+}
+
+.eventDash {
+  color: var(--orange-500);
+}
+
+.setupBox {
+  margin-top: 6px;
+  padding: 16px 18px;
+  background: var(--ink-950);
+  border: 1px solid var(--line-10);
+}
+
+.setupKicker {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.setupText {
+  display: block;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.75);
+}
+
+.setupHighlight {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--orange-300);
+}
+
+.eventCopy {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.82);
+}
+
+.pokerRows {
+  display: flex;
+  flex-direction: column;
+}
+
+.pokerRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line-10);
+  padding: 11px 0;
+}
+
+.pokerRowLast {
+  border-bottom: 1px solid var(--line-10);
+}
+
+.pokerLabel {
+  font-size: 14px;
+  color: rgba(244, 237, 230, 0.72);
+}
+
+.pokerValue {
+  font-size: 14px;
+  color: var(--white);
+  text-align: right;
+}
+
+.pokerValueAccent {
+  color: var(--orange-300);
+}
+
+/* ============ Premiepott ============ */
+.pottWrap {
+  margin-top: clamp(28px, 4vh, 40px);
+}
+
+.pottLabel {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.pottGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--line-10);
+  border: 1px solid var(--line-10);
+}
+
+.pottCell {
+  background: var(--ink-900);
+  padding: clamp(20px, 2.5vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pottCellLabel {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+}
+
+.pottCellLabelAccent {
+  color: var(--orange-400);
+}
+
+.pottCellNum {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 2.6vw, 36px);
+  color: var(--white);
+}
+
+.pottCellNumAccent {
+  color: var(--orange-400);
+}
+
+.pottCellNote {
+  font-size: 13.5px;
+  color: rgba(244, 237, 230, 0.65);
+}
+
+/* ============ Ansvar ============ */
+.ansvar {
+  background: var(--ink-950);
+  padding: clamp(32px, 4vh, 48px) clamp(20px, 4vw, 56px);
+}
+
+.ansvarText {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.42);
+  text-wrap: pretty;
+}

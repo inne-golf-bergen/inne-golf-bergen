@@ -1,0 +1,241 @@
+.hero {
+  min-height: 82svh;
+  background: var(--ink-950);
+}
+
+.heroImg {
+  filter: brightness(0.62) saturate(1.02);
+}
+
+.gradV {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 10, 8, 0.72) 0%, rgba(13, 10, 8, 0.28) 42%, rgba(13, 10, 8, 0.97) 100%);
+}
+
+.gradH {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(13, 10, 8, 0.7) 0%, rgba(13, 10, 8, 0.06) 58%, rgba(13, 10, 8, 0) 80%);
+}
+
+.heroH1 {
+  font-size: clamp(38px, 6.4vw, 116px);
+  line-height: 0.9;
+}
+
+/* ============ Premiering (copper) ============ */
+.premier {
+  background: var(--orange-500);
+  padding: clamp(64px, 9vh, 104px) clamp(20px, 4vw, 56px);
+}
+
+.premierHead {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  border-bottom: 1px solid rgba(26, 16, 10, 0.22);
+  padding-bottom: 22px;
+}
+
+.premierH2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(30px, 4.4vw, 58px);
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #1a100a;
+}
+
+.premierNote {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: rgba(26, 16, 10, 0.7);
+  text-transform: uppercase;
+}
+
+.prizeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  margin-top: 36px;
+  background: rgba(26, 16, 10, 0.18);
+}
+
+.prizeCell {
+  background: var(--orange-500);
+  padding: 8px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.prizeCellFirst {
+  padding-left: 0;
+}
+
+.prizeCellLast {
+  padding-right: 0;
+}
+
+.prizePlace {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(40px, 4vw, 60px);
+  line-height: 1;
+  color: #1a100a;
+}
+
+.prizeAmount {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1;
+  color: #1a100a;
+}
+
+.prizeNote {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(26, 16, 10, 0.82);
+  text-wrap: pretty;
+}
+
+/* ============ Turneringsplan ============ */
+.planWrap {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.planLead {
+  margin: 18px 0 0;
+  max-width: 56ch;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.75);
+  text-wrap: pretty;
+}
+
+.phaseList {
+  margin-top: clamp(36px, 5vh, 56px);
+  display: flex;
+  flex-direction: column;
+}
+
+.phase {
+  border-top: 1px solid var(--line-16);
+}
+
+.phaseLast {
+  border-bottom: 1px solid var(--line-16);
+}
+
+.phaseBtn {
+  width: 100%;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 32px);
+  padding: clamp(22px, 3vw, 32px) 0;
+}
+
+.phaseBtn:hover {
+  opacity: 0.85;
+}
+
+.phaseNum {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--orange-500);
+}
+
+.phaseTitleWrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.phaseTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 30px);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.phaseMeta {
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--gray-300);
+  text-transform: uppercase;
+}
+
+.phasePlus {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--orange-500);
+  transition: transform 0.3s;
+}
+
+.phaseFinal .phaseNum,
+.phaseFinal .phaseTitle,
+.phaseFinal .phasePlus {
+  color: var(--orange-400);
+}
+
+.phaseDetail {
+  padding: 0 0 clamp(26px, 3vw, 36px) clamp(30px, 5vw, 54px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2px;
+  background: var(--line-10);
+}
+
+.detailCell {
+  background: var(--ink-900);
+  padding: 16px 22px;
+}
+
+.detailCell:first-child {
+  padding-left: 0;
+}
+
+.detailLabel {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.detailText {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(244, 237, 230, 0.85);
+}
+
+/* ============ Påmelding ============ */
+.pameldNote {
+  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.62);
+  text-wrap: pretty;
+}

@@ -1,0 +1,450 @@
+/* Shared subpage patterns — ported 1:1 from the handoff prototypes. */
+
+/* ============ Backgrounds / sections ============ */
+.bg900 {
+  background: var(--ink-900);
+}
+
+.bg950 {
+  background: var(--ink-950);
+}
+
+.section {
+  padding: clamp(72px, 10vh, 120px) clamp(20px, 4vw, 56px);
+}
+
+.sectionShort {
+  padding: clamp(64px, 9vh, 104px) clamp(20px, 4vw, 56px);
+}
+
+.sectionTall {
+  padding: clamp(80px, 12vh, 128px) clamp(20px, 4vw, 56px);
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+/* ============ Photo hero ============ */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+}
+
+.heroImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 170px clamp(20px, 4vw, 56px) clamp(48px, 8vh, 80px);
+}
+
+.h1 {
+  margin: 22px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.heroLead {
+  margin: 24px 0 0;
+  max-width: 54ch;
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.86);
+  text-wrap: pretty;
+}
+
+.heroCtaWrap {
+  margin-top: 32px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.chipGhost {
+  padding: 10px 18px;
+  border: 1px solid rgba(226, 166, 127, 0.5);
+  background: rgba(23, 19, 16, 0.5);
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--orange-300);
+  text-transform: uppercase;
+}
+
+/* ============ Text hero (no photo) ============ */
+.textHero {
+  padding: clamp(150px, 20vh, 210px) clamp(20px, 4vw, 56px) clamp(72px, 10vh, 110px);
+}
+
+.textHeroShort {
+  padding-bottom: clamp(60px, 8vh, 90px);
+}
+
+/* ============ Headings ============ */
+.h2 {
+  margin: 20px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 4.6vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.h2Large {
+  font-size: clamp(34px, 5vw, 68px);
+}
+
+.h2Mid {
+  font-size: clamp(30px, 4.4vw, 58px);
+}
+
+.h2Compact {
+  font-size: clamp(30px, 4vw, 54px);
+}
+
+.sectionLead {
+  margin: 18px 0 0;
+  max-width: 56ch;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.75);
+  text-wrap: pretty;
+}
+
+/* ============ Info card (kicker + big value + text) ============ */
+.infoCard {
+  margin-top: 26px;
+  padding: clamp(22px, 3vw, 32px);
+  background: var(--ink-850);
+  border: 1px solid var(--line-12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.infoCardKicker {
+  font-size: 11.5px;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+.infoCardValue {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.05;
+  color: var(--white);
+}
+
+.infoCardText {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.75);
+}
+
+/* ============ Forms ============ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formTop {
+  margin-top: 26px;
+}
+
+.fields900 {
+  --field-bg: var(--ink-900);
+}
+
+.fields950 {
+  --field-bg: var(--ink-950);
+}
+
+.formGrid200 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.formGrid180 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.formGrid160 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 18px;
+}
+
+.formFoot {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--gray-400);
+}
+
+.sentCard {
+  background: var(--ink-850);
+  border: 1px solid var(--orange-500);
+  padding: clamp(28px, 3vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sentKicker {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+.sentTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(24px, 2.6vw, 34px);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.sentBody {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.85);
+}
+
+.sentSub {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.7);
+}
+
+.accent {
+  color: var(--orange-300);
+}
+
+/* ============ Copper CTA band ============ */
+.copperBand {
+  background: var(--orange-500);
+  padding: clamp(56px, 8vh, 88px) clamp(20px, 4vw, 56px);
+}
+
+.copperInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.copperText {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.copperH2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 4.6vw, 60px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #1a100a;
+}
+
+.copperH2Small {
+  font-size: clamp(28px, 4vw, 52px);
+}
+
+.copperCopy {
+  margin: 0;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.5;
+  color: rgba(26, 16, 10, 0.78);
+  text-wrap: pretty;
+}
+
+.darkCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 34px;
+  background: #171008;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.darkCta:hover {
+  background: #302015;
+  color: var(--white);
+}
+
+/* ============ FAQ ============ */
+.faqLead {
+  margin: 18px 0 0;
+  max-width: 38ch;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.7);
+}
+
+.faqLink {
+  color: var(--orange-400);
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+}
+
+.faqItem {
+  border-top: 1px solid var(--line-16);
+}
+
+.faqItemLast {
+  border-bottom: 1px solid var(--line-16);
+}
+
+.faqSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.faqQ {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.faqX {
+  color: var(--orange-500);
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.faqA {
+  margin: 0;
+  padding: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(244, 237, 230, 0.72);
+  max-width: 60ch;
+}
+
+.faqAPlaceholder {
+  color: var(--gray-400);
+}
+
+/* ============ Spec rows (label / value) ============ */
+.specList {
+  display: flex;
+  flex-direction: column;
+}
+
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line-16);
+  padding: 18px 0;
+  align-items: center;
+}
+
+.specRowLast {
+  border-bottom: 1px solid var(--line-16);
+}
+
+.specLabel {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+}
+
+.specValue {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white);
+}
+
+/* ============ Copper-outline chip (12px variant) ============ */
+.chip {
+  padding: 9px 16px;
+  border: 1px solid rgba(214, 147, 109, 0.45);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+/* ============ Highlight note box ============ */
+.noteBox {
+  margin-top: 22px;
+  padding: 18px 20px;
+  background: var(--ink-850);
+  border: 1px solid rgba(214, 147, 109, 0.3);
+}
+
+.noteBoxText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(244, 237, 230, 0.85);
+  text-wrap: pretty;
+}

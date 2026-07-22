@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# INNE Golf Bergen — nettside
 
-## Getting Started
+Produksjonsimplementasjon av Claude Design-håndoffen «INNE Golf Bergen hero section»
+(12 sider, norsk bokmål, «Kobber & eik»-designspråket).
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, statisk prerendret) + **React 19** + TypeScript
+- **CSS Modules** + designtokens i [app/globals.css](app/globals.css) (fargepalett, knapper, skjema, keyframes)
+- **Syne + Schibsted Grotesk** selvhostet via `next/font` (ingen Google-CDN i produksjon)
+- **GSAP + ScrollTrigger** for scroll-avsløringer, parallax, tall-opptelling, magnetiske knapper
+  (all animasjon hopper over `prefers-reduced-motion`, innhold er synlig uten JS)
+
+## Kjør lokalt
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # produksjonsbygg (alle sider statiske)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sider
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Rute | Innhold |
+| --- | --- |
+| `/` | Landing: hero med video, sentre, priser, medlemskap, TrackMan, «ekte vs. simulator»-slider, selskap, turneringer, gavekort, FAQ |
+| `/medlemskap` | Priser, medlemskapstige (1 kr / 1 800 kr), partnerfordeler, FAQ |
+| `/gavekort` | Verdikort med sentervelger |
+| `/vip-losjen` `/bursdag` `/bedrift` | Selskapssider (skjemaer på bursdag/bedrift) |
+| `/vinterturnering` `/polf` `/veien-til-golf` | Turneringer & kurs med påmeldingsskjemaer |
+| `/praktisk` | Parkering, adgang, kontakt |
+| `/vilkar` `/personvern` | Juridiske sider (plassholder-slots) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Delte komponenter ligger i [components/](components/) (SiteNav med bookingark,
+SiteFooter, Button fra designsystemet, GSAP-effekter, compare-slider, herovideo).
+Konstanter (e-post, telefoner, booking-URL-er, JSON-LD) i [lib/site.ts](lib/site.ts).
 
-## Learn More
+## Bevisste plassholdere fra designet
 
-To learn more about Next.js, take a look at the following resources:
+Disse venter på innhold/avklaring fra INNE og er markert i UI-et:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Avbestillingsregler (FAQ på landingssiden)
+- Verdikortets gyldighet (`/gavekort`, `/medlemskap`)
+- Oppsigelse/fornyelse (`/medlemskap`)
+- Kjøpsvilkår + booking/avbestilling (`/vilkar` — limes inn ordrett)
+- Hele personvernerklæringen (`/personvern` — krever juridisk gjennomgang)
+- Facebook-gruppelenken på `/vinterturnering` peker på facebook.com
+- Booking-URL-ene (`innegolfbergen.no/book/*`) og verdikort-kjøp antas å gå til
+  eksisterende bookingløsning (Alba) — bytt i [lib/site.ts](lib/site.ts)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Skjemaene sender via `mailto:` til post@innegolfbergen.no (som i prototypen) —
+bytt til et API/e-posttjeneste før lansering om ønskelig.
