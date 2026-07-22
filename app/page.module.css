@@ -178,6 +178,20 @@
   animation: inne-pulse 2.6s ease-in-out infinite;
 }
 
+/* Mobile hero: the fixed BOOK NÅ bar (m-only, same 768px breakpoint) is the
+   sole CTA, so the button pair and proof ticker go — the video carries the
+   frame. Bottom padding clears the ~72px bar plus the home-indicator inset. */
+@media (max-width: 768px) {
+  .heroCtas,
+  .ticker {
+    display: none;
+  }
+
+  .heroContent {
+    padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* ================= Shared section bits ================= */
 .section {
   padding: clamp(88px, 12vh, 128px) clamp(20px, 4vw, 56px);
