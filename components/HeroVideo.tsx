@@ -7,14 +7,20 @@ import { useEffect, useRef } from "react";
  * fades in. Skipped entirely for prefers-reduced-motion and data-saver users
  * (the hero then keeps its dark gradient backdrop, as in the design).
  * When `mobileSrc` is set, viewports ≤768px load that file instead.
+ * The webm variants (higher-bitrate VP9) are preferred where the browser
+ * can decode them; Safari/iOS falls back to the mp4s.
  */
 export default function HeroVideo({
   src,
+  webmSrc,
   mobileSrc,
+  mobileWebmSrc,
   className,
 }: {
   src: string;
+  webmSrc?: string;
   mobileSrc?: string;
+  mobileWebmSrc?: string;
   className?: string;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -27,7 +33,9 @@ export default function HeroVideo({
     if (rm || conn?.saveData) return;
 
     const mobile = window.matchMedia("(max-width: 768px)").matches;
-    const activeSrc = mobile && mobileSrc ? mobileSrc : src;
+    const webmOk = v.canPlayType('video/webm; codecs="vp9"') !== "";
+    const activeSrc =
+      (mobile ? (webmOk && mobileWebmSrc) || mobileSrc : webmOk && webmSrc) || src;
 
     v.muted = true;
     v.loop = true;
@@ -50,7 +58,7 @@ export default function HeroVideo({
       v.removeEventListener("playing", onPlaying);
       v.removeEventListener("canplay", onCanPlay);
     };
-  }, [src, mobileSrc]);
+  }, [src, webmSrc, mobileSrc, mobileWebmSrc]);
 
   return <video ref={ref} id="hero-video" preload="none" className={className} />;
 }

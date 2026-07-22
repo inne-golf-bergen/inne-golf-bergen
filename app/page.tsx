@@ -113,7 +113,9 @@ export default function Home() {
         <div aria-hidden="true" className={s.heroBg}>
           <HeroVideo
             src="/uploads/vg3_explainer_short_optimized_v3.mp4"
+            webmSrc="/uploads/vg3_explainer_short_optimized_v3.webm"
             mobileSrc="/uploads/vg3_explainer_short_mobile_optimized_v3.mp4"
+            mobileWebmSrc="/uploads/vg3_explainer_short_mobile_optimized_v3.webm"
             className={s.heroVideo}
           />
           <div className={s.heroGradV} />
