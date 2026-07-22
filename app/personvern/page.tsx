@@ -105,7 +105,11 @@ export default function PersonvernPage() {
                 </div>
                 <div className={s.sectionBody}>
                   <p className={s.sectionText}>
-                    Spørsmål om personvern rettes til <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. {SITE.legalName}{" "}
+                    Spørsmål om personvern rettes til{" "}
+                    <a data-sweep="true" href={`mailto:${SITE.email}`}>
+                      {SITE.email}
+                    </a>
+                    . {SITE.legalName}{" "}
                     · Org.nr. {SITE.orgNr}.
                   </p>
                   <span className={s.reviewTag}>[Juridisk gjennomgang kreves]</span>

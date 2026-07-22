@@ -120,7 +120,7 @@ export default function VinterturneringPage() {
             </div>
             <p className={s.pameldNote}>
               Puljer og lagoppsett publiseres i vår{" "}
-              <a href="https://facebook.com" target="_blank" rel="noopener">
+              <a data-sweep="true" href="https://facebook.com" target="_blank" rel="noopener">
                 Facebook-gruppe
               </a>
               .

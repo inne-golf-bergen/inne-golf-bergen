@@ -20,7 +20,7 @@
 
 .centreGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
@@ -227,4 +227,12 @@
   font-size: clamp(17px, 1.6vw, 21px);
   color: var(--orange-300);
   text-transform: uppercase;
+}
+
+/* 44px touch targets on mobile without shifting the layout */
+@media (max-width: 768px) {
+  .kontaktLink {
+    padding-block: 10px;
+    margin-block: -10px;
+  }
 }

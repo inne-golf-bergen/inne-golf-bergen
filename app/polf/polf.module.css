@@ -53,7 +53,7 @@
 /* ============ Sjetongregler ============ */
 .chipGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(20px, 2.5vw, 32px);
   margin-top: clamp(28px, 4vh, 44px);
 }
@@ -120,7 +120,7 @@
 /* ============ Arrangement ============ */
 .eventGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: clamp(20px, 2.5vw, 32px);
   margin-top: clamp(36px, 5vh, 56px);
 }

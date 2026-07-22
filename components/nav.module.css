@@ -159,6 +159,37 @@
   gap: 14px;
 }
 
+/* 44px touch target for the top-bar BOOK NÅ on mobile widths */
+@media (max-width: 768px) {
+  .mobileControls :global(.btn--sm) {
+    height: 44px;
+    padding: 0 18px;
+  }
+}
+
+/* logo + BOOK NÅ + burger total ~336px — tighten below 360px so 320 fits */
+@media (max-width: 359px) {
+  .inner {
+    padding: 0 14px;
+  }
+
+  .mobileControls {
+    gap: 8px;
+  }
+
+  .mobileControls :global(.btn--sm) {
+    padding: 0 12px;
+  }
+
+  .logo {
+    gap: 8px;
+  }
+
+  .logoImg {
+    height: 40px;
+  }
+}
+
 .iconBtn {
   width: 44px;
   height: 44px;
@@ -323,7 +354,7 @@
 
 .sheetGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
   gap: 14px;
   margin-top: 34px;
 }

@@ -68,6 +68,13 @@
   border-bottom: 1px solid var(--line-8);
 }
 
+/* 44px touch rows on mobile, where the TOC is a static stacked list */
+@media (max-width: 820px) {
+  .tocLink {
+    padding: 11.5px 0;
+  }
+}
+
 .tocLinkLast {
   border-bottom: 0;
 }

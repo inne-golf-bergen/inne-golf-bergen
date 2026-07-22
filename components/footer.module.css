@@ -6,7 +6,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
   gap: clamp(32px, 4vw, 56px);
 }
 
@@ -94,6 +94,17 @@
   align-self: flex-start;
   font-size: 14px;
   color: rgba(244, 237, 230, 0.7);
+}
+
+/* 44px touch targets on mobile: pad the hit area, cancel with margin so the
+   visual rhythm of the columns is unchanged */
+@media (max-width: 768px) {
+  .bookLink,
+  .contactLink,
+  .legalLink {
+    padding-block: 13px;
+    margin-block: -13px;
+  }
 }
 
 .newsletter {

@@ -66,7 +66,11 @@ export default function VilkarPage() {
               </section>
 
               <p className={s.footNote}>
-                Spørsmål om vilkårene? <a href={`mailto:${SITE.email}`}>{SITE.email}</a> · {SITE.legalName} · Org.nr.{" "}
+                Spørsmål om vilkårene?{" "}
+                <a data-sweep="true" href={`mailto:${SITE.email}`}>
+                  {SITE.email}
+                </a>{" "}
+                · {SITE.legalName} · Org.nr.{" "}
                 {SITE.orgNr}
               </p>
             </div>

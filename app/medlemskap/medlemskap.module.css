@@ -160,6 +160,19 @@
   align-items: flex-start;
 }
 
+/* below 480 the bullet column starves the card (wide nowrap CTAs overflow),
+   so the bullet sits above its card instead; the ladder line still connects */
+@media (max-width: 479px) {
+  .step {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .stepBullet {
+    margin-top: 0;
+  }
+}
+
 .stepBullet {
   flex-shrink: 0;
   width: 40px;
@@ -178,6 +191,9 @@
 
 .stepCard {
   flex: 1;
+  /* without this the flex item's min-content floor (valueGrid, long benefit
+     lines) forces the card wider than the viewport on small screens */
+  min-width: 0;
   background: var(--ink-850);
   border: 1px solid var(--line-12);
   padding: clamp(24px, 3vw, 36px);
@@ -322,10 +338,18 @@
 
 .valueGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0,…) drops the auto min-content floor so the grid can shrink */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: var(--line-12);
   border: 1px solid var(--line-12);
+}
+
+/* stack the two value cells when the card gets too narrow for the numbers */
+@media (max-width: 480px) {
+  .valueGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .valueCell {

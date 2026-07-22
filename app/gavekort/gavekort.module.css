@@ -38,6 +38,7 @@
 }
 
 .toggleBtn {
+  min-height: 44px;
   padding: 11px 22px;
   background: transparent;
   border: 0;
@@ -60,7 +61,7 @@
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: clamp(18px, 2.2vw, 28px);
   margin-top: clamp(32px, 5vh, 48px);
 }

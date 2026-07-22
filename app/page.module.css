@@ -204,7 +204,7 @@
 
 .splitGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(32px, 5vw, 80px);
   align-items: start;
 }
@@ -212,7 +212,7 @@
 /* ================= Sentre ================= */
 .sentreGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: clamp(20px, 2.5vw, 32px);
   margin-top: clamp(36px, 6vh, 56px);
 }
@@ -490,7 +490,7 @@
 /* ================= Slik funker det ================= */
 .slikGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: clamp(24px, 3vw, 48px);
   margin-top: clamp(28px, 5vh, 44px);
 }
@@ -646,7 +646,7 @@
 /* ================= Selskap / skjer cards ================= */
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(20px, 2.5vw, 32px);
   margin-top: clamp(36px, 6vh, 56px);
 }

@@ -60,7 +60,7 @@
 
 .prizeGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 1px;
   margin-top: 36px;
   background: rgba(26, 16, 10, 0.18);
@@ -201,7 +201,7 @@
 .phaseDetail {
   padding: 0 0 clamp(26px, 3vw, 36px) clamp(30px, 5vw, 54px);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 2px;
   background: var(--line-10);
 }

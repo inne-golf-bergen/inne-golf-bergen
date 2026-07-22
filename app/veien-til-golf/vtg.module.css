@@ -33,7 +33,7 @@
 /* ============ Kursløp ============ */
 .stegGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
   gap: clamp(18px, 2.2vw, 28px);
   margin-top: clamp(36px, 5vh, 56px);
 }
@@ -103,7 +103,7 @@
 /* ============ Priser ============ */
 .kursGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(20px, 2.5vw, 32px);
   margin-top: clamp(36px, 5vh, 56px);
 }
@@ -313,4 +313,13 @@
   line-height: 1.7;
   color: rgba(247, 239, 232, 0.72);
   text-wrap: pretty;
+}
+
+/* 44px touch targets on mobile without shifting the layout */
+@media (max-width: 768px) {
+  .kontaktPhone,
+  .kontaktMail {
+    padding-block: 11px;
+    margin-block: -11px;
+  }
 }

@@ -86,6 +86,11 @@ h5,
 h6 {
   margin: 0;
   text-wrap: balance;
+  /* long Norwegian compounds (Personvernerklæring, Turneringskveld, …) must
+     hyphenate rather than overflow at narrow widths; break-word is the fallback */
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 p {
@@ -261,6 +266,15 @@ button {
 a[data-sweep] {
   position: relative;
   text-decoration: none;
+}
+
+/* 44px touch targets on mobile: padding grows the hit area; on inline links it
+   doesn't move the line box, on block/flex links the margin cancels the shift */
+@media (max-width: 768px) {
+  a[data-sweep] {
+    padding-block: 13px;
+    margin-block: -13px;
+  }
 }
 
 a[data-sweep]::after {
