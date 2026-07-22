@@ -203,9 +203,6 @@ export default function SiteNav() {
           </nav>
 
           <div className={`nav-m ${styles.mobileControls}`}>
-            <Button size="sm" onClick={openSheet}>
-              BOOK NÅ
-            </Button>
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
