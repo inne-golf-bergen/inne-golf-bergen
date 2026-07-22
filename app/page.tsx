@@ -33,8 +33,6 @@ const FAQ_ITEMS: { q: string; a: string; placeholder?: boolean }[] = [
     q: "Hva får jeg som medlem?",
     a: `Årsmedlemskap koster 1${NNBSP}800 kr og gir et verdikort på 2${NNBSP}800 kr til fri booking, pluss ${MINUS}20${THIN}% på alle timer.`,
   },
-  { q: "Hvordan betaler jeg?", a: "Kort eller Vipps." },
-  { q: "Kan jeg avbestille?", a: "[AVBESTILLINGSREGLER SETTES INN]", placeholder: true },
 ];
 
 const FAQ_JSONLD = {
@@ -57,7 +55,6 @@ const FAQ_JSONLD = {
       "Hva får jeg som medlem?",
       "Årsmedlemskap koster 1 800 kr og gir et verdikort på 2 800 kr til fri booking, pluss −20 % på alle timer.",
     ],
-    ["Hvordan betaler jeg?", "Kort eller Vipps."],
   ].map(([name, text]) => ({
     "@type": "Question",
     name,
