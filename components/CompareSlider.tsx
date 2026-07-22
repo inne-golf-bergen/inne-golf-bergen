@@ -137,8 +137,6 @@ export default function CompareSlider() {
           </p>
         </div>
       </div>
-      <span className={`${styles.cornerLabel} ${styles.cornerLeft}`}>Dronefoto</span>
-      <span className={`${styles.cornerLabel} ${styles.cornerRight}`}>Virtual Golf 3</span>
       <div
         ref={lineRef}
         id="vg3-line"
