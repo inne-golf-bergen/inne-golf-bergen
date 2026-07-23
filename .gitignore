@@ -16,6 +16,7 @@
 # next.js
 /.next/
 /.next-claude/
+/.next-verify/
 /out/
 
 # production

@@ -1,27 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import BotField from "@/components/BotField";
+import SendFailed from "@/components/SendFailed";
 import SentCard from "@/components/SentCard";
+import { useSendForm } from "@/lib/forms";
 import { type Lang, t } from "@/lib/i18n";
-import { mailBody, mailtoHref, mailtoSubject, SITE } from "@/lib/site";
+import { mailtoSubject, SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 
 export default function BedriftForm({ lang }: { lang: Lang }) {
-  const [sent, setSent] = useState(false);
+  const subject = t(lang, "Bedriftsforespørsel", "Company inquiry");
+  const { status, fallbackHref, send } = useSendForm("bedrift", subject);
 
-  if (sent) {
+  if (status === "sent") {
     return (
-      <SentCard kicker={t(lang, "Nesten i mål", "Almost there")} title={t(lang, "Send e-posten.", "Hit send.")}>
+      <SentCard kicker={t(lang, "Sendt", "Sent")} title={t(lang, "Takk for forespørselen.", "Request received.")}>
         <p className={sub.sentBody}>
           {t(
             lang,
-            "Vi har gjort klar en e-post i e-postprogrammet ditt — trykk send der, så svarer vi innen én arbeidsdag.",
-            "We’ve drafted an email in your mail app — hit send there and we’ll reply within one workday.",
+            "Forespørselen er hos oss — vi svarer innen én arbeidsdag.",
+            "Your request is with us — we reply within one workday.",
           )}
         </p>
         <p className={sub.sentSub}>
-          {t(lang, "Åpnet det ikke noe? Send detaljene til", "Nothing opened? Send the details to")}{" "}
-          <a data-sweep="true" href={mailtoSubject(t(lang, "Bedriftsforespørsel", "Company inquiry"))}>
+          {t(lang, "Haster det? Skriv direkte til", "In a hurry? Write straight to")}{" "}
+          <a data-sweep="true" href={mailtoSubject(subject)}>
             {SITE.email}
           </a>
           .
@@ -33,23 +36,27 @@ export default function BedriftForm({ lang }: { lang: Lang }) {
   return (
     <form
       className={`${sub.form} ${sub.fields950}`}
+      aria-busy={status === "sending"}
       onSubmit={(e) => {
         e.preventDefault();
         const f = new FormData(e.currentTarget);
-        const body = mailBody([
-          [t(lang, "Bedrift", "Company"), f.get("bedrift")],
-          [t(lang, "Antall", "People"), f.get("antall")],
-          [t(lang, "Ønsket dato", "Date"), f.get("dato")],
-          [t(lang, "Senter", "Venue"), f.get("senter")],
-          [t(lang, "Navn", "Name"), f.get("navn")],
-          [t(lang, "Telefon", "Phone"), f.get("telefon")],
-          [t(lang, "E-post", "Email"), f.get("epost")],
-          [t(lang, "Om kvelden", "The night"), f.get("notat")],
-        ]);
-        window.location.href = mailtoHref(t(lang, "Bedriftsforespørsel", "Company inquiry"), body);
-        setSent(true);
+        void send(
+          f,
+          [
+            [t(lang, "Bedrift", "Company"), f.get("bedrift")],
+            [t(lang, "Antall", "People"), f.get("antall")],
+            [t(lang, "Ønsket dato", "Date"), f.get("dato")],
+            [t(lang, "Senter", "Venue"), f.get("senter")],
+            [t(lang, "Navn", "Name"), f.get("navn")],
+            [t(lang, "Telefon", "Phone"), f.get("telefon")],
+            [t(lang, "E-post", "Email"), f.get("epost")],
+            [t(lang, "Om kvelden", "The night"), f.get("notat")],
+          ],
+          { replyto: f.get("epost") },
+        );
       }}
     >
+      <BotField />
       <label>
         <span className="fieldLabel">{t(lang, "Bedrift", "Company")}</span>
         <input required type="text" name="bedrift" placeholder={t(lang, "Firmanavn", "Name")} className="fieldInput" />
@@ -123,9 +130,10 @@ export default function BedriftForm({ lang }: { lang: Lang }) {
           className="fieldInput"
         />
       </label>
-      <button type="submit" className="formSubmit">
-        {t(lang, "Be om tilbud", "Get a quote")}
+      <button type="submit" className="formSubmit" disabled={status === "sending"}>
+        {status === "sending" ? t(lang, "Sender…", "Sending…") : t(lang, "Be om tilbud", "Get a quote")}
       </button>
+      {status === "error" && <SendFailed lang={lang} mailtoHref={fallbackHref} />}
       <p className={sub.formFoot}>
         {t(
           lang,

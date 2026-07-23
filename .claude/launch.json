@@ -8,6 +8,14 @@
       "env": { "NEXT_DIST_DIR": ".next-claude" },
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "inne-golf-verify",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "env": { "NEXT_DIST_DIR": ".next-verify" },
+      "port": 3100,
+      "autoPort": true
     }
   ]
 }

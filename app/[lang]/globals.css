@@ -440,6 +440,11 @@ select.fieldInput {
   transform: scale(0.97);
 }
 
+.formSubmit:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
 .formSubmit:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);

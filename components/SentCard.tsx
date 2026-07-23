@@ -6,8 +6,9 @@ import sub from "@/app/[lang]/subpage.module.css";
 /**
  * Post-submit confirmation card. Focuses itself on mount and announces as a
  * status region, so the form→card swap is never silent for keyboard or
- * screen-reader users. The forms only compose a mailto: draft — copy inside
- * must say "send the email", never claim the message was received.
+ * screen-reader users. Shown only after lib/forms.ts got an ok from the form
+ * backend, so copy may claim receipt — but where a second step remains
+ * (Vipps payment), it must keep saying "how to finish".
  */
 export default function SentCard({
   kicker,

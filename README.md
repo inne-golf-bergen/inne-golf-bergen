@@ -48,5 +48,23 @@ Disse venter på innhold/avklaring fra INNE og er markert i UI-et:
 - Booking-URL-ene (`innegolfbergen.no/book/*`) og verdikort-kjøp antas å gå til
   eksisterende bookingløsning (Alba) — bytt i [lib/site.ts](lib/site.ts)
 
-Skjemaene sender via `mailto:` til post@innegolfbergen.no (som i prototypen) —
-bytt til et API/e-posttjeneste før lansering om ønskelig.
+## Skjema-backend
+
+Alle seks skjemaene (bedrift, bursdag, veien-til-golf, POLF, vinterturnering og
+nyhetsbrevet i footeren) sender via [Web3Forms](https://web3forms.com) — gratis
+inntil 250 innsendinger/mnd — og leveres som e-post til adressen
+tilgangsnøkkelen er utstedt for. Delt flyt i [lib/forms.ts](lib/forms.ts):
+
+- **Nøkkel:** `NEXT_PUBLIC_FORMS_KEY` i `.env.local` (lokalt) og i Vercel →
+  Settings → Environment Variables. Nøkkelen er offentlig med vilje — den er
+  bare et alias for mottakeradressen, aldri en hemmelighet. Ny nøkkel (eller
+  ny mottaker): web3forms.com → «Create Access Key» → nøkkelen sendes til
+  mottaker-innboksen.
+- **Spam:** honeypot-felt ([components/BotField.tsx](components/BotField.tsx));
+  treff vises et falskt suksesskort og bruker aldri kvote.
+- **Feil:** ved nedetid/blokkering viser skjemaet en feilmelding
+  ([components/SendFailed.tsx](components/SendFailed.tsx)) med et ferdig
+  utfylt `mailto:`-utkast som reserve — svarene i skjemaet beholdes, og ingen
+  henvendelse går tapt stille.
+- **Dev uten nøkkel:** vellykket sending simuleres og innholdet logges i
+  nettleserkonsollen.

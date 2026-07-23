@@ -1,31 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import BotField from "@/components/BotField";
+import SendFailed from "@/components/SendFailed";
 import SentCard from "@/components/SentCard";
+import { useSendForm } from "@/lib/forms";
 import { type Lang, t } from "@/lib/i18n";
-import { mailBody, mailtoHref, mailtoSubject, SITE } from "@/lib/site";
+import { mailtoSubject, SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 
 export default function BursdagForm({ lang }: { lang: Lang }) {
-  const [sent, setSent] = useState(false);
+  const subject = t(lang, "Bursdag hos INNE", "Birthday at INNE");
+  const { status, fallbackHref, send } = useSendForm("bursdag", subject);
 
-  if (sent) {
+  if (status === "sent") {
     return (
       <SentCard
-        kicker={t(lang, "Nesten i mål", "Almost there")}
-        title={t(lang, "Send e-posten.", "Hit send.")}
+        kicker={t(lang, "Sendt", "Sent")}
+        title={t(lang, "Takk for forespørselen.", "Request received.")}
         className={sub.formTop}
       >
         <p className={sub.sentBody}>
           {t(
             lang,
-            "Vi har gjort klar en e-post i e-postprogrammet ditt — trykk send der, så svarer vi innen én arbeidsdag.",
-            "We’ve drafted an email in your mail app — hit send there and we’ll reply within one workday.",
+            "Forespørselen er hos oss — vi svarer innen én arbeidsdag.",
+            "Your request is with us — we reply within one workday.",
           )}
         </p>
         <p className={sub.sentSub}>
-          {t(lang, "Åpnet det ikke noe? Send detaljene til", "Nothing opened? Send the details to")}{" "}
-          <a data-sweep="true" href={mailtoSubject(t(lang, "Bursdag hos INNE", "Birthday at INNE"))}>
+          {t(lang, "Haster det? Skriv direkte til", "In a hurry? Write straight to")}{" "}
+          <a data-sweep="true" href={mailtoSubject(subject)}>
             {SITE.email}
           </a>
           .
@@ -37,23 +40,27 @@ export default function BursdagForm({ lang }: { lang: Lang }) {
   return (
     <form
       className={`${sub.form} ${sub.formTop} ${sub.fields900}`}
+      aria-busy={status === "sending"}
       onSubmit={(e) => {
         e.preventDefault();
         const f = new FormData(e.currentTarget);
-        const body = mailBody([
-          [t(lang, "Dato", "Date"), f.get("dato")],
-          [t(lang, "Antall barn", "Kids"), f.get("antall")],
-          [t(lang, "Alder", "Ages"), f.get("alder")],
-          [t(lang, "Senter", "Venue"), f.get("senter")],
-          [t(lang, "Navn", "Name"), f.get("navn")],
-          [t(lang, "Telefon", "Phone"), f.get("telefon")],
-          [t(lang, "E-post", "Email"), f.get("epost")],
-          [t(lang, "Notat", "Note"), f.get("notat")],
-        ]);
-        window.location.href = mailtoHref(t(lang, "Bursdag hos INNE", "Birthday at INNE"), body);
-        setSent(true);
+        void send(
+          f,
+          [
+            [t(lang, "Dato", "Date"), f.get("dato")],
+            [t(lang, "Antall barn", "Kids"), f.get("antall")],
+            [t(lang, "Alder", "Ages"), f.get("alder")],
+            [t(lang, "Senter", "Venue"), f.get("senter")],
+            [t(lang, "Navn", "Name"), f.get("navn")],
+            [t(lang, "Telefon", "Phone"), f.get("telefon")],
+            [t(lang, "E-post", "Email"), f.get("epost")],
+            [t(lang, "Notat", "Note"), f.get("notat")],
+          ],
+          { replyto: f.get("epost") },
+        );
       }}
     >
+      <BotField />
       {/* 2×2 at the form-column width — formGrid180 left "Senter" orphaned on
           its own row next to two empty tracks */}
       <div className={sub.formGrid240}>
@@ -121,9 +128,10 @@ export default function BursdagForm({ lang }: { lang: Lang }) {
           className="fieldInput"
         />
       </label>
-      <button type="submit" className="formSubmit">
-        {t(lang, "Send forespørsel", "Send request")}
+      <button type="submit" className="formSubmit" disabled={status === "sending"}>
+        {status === "sending" ? t(lang, "Sender…", "Sending…") : t(lang, "Send forespørsel", "Send request")}
       </button>
+      {status === "error" && <SendFailed lang={lang} mailtoHref={fallbackHref} />}
       <p className={sub.formFoot}>
         {t(
           lang,
