@@ -421,7 +421,8 @@
 .sheetNote {
   margin: 20px 0 0;
   font-size: 13px;
-  color: rgba(244, 237, 230, 0.55);
+  color: #fff;
+  font-weight: 700;
 }
 
 /* ============ Mobile sticky book bar ============ */
