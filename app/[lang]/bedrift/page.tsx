@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import bedriftBay from "@/public/assets/photos/bedrift-bay.jpg";
 import Link from "next/link";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
@@ -39,10 +40,11 @@ export default async function BedriftPage({ params }: { params: Promise<{ lang: 
           {/* 300vw on mobile: the portrait cover crop is height-constrained, so
               100vw would serve a ~750px file upscaled ~2.6× */}
           <Image
-            src="/assets/photos/bedrift-bay.jpg"
+            src={bedriftBay}
             alt=""
             fill
-            priority
+            preload
+            placeholder="blur"
             sizes="(max-width: 768px) 300vw, 100vw"
             quality={85}
             className={`${sub.heroImg} ${s.heroImg}`}

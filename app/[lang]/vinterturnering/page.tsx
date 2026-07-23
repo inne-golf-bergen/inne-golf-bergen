@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import vinterturneringHero from "@/public/assets/photos/vinterturnering-hero.webp";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
@@ -55,10 +56,11 @@ export default async function VinterturneringPage({ params }: { params: Promise<
       <section className={`${sub.hero} ${s.hero}`}>
         <div aria-hidden="true" className={sub.heroBg}>
           <Image
-            src="/assets/photos/vinterturnering-hero.webp"
+            src={vinterturneringHero}
             alt=""
             fill
-            priority
+            preload
+            placeholder="blur"
             sizes="(max-width: 768px) 300vw, 100vw"
             quality={85}
             className={`${sub.heroImg} ${s.heroImg}`}

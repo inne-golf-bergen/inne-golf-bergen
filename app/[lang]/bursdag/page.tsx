@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import bursdagLounge from "@/public/assets/photos/bursdag-lounge.jpg";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
@@ -50,10 +51,11 @@ export default async function BursdagPage({ params }: { params: Promise<{ lang: 
       <section className={`${sub.hero} ${s.hero}`}>
         <div aria-hidden="true" className={sub.heroBg}>
           <Image
-            src="/assets/photos/bursdag-lounge.jpg"
+            src={bursdagLounge}
             alt=""
             fill
-            priority
+            preload
+            placeholder="blur"
             sizes="(max-width: 768px) 300vw, 100vw"
             quality={85}
             className={`${sub.heroImg} ${s.heroImg}`}
