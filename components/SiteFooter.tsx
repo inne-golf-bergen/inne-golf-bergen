@@ -2,16 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { type Lang, langHref, t } from "@/lib/i18n";
 import { mailtoHref, SITE } from "@/lib/site";
 import styles from "./footer.module.css";
 
 export default function SiteFooter({ lang }: { lang: Lang }) {
-  const pathname = usePathname();
-  const homePath = langHref(lang, "/");
-  const home = pathname === homePath ? "" : homePath;
   const [subscribed, setSubscribed] = useState(false);
 
   return (
@@ -46,9 +42,9 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
               <br />
               {t(lang, "Åpent hele døgnet", "Open 24/7")}
             </span>
-            <Link data-sweep="true" href={`${home}#book-asane`} className={styles.bookLink}>
+            <a data-sweep="true" href={SITE.bookAsane} className={styles.bookLink}>
               Book Åsane →
-            </Link>
+            </a>
           </div>
 
           <div className={styles.col}>
@@ -62,9 +58,9 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
               <br />
               {t(lang, "Åpent hele døgnet", "Open 24/7")}
             </span>
-            <Link data-sweep="true" href={`${home}#book-sandviken`} className={styles.bookLink}>
+            <a data-sweep="true" href={SITE.bookSandviken} className={styles.bookLink}>
               Book Sandviken →
-            </Link>
+            </a>
           </div>
 
           <div className={styles.col}>

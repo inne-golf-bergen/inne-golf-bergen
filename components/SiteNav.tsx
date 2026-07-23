@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { type Lang, langHref, t } from "@/lib/i18n";
+import { SITE } from "@/lib/site";
 import Button from "./Button";
 import { DUR, EASE_OUT } from "./motion/tokens";
 import styles from "./nav.module.css";
@@ -31,8 +32,6 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   const logoHref = home === "" ? "#top" : homePath;
   const asaneHref = `${home}#asane`;
   const sandvikenHref = `${home}#sandviken`;
-  const bookAsaneHref = `${home}#book-asane`;
-  const bookSandvikenHref = `${home}#book-sandviken`;
 
   // The same page in the other language, for the NO/EN switch.
   const stripped = pathname === "/en" ? "/" : pathname.startsWith("/en/") ? pathname.slice(3) : pathname;
@@ -474,7 +473,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             <div className={styles.sheetKicker}>{t(lang, "Book på 60 sekunder", "Book in 60 seconds")}</div>
             <h2 className={styles.sheetTitle}>{t(lang, "Velg senter", "Pick venue")}</h2>
             <div className={styles.sheetGrid}>
-              <Link href={bookAsaneHref} onClick={closeAllNav} className={styles.sheetCard}>
+              <a href={SITE.bookAsane} onClick={closeAllNav} className={styles.sheetCard}>
                 <div className={styles.sheetCardTop}>
                   <span className={styles.sheetCardKicker}>3 × TrackMan iO</span>
                   <span className={styles.sheetCardName}>Åsane</span>
@@ -482,8 +481,8 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                 <span className={styles.sheetCardFoot}>
                   Book Åsane <span aria-hidden="true">→</span>
                 </span>
-              </Link>
-              <Link href={bookSandvikenHref} onClick={closeAllNav} className={styles.sheetCard}>
+              </a>
+              <a href={SITE.bookSandviken} onClick={closeAllNav} className={styles.sheetCard}>
                 <div className={styles.sheetCardTop}>
                   <span className={styles.sheetCardKicker}>5 m widescreen</span>
                   <span className={styles.sheetCardName}>Sandviken</span>
@@ -491,7 +490,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                 <span className={styles.sheetCardFoot}>
                   Book Sandviken <span aria-hidden="true">→</span>
                 </span>
-              </Link>
+              </a>
             </div>
             <p className={styles.sheetNote}>
               {t(
