@@ -219,20 +219,15 @@
 }
 
 .phaseDetail {
-  padding: 0 0 clamp(26px, 3vw, 36px) clamp(30px, 5vw, 54px);
+  padding: 6px 0 clamp(26px, 3vw, 36px) clamp(30px, 5vw, 54px);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: 2px;
-  background: var(--line-10);
+  gap: 20px clamp(24px, 3vw, 40px);
 }
 
 .detailCell {
-  background: var(--ink-900);
-  padding: 16px 22px;
-}
-
-.detailCell:first-child {
-  padding-left: 0;
+  border-top: 1px solid var(--line-16);
+  padding: 14px 0 0;
 }
 
 .detailLabel {
