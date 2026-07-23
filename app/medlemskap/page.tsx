@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import OpenBookButton from "@/components/OpenBookButton";
 import SiteFx from "@/components/SiteFx";
-import { SITE, mailtoSubject } from "@/lib/site";
+import { SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 import s from "./medlemskap.module.css";
 
@@ -48,7 +48,7 @@ export default function MedlemskapPage() {
             {`Årsmedlemskap 1${NNBSP}800 kr per år — det er 150 kr i måneden.`}
           </p>
           <div data-fade="true" className={s.heroCtaWrap}>
-            <Button as="a" href={mailtoSubject("Årsmedlemskap")} size="lg">
+            <Button as="a" href={SITE.membership} size="lg">
               BLI MEDLEM
             </Button>
           </div>
@@ -134,7 +134,7 @@ export default function MedlemskapPage() {
                   Alle tilleggsrabatter er tilgjengelige etter første gjennomførte simulatortime.
                 </p>
                 <div className={s.stepCtaWrap}>
-                  <Button as="a" href={mailtoSubject("Golfklubb-medlem (1 kr)")} variant="secondary" size="lg">
+                  <Button as="a" href={SITE.membership} variant="secondary" size="lg">
                     BLI MEDLEM (1 KR)
                   </Button>
                 </div>
@@ -181,7 +181,7 @@ export default function MedlemskapPage() {
                   </ul>
                 </div>
                 <div className={s.stepCtaWrap}>
-                  <Button as="a" href={mailtoSubject("Årsmedlemskap")} size="lg">
+                  <Button as="a" href={SITE.membership} size="lg">
                     BLI MEDLEM
                   </Button>
                 </div>
@@ -347,7 +347,7 @@ export default function MedlemskapPage() {
               {`150 kr i måneden — verdikort på 2${NNBSP}800 kr og partnerfordeler i hele byen.`}
             </p>
           </div>
-          <a href={mailtoSubject("Årsmedlemskap")} className={sub.darkCta}>
+          <a href={SITE.membership} className={sub.darkCta}>
             Bli medlem
           </a>
         </div>

@@ -7,9 +7,10 @@ export const SITE = {
   facebook: "https://www.facebook.com/profile.php?id=61564888844128",
   phones: ["913 30 248", "404 73 935", "995 38 913"],
   phoneHrefs: ["+4791330248", "+4740473935", "+4799538913"],
-  bookAsane: "https://innegolfbergen.no/book/asane",
-  bookSandviken: "https://innegolfbergen.no/book/sandviken",
-  gavekortBase: "https://innegolfbergen.no/gavekort",
+  bookAsane: "https://albaplay.com/en/venue/ingolf-bergen",
+  bookSandviken: "https://albaplay.com/en/venue/inne-golf-bergen-avd-sandviken",
+  membership: "https://albaplay.com/en/venue/ingolf-bergen/offers/membership",
+  gavekortBase: "https://albaplay.com/en/venue/ingolf-bergen/offers/vouchers",
 } as const;
 
 /** Builds a mailto: link to post@ with a prefilled subject and body. */

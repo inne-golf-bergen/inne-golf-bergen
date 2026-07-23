@@ -18,7 +18,7 @@ const CARDS: { value: string; pays: string; bonus: string; featured?: boolean }[
 export default function GavekortVelger() {
   const [centre, setCentre] = useState<"asane" | "sandviken">("asane");
   const centreLabel = centre === "asane" ? "Åsane" : "Sandviken";
-  const kjopHref = `${SITE.gavekortBase}#gavekort-${centre}`;
+  const kjopHref = SITE.gavekortBase;
 
   return (
     <>
