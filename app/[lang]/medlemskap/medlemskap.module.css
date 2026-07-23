@@ -22,7 +22,7 @@
   max-width: 52ch;
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.82);
+  color: var(--text-strong);
   text-wrap: pretty;
 }
 
@@ -60,7 +60,7 @@
   max-width: 40ch;
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -89,10 +89,10 @@
 }
 
 .priceLabel {
-  font-size: 13px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
   text-transform: uppercase;
 }
 
@@ -126,8 +126,8 @@
 }
 
 .priceIncludedLabel {
-  font-size: 12px;
-  letter-spacing: 0.2em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -136,7 +136,7 @@
 .priceIncludedItem {
   font-size: 14.5px;
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
 }
 
 /* ============ Medlemskapstige ============ */
@@ -245,8 +245,8 @@
   color: var(--text-on-accent);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   text-transform: uppercase;
 }
 
@@ -289,13 +289,13 @@
 
 .stepBenefitText {
   font-size: 15px;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
 }
 
 .listLabel {
   display: block;
-  font-size: 12px;
-  letter-spacing: 0.2em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -328,7 +328,7 @@
 .benefitText {
   font-size: 15px;
   line-height: 1.55;
-  color: rgba(244, 237, 230, 0.78);
+  color: var(--text-mid);
 }
 
 .stepFootnote {
@@ -368,8 +368,8 @@
 }
 
 .valueCellLabel {
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -390,7 +390,7 @@
   margin: 0;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.82);
+  color: var(--text-strong);
   text-wrap: pretty;
 }
 
@@ -400,7 +400,7 @@
   max-width: 38ch;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.7);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -420,8 +420,8 @@
 }
 
 .partnerDeal {
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
@@ -439,7 +439,7 @@
   margin: 0;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.72);
+  color: var(--text-mid);
 }
 
 .partnerHint {
@@ -454,6 +454,6 @@
   padding: 0 0 22px;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.72);
+  color: var(--text-mid);
   max-width: 60ch;
 }

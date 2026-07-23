@@ -31,6 +31,23 @@
 
   /* text on copper surfaces */
   --text-on-accent: #171008;
+  --ink-on-copper: #1a100a;
+
+  /* muted text — three emphasis stops instead of ad-hoc alphas.
+     strong: primary copy on photos/dark · mid: body copy, leads, card text
+     · dim: footnotes, legal, metadata. dim keeps ≥4.5:1 AA on --ink-950. */
+  --text-strong: rgba(244, 237, 230, 0.88);
+  --text-mid: rgba(244, 237, 230, 0.72);
+  --text-dim: rgba(244, 237, 230, 0.55);
+
+  /* uppercase micro-label scale — three stops (plus the 0.08em button track):
+     s: tags & kickers · m: data-row and form labels · eyebrow: eyebrows and
+     group headers, always the widest track */
+  --label-size-s: 11px;
+  --label-track-s: 0.16em;
+  --label-size-m: 12px;
+  --label-track-m: 0.18em;
+  --label-track-eyebrow: 0.26em;
 
   /* hairlines (warm white at low alpha) */
   --line-8: rgba(244, 237, 230, 0.08);
@@ -344,8 +361,8 @@ a[data-sweep-in]:hover::after {
    ============================================================ */
 .fieldLabel {
   display: block;
-  font-size: 11.5px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--gray-300);
   text-transform: uppercase;
@@ -387,6 +404,7 @@ select.fieldInput {
   opacity: 1;
 }
 
+/* composes the .btn--lg / .btn--primary metrics — one button spec site-wide */
 .formSubmit {
   align-self: flex-start;
   height: 52px;
@@ -394,17 +412,25 @@ select.fieldInput {
   background: var(--orange-500);
   color: var(--text-on-accent);
   border: 0;
+  border-radius: 2px;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background var(--dur-base) var(--ease-out);
+  transition:
+    background var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .formSubmit:hover {
   background: var(--orange-400);
+}
+
+.formSubmit:active {
+  background: var(--orange-600);
+  transform: scale(0.97);
 }
 
 .formSubmit:focus-visible {

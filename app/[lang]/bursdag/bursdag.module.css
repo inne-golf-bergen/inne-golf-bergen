@@ -40,7 +40,7 @@
   max-width: 56ch;
   font-size: clamp(16px, 1.35vw, 19px);
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.86);
+  color: var(--text-strong);
   text-wrap: pretty;
 }
 
@@ -118,7 +118,7 @@
 .checkText {
   font-size: 15.5px;
   line-height: 1.55;
-  color: rgba(244, 237, 230, 0.82);
+  color: var(--text-strong);
 }
 
 .skjemaBlock {

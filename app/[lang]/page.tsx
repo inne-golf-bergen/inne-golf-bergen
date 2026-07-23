@@ -568,7 +568,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           <Cascade className={s.cardGrid}>
             <CascadeItem className={s.cardCell}>
             <Link href={langHref(lang, "/vinterturnering")} className={s.lineCard}>
-              <span className={s.stepNum}>01</span>
+              <span className={s.stepNum}>{t(lang, "Lagturnering", "Team cup")}</span>
               <h3 className={s.lineCardTitle}>{t(lang, "Vinter​turneringen", "The Winter Cup")}</h3>
               <p className={s.lineCardCopy}>
                 {t(
@@ -584,7 +584,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </CascadeItem>
             <CascadeItem index={1} className={s.cardCell}>
             <Link href={langHref(lang, "/polf")} className={s.lineCard}>
-              <span className={s.stepNum}>02</span>
+              <span className={s.stepNum}>{t(lang, "Golf + poker", "Golf + poker")}</span>
               <h3 className={s.lineCardTitle}>POLF</h3>
               <p className={s.lineCardCopy}>
                 {t(
@@ -600,7 +600,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </CascadeItem>
             <CascadeItem index={2} className={s.cardCell}>
             <Link href={langHref(lang, "/veien-til-golf")} className={s.lineCard}>
-              <span className={s.stepNum}>03</span>
+              <span className={s.stepNum}>{t(lang, "Nybegynnerkurs", "Intro course")}</span>
               <h3 className={s.lineCardTitle}>Veien til Golf</h3>
               <p className={s.lineCardCopy}>
                 {t(

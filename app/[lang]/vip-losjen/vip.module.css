@@ -41,7 +41,7 @@
   max-width: 52ch;
   font-size: clamp(16px, 1.35vw, 19px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.82);
+  color: var(--text-strong);
   text-wrap: pretty;
 }
 

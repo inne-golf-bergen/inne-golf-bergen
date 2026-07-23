@@ -51,10 +51,11 @@
 }
 
 .premierNote {
-  font-size: 13px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
-  color: rgba(26, 16, 10, 0.7);
+  /* ≥4.5:1 on --orange-500 (0.7 fell under AA) */
+  color: rgba(26, 16, 10, 0.85);
   text-transform: uppercase;
 }
 
@@ -136,7 +137,7 @@
   max-width: 56ch;
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -196,8 +197,8 @@
 }
 
 .phaseMeta {
-  font-size: 12.5px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--gray-300);
   text-transform: uppercase;
@@ -232,8 +233,8 @@
 
 .detailLabel {
   display: block;
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -243,7 +244,7 @@
 .detailText {
   font-size: 15px;
   line-height: 1.55;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
 }
 
 /* ============ Påmelding ============ */
@@ -251,6 +252,6 @@
   margin: 20px 0 0;
   font-size: 14px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.62);
+  color: var(--text-dim);
   text-wrap: pretty;
 }
