@@ -12,8 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Alternate dist dir used by the .claude/launch.json dev server:
-    ".next-claude/**",
+    // Alternate NEXT_DIST_DIR outputs (.next-claude dev server,
+    // .next-build, .next-verify, …):
+    ".next-*/**",
   ]),
 ]);
 

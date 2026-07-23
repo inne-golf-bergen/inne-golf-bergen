@@ -13,9 +13,9 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/.next-claude/
+# next.js (`/.next*/` also covers alternate NEXT_DIST_DIR outputs
+# like .next-claude, .next-build, .next-verify)
+/.next*/
 /out/
 
 # production
