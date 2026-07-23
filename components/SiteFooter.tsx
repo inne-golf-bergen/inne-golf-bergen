@@ -65,11 +65,9 @@ export default function SiteFooter() {
             <a data-sweep="true" href={`mailto:${SITE.email}`} className={styles.contactLink}>
               {SITE.email}
             </a>
-            {SITE.phones.map((phone, i) => (
-              <a data-sweep="true" key={phone} href={`tel:${SITE.phoneHrefs[i]}`} className={styles.contactLink}>
-                {phone}
-              </a>
-            ))}
+            <a data-sweep="true" href={`tel:${SITE.phoneHrefs[0]}`} className={styles.contactLink}>
+              {SITE.phones[0]}
+            </a>
             <a data-sweep="true" href={SITE.instagram} target="_blank" rel="noopener" className={styles.contactLink}>
               Instagram
             </a>
