@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { type Lang, langHref, t } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 import styles from "./footer.module.css";
 
-export default function SiteFooter() {
+export default function SiteFooter({ lang }: { lang: Lang }) {
   const pathname = usePathname();
-  const home = pathname === "/" ? "" : "/";
+  const homePath = langHref(lang, "/");
+  const home = pathname === homePath ? "" : homePath;
   const [subscribed, setSubscribed] = useState(false);
 
   return (
@@ -25,7 +27,11 @@ export default function SiteFooter() {
               </span>
             </div>
             <p className={styles.brandText}>
-              Golf. Hele året. To selvbetjente TrackMan-sentre i Bergen — åpne hele døgnet.
+              {t(
+                lang,
+                "Golf. Hele året. To selvbetjente TrackMan-sentre i Bergen — åpne hele døgnet.",
+                "Golf. All year. Two self-serve TrackMan venues in Bergen — open 24/7.",
+              )}
             </p>
           </div>
 
@@ -33,11 +39,12 @@ export default function SiteFooter() {
             <span className={styles.colLabel}>Åsane</span>
             <span className={styles.colText}>
               Haukedalen 1, 5121 Ulset
-              <br />3 × TrackMan iO · VIP-losje
               <br />
-              Gratis parkering
+              {t(lang, "3 × TrackMan iO · VIP-losje", "3 × TrackMan iO · VIP box")}
               <br />
-              Åpent hele døgnet
+              {t(lang, "Gratis parkering", "Free parking")}
+              <br />
+              {t(lang, "Åpent hele døgnet", "Open 24/7")}
             </span>
             <Link data-sweep="true" href={`${home}#book-asane`} className={styles.bookLink}>
               Book Åsane →
@@ -51,9 +58,9 @@ export default function SiteFooter() {
               <br />
               TrackMan iO · 5 m widescreen
               <br />
-              Buss 40 m unna
+              {t(lang, "Buss 40 m unna", "Bus 40 m away")}
               <br />
-              Åpent hele døgnet
+              {t(lang, "Åpent hele døgnet", "Open 24/7")}
             </span>
             <Link data-sweep="true" href={`${home}#book-sandviken`} className={styles.bookLink}>
               Book Sandviken →
@@ -61,7 +68,7 @@ export default function SiteFooter() {
           </div>
 
           <div className={styles.col}>
-            <span className={styles.colLabel}>Kontakt</span>
+            <span className={styles.colLabel}>{t(lang, "Kontakt", "Contact")}</span>
             <a data-sweep="true" href={`mailto:${SITE.email}`} className={styles.contactLink}>
               {SITE.email}
             </a>
@@ -75,9 +82,13 @@ export default function SiteFooter() {
               Facebook
             </a>
             <div className={styles.newsletter}>
-              <span className={styles.newsletterLabel}>Få turneringsdatoer og medlemstilbud</span>
+              <span className={styles.newsletterLabel}>
+                {t(lang, "Få turneringsdatoer og medlemstilbud", "Tournament dates & member offers")}
+              </span>
               {subscribed ? (
-                <span className={styles.newsletterThanks}>Takk! Du står på lista.</span>
+                <span className={styles.newsletterThanks}>
+                  {t(lang, "Takk! Du står på lista.", "You're on the list.")}
+                </span>
               ) : (
                 <form
                   className={styles.newsletterForm}
@@ -90,12 +101,12 @@ export default function SiteFooter() {
                     required
                     type="email"
                     name="epost"
-                    placeholder="din@epost.no"
-                    aria-label="E-postadresse"
+                    placeholder={t(lang, "din@epost.no", "you@mail.com")}
+                    aria-label={t(lang, "E-postadresse", "Email address")}
                     className={styles.newsletterInput}
                   />
                   <button type="submit" className={styles.newsletterBtn}>
-                    Meld på
+                    {t(lang, "Meld på", "Sign up")}
                   </button>
                 </form>
               )}
@@ -106,12 +117,12 @@ export default function SiteFooter() {
         <div className={styles.bottom}>
           <span className={styles.copyright}>© 2026 INNE Golf Bergen · Org.nr. {SITE.orgNr}</span>
           <span className={styles.legalLinks}>
-            <Link data-sweep="true" href="/vilkar" className={styles.legalLink}>
-              Kjøpsvilkår
+            <Link data-sweep="true" href={langHref(lang, "/vilkar")} className={styles.legalLink}>
+              {t(lang, "Kjøpsvilkår", "Terms")}
             </Link>
             <span aria-hidden="true" className={styles.legalDivider} />
-            <Link data-sweep="true" href="/personvern" className={styles.legalLink}>
-              Personvern
+            <Link data-sweep="true" href={langHref(lang, "/personvern")} className={styles.legalLink}>
+              {t(lang, "Personvern", "Privacy")}
             </Link>
           </span>
         </div>

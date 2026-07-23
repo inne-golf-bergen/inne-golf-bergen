@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type Lang, langHref, t } from "@/lib/i18n";
 import Button from "./Button";
 import styles from "./nav.module.css";
 
@@ -21,14 +22,21 @@ function Lockup() {
   );
 }
 
-export default function SiteNav() {
+export default function SiteNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
-  const home = pathname === "/" ? "" : "/";
-  const logoHref = home === "" ? "#top" : "/";
+  const homePath = langHref(lang, "/");
+  const home = pathname === homePath ? "" : homePath;
+  const logoHref = home === "" ? "#top" : homePath;
   const asaneHref = `${home}#asane`;
   const sandvikenHref = `${home}#sandviken`;
   const bookAsaneHref = `${home}#book-asane`;
   const bookSandvikenHref = `${home}#book-sandviken`;
+
+  // The same page in the other language, for the NO/EN switch.
+  const stripped = pathname === "/en" ? "/" : pathname.startsWith("/en/") ? pathname.slice(3) : pathname;
+  const noHref = stripped;
+  const enHref = stripped === "/" ? "/en" : `/en${stripped}`;
+  const otherHref = lang === "no" ? enHref : noHref;
 
   const [menu, setMenu] = useState<MenuId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -111,6 +119,28 @@ export default function SiteNav() {
     setMobileOpen(false);
   };
 
+  const homeLabel = t(lang, "INNE Golf Bergen — hjem", "INNE Golf Bergen — home");
+
+  const langSwitch = (
+    <div role="group" aria-label={t(lang, "Språkvalg", "Language")} className={styles.langSwitch}>
+      <Link
+        href={noHref}
+        aria-current={lang === "no" ? "true" : undefined}
+        className={`${styles.langBtn} ${lang === "no" ? styles.langBtnActive : ""}`}
+      >
+        NO
+      </Link>
+      <span aria-hidden="true" className={styles.langDivider} />
+      <Link
+        href={enHref}
+        aria-current={lang === "en" ? "true" : undefined}
+        className={`${styles.langBtn} ${lang === "en" ? styles.langBtnActive : ""}`}
+      >
+        EN
+      </Link>
+    </div>
+  );
+
   const dropdown = (id: MenuId, label: string, wide: boolean, items: ReactNode) => (
     <div className={styles.menuWrap} onMouseEnter={() => openHover(id)} onMouseLeave={leaveMenus}>
       <button
@@ -133,14 +163,14 @@ export default function SiteNav() {
     <>
       <header id="site-nav" className={`${styles.header} ${glass ? styles.headerGlass : ""}`}>
         <div className={styles.inner}>
-          <Link href={logoHref} aria-label="INNE Golf Bergen — hjem" className={styles.logo}>
+          <Link href={logoHref} aria-label={homeLabel} className={styles.logo}>
             <Lockup />
           </Link>
 
-          <nav className={`nav-d ${styles.desktopNav}`} aria-label="Hovedmeny">
+          <nav className={`nav-d ${styles.desktopNav}`} aria-label={t(lang, "Hovedmeny", "Main menu")}>
             {dropdown(
               "sentre",
-              "Sentre",
+              t(lang, "Sentre", "Venues"),
               true,
               <>
                 <Link data-sweep-in="true" href={asaneHref} className={styles.dropdownItem} onClick={closeAllNav}>
@@ -149,64 +179,108 @@ export default function SiteNav() {
                 <Link data-sweep-in="true" href={sandvikenHref} className={styles.dropdownItem} onClick={closeAllNav}>
                   Sandviken
                 </Link>
-                <Link data-sweep-in="true" href="/praktisk" className={styles.dropdownItem} onClick={closeAllNav}>
-                  Parkering &amp; adgang
+                <Link
+                  data-sweep-in="true"
+                  href={langHref(lang, "/praktisk")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
+                  {t(lang, <>Parkering &amp; adgang</>, <>Parking &amp; access</>)}
                 </Link>
               </>,
             )}
 
-            <Link data-sweep="true" href="/medlemskap" className={styles.topLink}>
-              Priser &amp; medlemskap
+            <Link data-sweep="true" href={langHref(lang, "/medlemskap")} className={styles.topLink}>
+              {t(lang, <>Priser &amp; medlemskap</>, <>Prices &amp; membership</>)}
             </Link>
 
             {dropdown(
               "selskap",
-              "Selskap",
+              t(lang, "Selskap", "Events"),
               false,
               <>
-                <Link data-sweep-in="true" href="/vip-losjen" className={styles.dropdownItem} onClick={closeAllNav}>
-                  VIP-losjen
+                <Link
+                  data-sweep-in="true"
+                  href={langHref(lang, "/vip-losjen")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
+                  {t(lang, "VIP-losjen", "VIP Box")}
                 </Link>
-                <Link data-sweep-in="true" href="/bursdag" className={styles.dropdownItem} onClick={closeAllNav}>
-                  Bursdag
+                <Link
+                  data-sweep-in="true"
+                  href={langHref(lang, "/bursdag")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
+                  {t(lang, "Bursdag", "Birthday")}
                 </Link>
-                <Link data-sweep-in="true" href="/bedrift" className={styles.dropdownItem} onClick={closeAllNav}>
-                  Bedrift
+                <Link
+                  data-sweep-in="true"
+                  href={langHref(lang, "/bedrift")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
+                  {t(lang, "Bedrift", "Company")}
                 </Link>
               </>,
             )}
 
             {dropdown(
               "turn",
-              "Turneringer",
+              t(lang, "Turneringer", "Tournaments"),
               false,
               <>
-                <Link data-sweep-in="true" href="/vinterturnering" className={styles.dropdownItem} onClick={closeAllNav}>
-                  Vinterturnering
+                <Link
+                  data-sweep-in="true"
+                  href={langHref(lang, "/vinterturnering")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
+                  {t(lang, "Vinterturnering", "Winter Cup")}
                 </Link>
-                <Link data-sweep-in="true" href="/polf" className={styles.dropdownItem} onClick={closeAllNav}>
+                <Link
+                  data-sweep-in="true"
+                  href={langHref(lang, "/polf")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
                   POLF
                 </Link>
-                <Link data-sweep-in="true" href="/veien-til-golf" className={styles.dropdownItem} onClick={closeAllNav}>
-                  Veien til Golf
+                <Link
+                  data-sweep-in="true"
+                  href={langHref(lang, "/veien-til-golf")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
+                  {t(lang, "Veien til Golf", "Learn golf")}
                 </Link>
               </>,
             )}
 
-            <Link data-sweep="true" href="/gavekort" className={styles.topLink}>
-              Verdikort
+            <Link data-sweep="true" href={langHref(lang, "/gavekort")} className={styles.topLink}>
+              {t(lang, "Verdikort", "Vouchers")}
             </Link>
 
+            {langSwitch}
+
             <Button size="md" onClick={openSheet}>
-              BOOK NÅ
+              {t(lang, "BOOK NÅ", "BOOK")}
             </Button>
           </nav>
 
           <div className={`nav-m ${styles.mobileControls}`}>
+            <Link
+              href={otherHref}
+              aria-label={t(lang, "Switch to English", "Bytt til norsk")}
+              className={`${styles.iconBtn} ${styles.langMobile}`}
+            >
+              {t(lang, "EN", "NO")}
+            </Link>
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              aria-label="Åpne meny"
+              aria-label={t(lang, "Åpne meny", "Open menu")}
               className={`${styles.iconBtn} ${styles.burger}`}
             >
               <span className={styles.burgerBar} />
@@ -217,57 +291,71 @@ export default function SiteNav() {
       </header>
 
       {mobileOpen && (
-        <div role="dialog" aria-modal="true" aria-label="Meny" className={styles.mobileMenu}>
+        <div role="dialog" aria-modal="true" aria-label={t(lang, "Meny", "Menu")} className={styles.mobileMenu}>
           <div className={styles.mobileMenuBar}>
-            <Link href={logoHref} onClick={closeAllNav} aria-label="INNE Golf Bergen — hjem" className={styles.logo}>
+            <Link href={logoHref} onClick={closeAllNav} aria-label={homeLabel} className={styles.logo}>
               <Lockup />
             </Link>
-            <button type="button" onClick={() => setMobileOpen(false)} aria-label="Lukk meny" className={styles.iconBtn}>
-              ✕
-            </button>
+            <div className={styles.mobileMenuActions}>
+              <Link
+                href={otherHref}
+                aria-label={t(lang, "Switch to English", "Bytt til norsk")}
+                className={`${styles.iconBtn} ${styles.langMobile}`}
+              >
+                {t(lang, "EN", "NO")}
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                aria-label={t(lang, "Lukk menyen", "Close menu")}
+                className={styles.iconBtn}
+              >
+                ✕
+              </button>
+            </div>
           </div>
-          <nav aria-label="Mobilmeny" className={styles.mobileNav}>
-            <span className={`${styles.mobileGroup} ${styles.mobileGroupFirst}`}>Sentre</span>
+          <nav aria-label={t(lang, "Mobilmeny", "Menu")} className={styles.mobileNav}>
+            <span className={`${styles.mobileGroup} ${styles.mobileGroupFirst}`}>{t(lang, "Sentre", "Venues")}</span>
             <Link href={asaneHref} onClick={closeAllNav} className={styles.mobileLink}>
               Åsane
             </Link>
             <Link href={sandvikenHref} onClick={closeAllNav} className={styles.mobileLink}>
               Sandviken
             </Link>
-            <Link href="/praktisk" onClick={closeAllNav} className={styles.mobileLink}>
-              Parkering &amp; adgang
+            <Link href={langHref(lang, "/praktisk")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, <>Parkering &amp; adgang</>, <>Parking &amp; access</>)}
             </Link>
-            <span className={styles.mobileGroup}>Priser</span>
-            <Link href="/medlemskap" onClick={closeAllNav} className={styles.mobileLink}>
-              Priser &amp; medlemskap
+            <span className={styles.mobileGroup}>{t(lang, "Priser", "Prices")}</span>
+            <Link href={langHref(lang, "/medlemskap")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, <>Priser &amp; medlemskap</>, <>Prices &amp; membership</>)}
             </Link>
-            <span className={styles.mobileGroup}>Selskap</span>
-            <Link href="/vip-losjen" onClick={closeAllNav} className={styles.mobileLink}>
-              VIP-losjen
+            <span className={styles.mobileGroup}>{t(lang, "Selskap", "Events")}</span>
+            <Link href={langHref(lang, "/vip-losjen")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "VIP-losjen", "VIP Box")}
             </Link>
-            <Link href="/bursdag" onClick={closeAllNav} className={styles.mobileLink}>
-              Bursdag
+            <Link href={langHref(lang, "/bursdag")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "Bursdag", "Birthday")}
             </Link>
-            <Link href="/bedrift" onClick={closeAllNav} className={styles.mobileLink}>
-              Bedrift
+            <Link href={langHref(lang, "/bedrift")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "Bedrift", "Company")}
             </Link>
-            <span className={styles.mobileGroup}>Turneringer</span>
-            <Link href="/vinterturnering" onClick={closeAllNav} className={styles.mobileLink}>
-              Vinterturnering
+            <span className={styles.mobileGroup}>{t(lang, "Turneringer", "Tournaments")}</span>
+            <Link href={langHref(lang, "/vinterturnering")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "Vinterturnering", "Winter Cup")}
             </Link>
-            <Link href="/polf" onClick={closeAllNav} className={styles.mobileLink}>
+            <Link href={langHref(lang, "/polf")} onClick={closeAllNav} className={styles.mobileLink}>
               POLF
             </Link>
-            <Link href="/veien-til-golf" onClick={closeAllNav} className={styles.mobileLink}>
-              Veien til Golf
+            <Link href={langHref(lang, "/veien-til-golf")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "Veien til Golf", "Learn golf")}
             </Link>
-            <span className={styles.mobileGroup}>Verdikort</span>
-            <Link href="/gavekort" onClick={closeAllNav} className={styles.mobileLink}>
-              Kjøp gavekort
+            <span className={styles.mobileGroup}>{t(lang, "Verdikort", "Vouchers")}</span>
+            <Link href={langHref(lang, "/gavekort")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "Kjøp gavekort", "Buy vouchers")}
             </Link>
             <div className={styles.mobileCta}>
               <Button size="lg" fullWidth onClick={openSheet}>
-                BOOK NÅ
+                {t(lang, "BOOK NÅ", "BOOK")}
               </Button>
             </div>
           </nav>
@@ -275,19 +363,24 @@ export default function SiteNav() {
       )}
 
       {sheetOpen && (
-        <div role="dialog" aria-modal="true" aria-label="Velg senter" className={styles.sheet}>
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t(lang, "Velg senter", "Pick venue")}
+          className={styles.sheet}
+        >
           <div className={styles.sheetBackdrop} onClick={() => setSheetOpen(false)} />
           <div className={styles.sheetPanel}>
             <button
               type="button"
               onClick={() => setSheetOpen(false)}
-              aria-label="Lukk"
+              aria-label={t(lang, "Lukk", "Close")}
               className={`${styles.iconBtn} ${styles.sheetClose}`}
             >
               ✕
             </button>
-            <div className={styles.sheetKicker}>Book på 60 sekunder</div>
-            <h2 className={styles.sheetTitle}>Velg senter</h2>
+            <div className={styles.sheetKicker}>{t(lang, "Book på 60 sekunder", "Book in 60 seconds")}</div>
+            <h2 className={styles.sheetTitle}>{t(lang, "Velg senter", "Pick venue")}</h2>
             <div className={styles.sheetGrid}>
               <Link href={bookAsaneHref} onClick={closeAllNav} className={styles.sheetCard}>
                 <div className={styles.sheetCardTop}>
@@ -309,7 +402,11 @@ export default function SiteNav() {
               </Link>
             </div>
             <p className={styles.sheetNote}>
-              Gratis lånekøller til herrer, damer og juniorer.
+              {t(
+                lang,
+                "Gratis lånekøller til herrer, damer og juniorer.",
+                "Free loaner clubs for men, women and juniors.",
+              )}
             </p>
           </div>
         </div>
@@ -317,7 +414,7 @@ export default function SiteNav() {
 
       <div className={`m-only ${styles.bookBar}`}>
         <Button size="lg" fullWidth onClick={openSheet}>
-          BOOK NÅ
+          {t(lang, "BOOK NÅ", "BOOK")}
         </Button>
       </div>
     </>

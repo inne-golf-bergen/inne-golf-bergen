@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { type Lang, t } from "@/lib/i18n";
 import styles from "./compare.module.css";
 
 /**
@@ -9,7 +10,7 @@ import styles from "./compare.module.css";
  * Lofoten Links and the same hole in Virtual Golf 3. Pointer drag,
  * arrow-key support and a one-time intro nudge when scrolled into view.
  */
-export default function CompareSlider() {
+export default function CompareSlider({ lang }: { lang: Lang }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const clipRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
@@ -115,7 +116,7 @@ export default function CompareSlider() {
           upscale it ~2.5×. Over-declaring fetches the full-width original. */}
       <Image
         src="/assets/vg3-lofoten-render.webp"
-        alt="Samme hull gjengitt i Virtual Golf 3"
+        alt={t(lang, "Samme hull gjengitt i Virtual Golf 3", "The same hole in Virtual Golf 3")}
         fill
         sizes="(max-width: 768px) 250vw, 100vw"
         quality={90}
@@ -125,7 +126,7 @@ export default function CompareSlider() {
       <div ref={clipRef} id="vg3-clip" className={styles.clip}>
         <Image
           src="/assets/vg3-lofoten-foto.webp"
-          alt="Dronefoto av Lofoten Links"
+          alt={t(lang, "Dronefoto av Lofoten Links", "Lofoten Links from a drone")}
           fill
           sizes="(max-width: 768px) 250vw, 100vw"
           quality={90}
@@ -135,9 +136,13 @@ export default function CompareSlider() {
       </div>
       <div className={styles.overlay}>
         <div className={styles.overlayText}>
-          <h2 className={styles.title}>Så ekte er det.</h2>
+          <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It's this real.")}</h2>
           <p className={styles.copy}>
-            TrackMans nyeste grafikkmotor, som du spiller på i alle våre bayer.
+            {t(
+              lang,
+              "TrackMans nyeste grafikkmotor, som du spiller på i alle våre bayer.",
+              "TrackMan's latest graphics engine, on every bay in both venues.",
+            )}
           </p>
         </div>
       </div>
@@ -146,7 +151,7 @@ export default function CompareSlider() {
         id="vg3-line"
         role="slider"
         tabIndex={0}
-        aria-label="Sammenlign dronefoto og Virtual Golf 3"
+        aria-label={t(lang, "Sammenlign dronefoto og Virtual Golf 3", "Compare drone photo and Virtual Golf 3")}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={47}

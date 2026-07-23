@@ -1,3 +1,5 @@
+import { type Lang, t } from "./i18n";
+
 export const SITE = {
   name: "INNE Golf Bergen",
   legalName: "IN GOLF BERGEN DA",
@@ -30,6 +32,7 @@ export function mailBody(rows: [string, FormDataEntryValue | null][], intro?: st
 }
 
 const location = (
+  lang: Lang,
   id: string,
   name: string,
   description: string,
@@ -47,7 +50,7 @@ const location = (
   email: SITE.email,
   priceRange: "100–400 kr",
   currenciesAccepted: "NOK",
-  paymentAccepted: "Kort, Vipps",
+  paymentAccepted: t(lang, "Kort, Vipps", "Card, Vipps"),
   address: {
     "@type": "PostalAddress",
     streetAddress: street,
@@ -65,26 +68,36 @@ const location = (
   sameAs: [SITE.instagram],
 });
 
-export const LOCATIONS_JSONLD = {
+export const locationsJsonld = (lang: Lang) => ({
   "@context": "https://schema.org",
   "@graph": [
     location(
+      lang,
       "asane",
       "INNE Golf Bergen — Åsane",
-      "Innendørs golfsimulatorsenter med TrackMan iO i Åsane, Bergen. Selvbetjent, åpent hele døgnet.",
+      t(
+        lang,
+        "Innendørs golfsimulatorsenter med TrackMan iO i Åsane, Bergen. Selvbetjent, åpent hele døgnet.",
+        "Indoor golf simulator venue with TrackMan iO in Åsane, Bergen. Self-serve, open 24/7.",
+      ),
       "https://innegolfbergen.no/assets/photos/bays-wide.jpg",
       "Haukedalen 1",
       "5121",
       "Ulset",
     ),
     location(
+      lang,
       "sandviken",
       "INNE Golf Bergen — Sandviken",
-      "Innendørs golfsimulatorsenter med TrackMan iO og 5 m widescreen i Sandviken, Bergen. Selvbetjent, åpent hele døgnet.",
+      t(
+        lang,
+        "Innendørs golfsimulatorsenter med TrackMan iO og 5 m widescreen i Sandviken, Bergen. Selvbetjent, åpent hele døgnet.",
+        "Indoor golf simulator venue with TrackMan iO and a 5 m widescreen in Sandviken, Bergen. Self-serve, open 24/7.",
+      ),
       "https://innegolfbergen.no/assets/photos/bay-screen-stools.jpg",
       "Sandviksbodene 9",
       "5035",
       "Bergen",
     ),
   ],
-};
+});

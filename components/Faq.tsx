@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
-import s from "@/app/page.module.css";
+import s from "@/app/[lang]/page.module.css";
 
 const ICON_SPRING = { type: "spring", stiffness: 260, damping: 22 } as const;
 /* iOS drawer curve — decisive open, no dead time */
