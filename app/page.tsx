@@ -136,7 +136,8 @@ export default function Home() {
           </h1>
           <HeroItem>
             <p className={s.heroLead}>
-              TrackMan iO i Åsane og Sandviken. Book på 60 sekunder — fra 100 kr per halvtime.
+              TrackMan iO i Åsane og Sandviken<span className={s.heroLeadBooking}>. Book på 60 sekunder</span> — fra 100
+              kr per halvtime.
             </p>
           </HeroItem>
           <HeroItem className={s.heroCtas}>
@@ -379,6 +380,10 @@ export default function Home() {
             <p className={`${s.simCopy} ${s.simCopyNext}`}>
               Slå med dine egne køller eller våre gratis lånekøller, se dataene i sanntid, og spill over 300
               verdensbaner i Virtual Golf.
+            </p>
+            <p className={`${s.simCopy} ${s.simCopyMobile}`}>
+              TrackMan iO leser hele ballflukten på hvert slag — de samme tallene proffene på touren trener etter.
+              Gratis lånekøller, data i sanntid og over 300 verdensbaner i Virtual Golf.
             </p>
           </FadeUp>
         </div>

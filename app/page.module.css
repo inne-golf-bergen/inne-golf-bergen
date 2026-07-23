@@ -109,6 +109,13 @@
   text-wrap: pretty;
 }
 
+/* Hide the booking clause on mobile so the lead reads shorter */
+@media (max-width: 768px) {
+  .heroLeadBooking {
+    display: none;
+  }
+}
+
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
@@ -646,6 +653,23 @@
 
 .simCopyNext {
   margin: 14px 0 0;
+}
+
+/* Full copy on desktop, one condensed paragraph on mobile */
+.simCopyMobile {
+  display: none;
+  margin: 20px 0 0;
+}
+
+@media (max-width: 768px) {
+  .simCopyFirst,
+  .simCopyNext {
+    display: none;
+  }
+
+  .simCopyMobile {
+    display: block;
+  }
 }
 
 .simSpacer {
