@@ -60,6 +60,12 @@
   max-width: 30ch;
 }
 
+@media (max-width: 768px) {
+  .brandText {
+    display: none;
+  }
+}
+
 .col {
   display: flex;
   flex-direction: column;
