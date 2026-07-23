@@ -18,7 +18,7 @@ import { EASE_OUT, LINE_SPRING, REVEAL_SPRING } from "./tokens";
  * Spring/easing values live in ./tokens. Every component degrades to
  * static markup under prefers-reduced-motion.
  */
-/* fires when the element's top clears the bottom 12% of the viewport (≈ GSAP "top 88%") */
+/* fires when the element’s top clears the bottom 12% of the viewport (≈ GSAP "top 88%") */
 const VIEWPORT = { once: true, margin: "0px 0px -12% 0px" } as const;
 
 /* ---------- scroll / mount reveals ---------- */

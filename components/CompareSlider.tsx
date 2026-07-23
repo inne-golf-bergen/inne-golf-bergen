@@ -118,7 +118,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
       {/* ≤768px: the in-image overlay is hidden, so the framing moves above
           the slider instead of disappearing */}
       <div className={styles.mobileHead}>
-        <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It's this real.")}</h2>
+        <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It’s this real.")}</h2>
         <p className={styles.copy}>
           {t(
             lang,
@@ -153,12 +153,12 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
       </div>
       <div className={styles.overlay}>
         <div className={styles.overlayText}>
-          <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It's this real.")}</h2>
+          <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It’s this real.")}</h2>
           <p className={styles.copy}>
             {t(
               lang,
               "TrackMans nyeste grafikkmotor, som du spiller på i alle våre bayer.",
-              "TrackMan's latest graphics engine, on every bay in both venues.",
+              "TrackMan’s latest graphics engine, on every bay in both venues.",
             )}
           </p>
         </div>

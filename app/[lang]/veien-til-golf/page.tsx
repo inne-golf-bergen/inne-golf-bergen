@@ -51,7 +51,7 @@ const steg = (lang: Lang): { kicker: string; title: string; copy: string; featur
     copy: t(
       lang,
       "Alt gjennomføres over 4 kursdager. Passer ikke en dato, ordner vi det.",
-      "Everything runs over 4 course days. Date clash? We'll sort it.",
+      "Everything runs over 4 course days. Date clash? We’ll sort it.",
     ),
   },
   {
@@ -103,7 +103,7 @@ export default async function VeienTilGolfPage({ params }: { params: Promise<{ l
           </p>
           <div data-fade="true" className={sub.heroCtaWrap}>
             <Button as="a" href="#pameld" size="lg">
-              {t(lang, "MELD INTERESSE", "I'M INTERESTED")}
+              {t(lang, "MELD INTERESSE", "I’M INTERESTED")}
             </Button>
           </div>
         </div>

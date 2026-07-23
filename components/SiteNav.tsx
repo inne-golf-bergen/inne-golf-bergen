@@ -115,7 +115,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
 
   useEffect(() => {
     const locked = mobileOpen || sheetOpen;
-    /* compensate classic scrollbars so the page doesn't shift under the lock */
+    /* compensate classic scrollbars so the page doesn’t shift under the lock */
     const gap = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = locked ? "hidden" : "";
     document.body.style.paddingRight = locked && gap > 0 ? `${gap}px` : "";
@@ -188,7 +188,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
       onMouseEnter={() => openHover(id)}
       onMouseLeave={leaveMenus}
       onBlur={(e) => {
-        /* keyboard users tabbing past the last item shouldn't leave a menu open */
+        /* keyboard users tabbing past the last item shouldn’t leave a menu open */
         if (!e.currentTarget.contains(e.relatedTarget as Node)) setMenu(null);
       }}
     >
@@ -425,7 +425,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             </Link>
             <span className={styles.mobileGroup}>{t(lang, "Verdikort", "Vouchers")}</span>
             <Link href={langHref(lang, "/gavekort")} onClick={closeAllNav} className={styles.mobileLink}>
-              {t(lang, "Kjøp gavekort", "Buy vouchers")}
+              {t(lang, "Kjøp verdikort", "Buy vouchers")}
             </Link>
             <div className={styles.mobileCta}>
               <Button size="lg" fullWidth onClick={openSheet}>

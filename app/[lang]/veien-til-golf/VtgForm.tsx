@@ -87,7 +87,7 @@ export default function VtgForm({ lang }: { lang: Lang }) {
         />
       </label>
       <button type="submit" className="formSubmit">
-        {t(lang, "Meld interesse", "I'm interested")}
+        {t(lang, "Meld interesse", "I’m interested")}
       </button>
       <p className={sub.formFoot}>
         {t(

@@ -14,8 +14,6 @@
   --ink-500: #4f4337;
   --gray-400: #8a7d70;
   --gray-300: #a99b8d;
-  --gray-200: #cfc4b8;
-  --gray-100: #e9e1d7;
   --white: #f4ede6;
 
   /* kobber — the single accent */
@@ -25,9 +23,6 @@
   --orange-600: #b4714e;
   --orange-700: #96593b;
   --orange-subtle: rgba(201, 130, 92, 0.14);
-
-  --forest-950: #0a130e;
-  --forest-900: #0e1a14;
 
   /* text on copper surfaces */
   --text-on-accent: #171008;
@@ -56,8 +51,6 @@
   --line-14: rgba(244, 237, 230, 0.14);
   --line-16: rgba(244, 237, 230, 0.16);
   --line-18: rgba(244, 237, 230, 0.18);
-
-  --scrim: rgba(13, 10, 8, 0.74);
 
   /* typography (font files land via next/font on <body>) */
   --font-display: var(--font-syne), system-ui, sans-serif;
@@ -563,12 +556,23 @@ select.fieldInput {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(201, 130, 92, 0.55);
   }
 
   50% {
     opacity: 0.55;
-    box-shadow: 0 0 0 6px rgba(201, 130, 92, 0);
+  }
+}
+
+@keyframes inne-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
   }
 }
 

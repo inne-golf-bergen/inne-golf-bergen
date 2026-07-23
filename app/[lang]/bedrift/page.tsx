@@ -139,7 +139,7 @@ export default async function BedriftPage({ params }: { params: Promise<{ lang: 
               {t(
                 lang,
                 "Fortell oss litt om kvelden, så setter vi opp et forslag som passer laget. Svar innen én arbeidsdag.",
-                "Tell us a bit about the night and we'll draft a plan that fits the team. Reply within one workday.",
+                "Tell us a bit about the night and we’ll draft a plan that fits the team. Reply within one workday.",
               )}
             </p>
           </div>

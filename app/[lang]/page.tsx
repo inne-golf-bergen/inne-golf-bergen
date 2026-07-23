@@ -8,7 +8,6 @@ import HeroVideo from "@/components/HeroVideo";
 import {
   Cascade,
   CascadeItem,
-  CountUp,
   FadeUp,
   HeroIntro,
   HeroItem,
@@ -16,6 +15,7 @@ import {
   Magnetic,
   ParallaxY,
 } from "@/components/motion/fx";
+import MedlemTall from "@/components/motion/MedlemTall";
 import OpenBookButton from "@/components/OpenBookButton";
 import { asLang, type Lang, langHref, t } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
@@ -39,7 +39,7 @@ const faqItems = (lang: Lang): { q: string; a: string }[] => [
     a: t(
       lang,
       "Nei. Gratis lånekøller, baller og tees ligger klare i begge sentre — herre, dame og junior.",
-      "No. Free loaner clubs, balls and tees at both venues — men's, women's and junior.",
+      "No. Free loaner clubs, balls and tees at both venues — men’s, women’s and junior.",
     ),
   },
   {
@@ -225,7 +225,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </CascadeItem>
             <CascadeItem id="sandviken" index={1} className={s.centreCard}>
               <span id="book-sandviken" aria-hidden="true" className={s.centreAnchor} />
-              <div className={s.centreMediaWrap}>
+              <div className={s.centreMedia}>
                 <Image
                   src="/assets/photos/sandviken-bay.jpg"
                   alt={t(lang, "Widescreen-bay med barkrakker i Sandviken", "Widescreen bay with stools in Sandviken")}
@@ -278,11 +278,11 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   {t(lang, "avhengig av tidspunkt og senter", "depends on time and venue")}
                 </span>
               </span>
-              <span className={s.priceValue}>{t(lang, "Fra 100 kr", "100–200 kr")}</span>
+              <span className={s.priceValue}>100–200 kr</span>
             </div>
             <div className={s.priceRow}>
               <span className={s.priceLabel}>Bay · 60 min</span>
-              <span className={s.priceValue}>{t(lang, "Fra 200 kr", "200–400 kr")}</span>
+              <span className={s.priceValue}>200–400 kr</span>
             </div>
             <div className={s.priceRow}>
               <Link data-sweep="true" href={langHref(lang, "/medlemskap")} className={s.priceLinkLabel}>
@@ -298,7 +298,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 {t(
                   lang,
                   "Gratis lånekøller, baller og tees — herre, dame og junior",
-                  "Free loaner clubs, balls, tees — men's, women's, junior",
+                  "Free loaner clubs, balls, tees — men’s, women’s, junior",
                 )}
               </span>
             </div>
@@ -314,12 +314,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           </FadeUp>
           <FadeUp>
             <h2 id="medlem-tall" className={s.medlemTall}>
-              <span className={s.medlemLine}>
-                {t(lang, "Betal", "Pay")} <CountUp value={1800} />.
-              </span>
-              <span className={s.medlemLine}>
-                {t(lang, "Få", "Get")} <CountUp value={2800} className={s.medlemAccent} />.
-              </span>
+              <MedlemTall
+                pay={t(lang, "Betal", "Pay")}
+                get={t(lang, "Få", "Get")}
+                lineClass={s.medlemLine}
+                accentClass={s.medlemAccent}
+              />
             </h2>
           </FadeUp>
           <FadeUp>
@@ -503,7 +503,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </CascadeItem>
             <CascadeItem index={1} className={s.cardCell}>
               <Link href={langHref(lang, "/bursdag")} className={s.photoCard}>
-              <div className={s.photoCardMediaWrap}>
+              <div className={s.photoCardMedia}>
                 <Image
                   src="/assets/photos/bursdag-bay.jpg"
                   alt={t(lang, "Bay med green og loungeområde", "Bay with green and lounge")}
@@ -644,7 +644,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <Eyebrow>FAQ</Eyebrow>
             <h2 className={s.h2}>{t(lang, "Det du lurer på.", "Your questions.")}</h2>
             <p className={s.faqLead}>
-              {t(lang, "Finner du ikke svaret? Skriv til", "Can't find the answer? Write to")}{" "}
+              {t(lang, "Finner du ikke svaret? Skriv til", "Can’t find the answer? Write to")}{" "}
               <a data-sweep="true" href={`mailto:${SITE.email}`} className={s.faqLink}>
                 {SITE.email}
               </a>

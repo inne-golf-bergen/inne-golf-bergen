@@ -42,7 +42,7 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
             {t(
               lang,
               "Begge sentre er selvbetjente og åpne hele døgnet. Her finner du frem — og inn.",
-              "Both venues are self-serve and open 24/7. Here's how to find us — and get in.",
+              "Both venues are self-serve and open 24/7. Here’s how to find us — and get in.",
             )}
           </p>
         </div>
@@ -206,7 +206,7 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
                 {t(
                   lang,
                   "Lås opp døra med mobilen fra bekreftelsen — så er du inne. Ingen nøkkel, ingen kode å huske.",
-                  "Unlock the door with your phone from the confirmation — and you're in. No key, no code.",
+                  "Unlock the door with your phone from the confirmation — and you’re in. No key, no code.",
                 )}
               </span>
             </div>

@@ -273,6 +273,6 @@
   font-size: var(--label-size-m);
   letter-spacing: var(--label-track-m);
   font-weight: 600;
-  color: #6e635a;
+  color: var(--gray-400);
   text-transform: uppercase;
 }

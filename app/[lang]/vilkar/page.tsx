@@ -59,7 +59,7 @@ export default async function VilkarPage({ params }: { params: Promise<{ lang: s
                   <span className={s.sectionNum}>01</span>
                   <h2 className={s.sectionH2}>{t(lang, "Kjøpsvilkår", "Sales terms")}</h2>
                 </div>
-                {/* Internal handoff note: INNE's sales terms go in this slot
+                {/* Internal handoff note: INNE’s sales terms go in this slot
                     verbatim once supplied — do not rewrite them. */}
                 <div className={s.slot}>
                   <span className={s.slotKicker}>{t(lang, "Under arbeid", "In progress")}</span>

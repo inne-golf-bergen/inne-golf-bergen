@@ -171,11 +171,23 @@
 }
 
 .pulseDot {
+  position: relative;
   width: 7px;
   height: 7px;
   background: var(--orange-500);
   border-radius: 50%;
   animation: inne-pulse 2.6s ease-in-out infinite;
+}
+
+/* the expanding ring lives on a pseudo-element as transform/opacity —
+   the old box-shadow spread repainted the hero every frame, forever */
+.pulseDot::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 130, 92, 0.55);
+  animation: inne-ring 2.6s ease-in-out infinite;
 }
 
 /* Mobile hero: the fixed BOOK NÅ bar (m-only, same 768px breakpoint) is the
@@ -248,12 +260,6 @@
 }
 
 .centreMedia {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-}
-
-.centreMediaWrap {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
@@ -710,12 +716,6 @@
 }
 
 .photoCardMedia {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-}
-
-.photoCardMediaWrap {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;

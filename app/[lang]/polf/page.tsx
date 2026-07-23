@@ -142,7 +142,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
       <section className={`${sub.bg900} ${sub.section}`}>
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
-            <Eyebrow>{t(lang, "Hva er POLF?", "What's POLF?")}</Eyebrow>
+            <Eyebrow>{t(lang, "Hva er POLF?", "What’s POLF?")}</Eyebrow>
             <h2 className={`${sub.h2} ${s.introH2}`}>{t(lang, "To spill, én seier.", "Two games, one win.")}</h2>
           </div>
           <div data-st="true">
@@ -203,7 +203,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
           <div data-st="true">
             <Eyebrow>{t(lang, "Første runde · 2025", "Round one · 2025")}</Eyebrow>
             <h2 className={`${sub.h2} ${sub.h2Mid}`}>
-              {t(lang, "Bergens første POLF-arrangement.", "Bergen's first POLF event.")}
+              {t(lang, "Bergens første POLF-arrangement.", "Bergen’s first POLF event.")}
             </h2>
           </div>
           <div className={s.eventGrid}>
@@ -257,8 +257,8 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
               <p className={s.eventCopy}>
                 {t(
                   lang,
-                  "Texas Hold'em No Limit + Bounty i lokalene våre.",
-                  "Texas Hold'em No Limit + Bounty at our venue.",
+                  "Texas Hold’em No Limit + Bounty i lokalene våre.",
+                  "Texas Hold’em No Limit + Bounty at our venue.",
                 )}
               </p>
               <div className={s.pokerRows}>
