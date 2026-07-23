@@ -4,6 +4,7 @@ export const SITE = {
   orgNr: "933 998 584",
   email: "post@innegolfbergen.no",
   instagram: "https://instagram.com/innegolfbergen",
+  facebook: "https://www.facebook.com/profile.php?id=61564888844128",
   phones: ["913 30 248", "404 73 935", "995 38 913"],
   phoneHrefs: ["+4791330248", "+4740473935", "+4799538913"],
   bookAsane: "https://innegolfbergen.no/book/asane",

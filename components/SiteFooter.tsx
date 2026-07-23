@@ -71,6 +71,9 @@ export default function SiteFooter() {
             <a data-sweep="true" href={SITE.instagram} target="_blank" rel="noopener" className={styles.contactLink}>
               Instagram
             </a>
+            <a data-sweep="true" href={SITE.facebook} target="_blank" rel="noopener" className={styles.contactLink}>
+              Facebook
+            </a>
             <div className={styles.newsletter}>
               <span className={styles.newsletterLabel}>Få turneringsdatoer og medlemstilbud</span>
               {subscribed ? (
