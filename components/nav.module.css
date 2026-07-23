@@ -1,9 +1,13 @@
-/* ============ Fixed header ============ */
+/* ============ Sticky header ============
+   sticky, not fixed: WebKit leaves stale content tiles under a translucent
+   FIXED overlay while scrolling (old page content ghosts through the glass —
+   reproduced in Safari). A sticky header lives in the scrolling tree, so the
+   strip under the glass always repaints. The negative margin hands the flow
+   space back, keeping the overlay layout identical to the fixed version. */
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
+  margin-bottom: -77px; /* .inner 76px + 1px border-bottom */
   z-index: 60;
   border-bottom: 1px solid transparent;
   transition:
@@ -483,7 +487,9 @@
   right: 0;
   bottom: 0;
   z-index: 60;
-  background: rgba(23, 19, 16, 0.85);
+  /* near-opaque: translucent fixed overlays can show stale scroll tiles in
+     WebKit (see .header) — a bottom bar can't be sticky, so cut show-through */
+  background: rgba(23, 19, 16, 0.94);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid var(--line-14);
