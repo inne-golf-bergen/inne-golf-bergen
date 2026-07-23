@@ -103,7 +103,11 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* clip, not hidden: hidden makes body a scroll container, which can break
+     position: sticky and adds a compositing surface; clip only clips.
+     The hidden line stays as the fallback for engines without clip. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1,
@@ -518,6 +522,10 @@ select.fieldInput {
 /* ============================================================
    Landing one-offs: ambience, sim section, compare slider
    ============================================================ */
+/* Both ambience layers composite with plain alpha — a blend mode here
+   (screen/overlay) forces WebKit to re-blend the full viewport against
+   video + scroll every frame, which is what made Safari drop frames.
+   On the near-black palette the alpha version is visually identical. */
 #inne-glow {
   position: fixed;
   left: 0;
@@ -529,20 +537,20 @@ select.fieldInput {
   z-index: 30;
   pointer-events: none;
   background: radial-gradient(circle, rgba(214, 147, 109, 0.11), transparent 62%);
-  mix-blend-mode: screen;
   opacity: 0;
   will-change: transform;
 }
 
 #inne-grain {
   position: fixed;
-  inset: -120px;
+  /* the jitter translates up to ±8% of this box — bleed must scale with it */
+  inset: -10%;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.055;
-  mix-blend-mode: overlay;
+  opacity: 0.045;
   background-size: 260px 260px;
   animation: inne-grain 8s steps(8) infinite;
+  will-change: transform;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 

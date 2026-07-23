@@ -30,6 +30,7 @@ export default function MedlemTall({
   const pathRef = useRef<SVGPathElement>(null);
   const dotRef = useRef<SVGCircleElement>(null);
   const [d, setD] = useState("");
+  const totalRef = useRef(0);
   const reduce = useReducedMotion();
   const inView = useInView(wrapRef, { once: true, margin: "0px 0px -18% 0px" });
   const progress = useMotionValue(0);
@@ -67,11 +68,14 @@ export default function MedlemTall({
   useEffect(() => {
     if (reduce || !inView || !d) return;
     const controls = animate(progress, 1, { duration: 1.1, ease: EASE_OUT, delay: 0.75 });
+    /* measure geometry during the idle delay, not on the first animated frame */
+    if (pathRef.current) totalRef.current = pathRef.current.getTotalLength();
     const unsub = progress.on("change", (p) => {
       const path = pathRef.current;
       const dot = dotRef.current;
       if (!path || !dot) return;
-      const pt = path.getPointAtLength(path.getTotalLength() * p);
+      if (!totalRef.current) totalRef.current = path.getTotalLength();
+      const pt = path.getPointAtLength(totalRef.current * p);
       dot.setAttribute("cx", String(pt.x));
       dot.setAttribute("cy", String(pt.y));
     });
@@ -107,6 +111,9 @@ export default function MedlemTall({
             height: "100%",
             overflow: "visible",
             pointerEvents: "none",
+            /* own compositor layer: the stroke draw repaints the svg alone,
+               not the giant headline behind it */
+            transform: "translateZ(0)",
           }}
         >
           {reduce ? (

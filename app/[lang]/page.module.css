@@ -473,6 +473,10 @@
   letter-spacing: -0.025em;
   text-transform: uppercase;
   color: var(--white);
+  /* the count-up rewrites this text every frame; the global h2
+     text-wrap: balance would re-run line balancing on each rewrite.
+     Both lines are single-line blocks — balancing buys nothing here. */
+  text-wrap: wrap;
 }
 
 .medlemLine {

@@ -45,20 +45,71 @@ function initHeroVideo(
     return; // no matchMedia: keep the gradient backdrop only
   }
   const s = mobile ? mob : desk;
-  const src = v.canPlayType('video/mp4; codecs="av01.0.08M.10"')
-    ? s.av1
-    : v.canPlayType('video/webm; codecs="vp9"')
-      ? s.vp9
-      : s.h264;
-  v.src = src;
-  v.load();
-  v.addEventListener(
-    "canplay",
-    () => {
-      v.play().catch(() => {});
-    },
-    { once: true },
-  );
+
+  const start = (src: string) => {
+    v.src = src;
+    v.load();
+    v.addEventListener(
+      "canplay",
+      () => {
+        v.play().catch(() => {});
+      },
+      { once: true },
+    );
+    /* Decode only while watchable. A looping hero that keeps decoding while
+       scrolled away (or in a hidden tab) competes with the rest of the page
+       for CPU/GPU and shows up as scroll jank site-wide. */
+    let inView = true;
+    let io: IntersectionObserver | undefined;
+    const sync = () => {
+      if (!v.isConnected) {
+        document.removeEventListener("visibilitychange", sync);
+        if (io) io.disconnect();
+        return;
+      }
+      const want = inView && !document.hidden;
+      if (want && v.paused) v.play().catch(() => {});
+      else if (!want && !v.paused) v.pause();
+    };
+    if (typeof IntersectionObserver !== "undefined") {
+      io = new IntersectionObserver((entries) => {
+        inView = entries.some((e) => e.isIntersecting);
+        sync();
+      });
+      io.observe(v);
+    }
+    document.addEventListener("visibilitychange", sync);
+  };
+
+  /* Codec by decode hardware, not by "can play at all": a software-decoded
+     AV1/VP9 loop saves bytes but burns a core and janks scrolling — H.264
+     decodes in hardware everywhere. powerEfficient is the hardware signal. */
+  const mc = navigator.mediaCapabilities;
+  if (!mc || !mc.decodingInfo) {
+    start(
+      v.canPlayType('video/mp4; codecs="av01.0.08M.10"') === "probably"
+        ? s.av1
+        : v.canPlayType('video/webm; codecs="vp9"') === "probably"
+          ? s.vp9
+          : s.h264,
+    );
+    return;
+  }
+  const frame = { width: 1920, height: 1080, framerate: 30, bitrate: 2400000 };
+  Promise.all([
+    mc
+      .decodingInfo({ type: "file", video: { contentType: 'video/mp4; codecs="av01.0.08M.10"', ...frame } })
+      .catch(() => null),
+    mc
+      .decodingInfo({ type: "file", video: { contentType: 'video/webm; codecs="vp09.00.41.08"', ...frame } })
+      .catch(() => null),
+  ])
+    .then(([av1, vp9]) => {
+      if (av1 && av1.supported && av1.powerEfficient) start(s.av1);
+      else if (vp9 && vp9.supported && vp9.powerEfficient) start(s.vp9);
+      else start(s.h264);
+    })
+    .catch(() => start(s.h264));
 }
 
 /**
