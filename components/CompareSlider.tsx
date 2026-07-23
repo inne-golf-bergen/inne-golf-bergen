@@ -137,8 +137,7 @@ export default function CompareSlider() {
         <div className={styles.overlayText}>
           <h2 className={styles.title}>Så ekte er det.</h2>
           <p className={styles.copy}>
-            Til venstre: ekte Lofoten Links. Til høyre: samme hull i Virtual Golf 3 — TrackMans nyeste grafikkmotor,
-            som du spiller på i alle våre bayer.
+            TrackMans nyeste grafikkmotor, som du spiller på i alle våre bayer.
           </p>
         </div>
       </div>
