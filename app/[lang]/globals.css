@@ -14,8 +14,6 @@
   --ink-500: #4f4337;
   --gray-400: #8a7d70;
   --gray-300: #a99b8d;
-  --gray-200: #cfc4b8;
-  --gray-100: #e9e1d7;
   --white: #f4ede6;
 
   /* kobber — the single accent */
@@ -26,11 +24,25 @@
   --orange-700: #96593b;
   --orange-subtle: rgba(201, 130, 92, 0.14);
 
-  --forest-950: #0a130e;
-  --forest-900: #0e1a14;
-
   /* text on copper surfaces */
   --text-on-accent: #171008;
+  --ink-on-copper: #1a100a;
+
+  /* muted text — three emphasis stops instead of ad-hoc alphas.
+     strong: primary copy on photos/dark · mid: body copy, leads, card text
+     · dim: footnotes, legal, metadata. dim keeps ≥4.5:1 AA on --ink-950. */
+  --text-strong: rgba(244, 237, 230, 0.88);
+  --text-mid: rgba(244, 237, 230, 0.72);
+  --text-dim: rgba(244, 237, 230, 0.55);
+
+  /* uppercase micro-label scale — three stops (plus the 0.08em button track):
+     s: tags & kickers · m: data-row and form labels · eyebrow: eyebrows and
+     group headers, always the widest track */
+  --label-size-s: 11px;
+  --label-track-s: 0.16em;
+  --label-size-m: 12px;
+  --label-track-m: 0.18em;
+  --label-track-eyebrow: 0.26em;
 
   /* hairlines (warm white at low alpha) */
   --line-8: rgba(244, 237, 230, 0.08);
@@ -40,15 +52,20 @@
   --line-16: rgba(244, 237, 230, 0.16);
   --line-18: rgba(244, 237, 230, 0.18);
 
-  --scrim: rgba(13, 10, 8, 0.74);
-
   /* typography (font files land via next/font on <body>) */
   --font-display: var(--font-syne), system-ui, sans-serif;
   --font-body: var(--font-schibsted), "Helvetica Neue", Arial, sans-serif;
 
-  /* motion */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 120ms;
+  /* motion — one curve, four speeds (TS mirror: components/motion/tokens.ts)
+     --ease-out equals GSAP power4.out, so CSS and SiteFx speak the same voice.
+     micro: color/border feedback · base: surface shifts · enter: panels/underlines
+     · slow: the languid header glass. Longer times are reserved for entrances
+     and ambience (reveals, hero video, photo zooms), never for interaction. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --dur-micro: 150ms;
+  --dur-base: 200ms;
+  --dur-enter: 300ms;
+  --dur-slow: 350ms;
 
   --focus-ring: 0 0 0 2px var(--ink-900), 0 0 0 4px var(--orange-500);
 
@@ -62,8 +79,12 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+/* smooth anchor scrolling is itself motion — gate it, the global kill switch
+   at the bottom of this file cannot reach it */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -109,7 +130,7 @@ img {
 a {
   color: var(--orange-400);
   text-decoration: none;
-  transition: color var(--dur-fast) var(--ease-out);
+  transition: color var(--dur-micro) var(--ease-out);
 }
 
 a:hover {
@@ -123,6 +144,15 @@ a:hover {
 
 button {
   font-family: inherit;
+}
+
+/* every interactive element answers keyboard focus with the copper ring;
+   components with a bespoke ring (compare-slider knob) override locally */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 /* layout helpers */
@@ -149,10 +179,10 @@ button {
   white-space: nowrap;
   text-decoration: none;
   transition:
-    background var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out),
-    transform 160ms var(--ease-out);
+    background var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .btn:active {
@@ -288,7 +318,7 @@ a[data-sweep] {
     background: var(--orange-400);
     transform: scaleX(0);
     transform-origin: 100% 50%;
-    transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform var(--dur-enter) var(--ease-out);
   }
 
   a[data-sweep]:hover::after {
@@ -320,7 +350,7 @@ a[data-sweep-in]::after {
   background: var(--orange-400);
   transform: scaleX(0);
   transform-origin: 100% 50%;
-  transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform var(--dur-enter) var(--ease-out);
 }
 
 a[data-sweep-in]:hover::after {
@@ -333,8 +363,8 @@ a[data-sweep-in]:hover::after {
    ============================================================ */
 .fieldLabel {
   display: block;
-  font-size: 11.5px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--gray-300);
   text-transform: uppercase;
@@ -353,10 +383,16 @@ a[data-sweep-in]:hover::after {
   padding: 0 14px;
   height: 50px;
   outline: none;
+  transition: border-color var(--dur-micro) var(--ease-out);
 }
 
 .fieldInput:focus {
   border-color: var(--orange-500);
+}
+
+/* only after interaction — never on pristine fields */
+.fieldInput:user-invalid {
+  border-color: #b3564a;
 }
 
 textarea.fieldInput {
@@ -375,6 +411,7 @@ select.fieldInput {
   opacity: 1;
 }
 
+/* composes the .btn--lg / .btn--primary metrics — one button spec site-wide */
 .formSubmit {
   align-self: flex-start;
   height: 52px;
@@ -382,22 +419,57 @@ select.fieldInput {
   background: var(--orange-500);
   color: var(--text-on-accent);
   border: 0;
+  border-radius: 2px;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s;
+  transition:
+    background var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .formSubmit:hover {
   background: var(--orange-400);
 }
 
+.formSubmit:active {
+  background: var(--orange-600);
+  transform: scale(0.97);
+}
+
 .formSubmit:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
+}
+
+/* ============================================================
+   Native <details> FAQs (subpages) — match the landing Faq feel:
+   no UA marker (Safari shows one on flex summaries), pointer cursor,
+   copper focus ring, and the same 45° plus-to-x rotation.
+   ============================================================ */
+.inne-faq > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.inne-faq > summary::-webkit-details-marker {
+  display: none;
+}
+
+.inne-faq > summary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.inne-faq .faq-x {
+  transition: transform var(--dur-enter) var(--ease-out);
+}
+
+.inne-faq[open] .faq-x {
+  transform: rotate(45deg);
 }
 
 /* ============================================================
@@ -454,7 +526,7 @@ select.fieldInput {
 
 #sim-scrim-mobile {
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity var(--dur-slow) var(--ease-out);
 }
 
 @media (max-width: 900px) {
@@ -484,17 +556,22 @@ select.fieldInput {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(201, 130, 92, 0.55);
   }
 
   50% {
     opacity: 0.55;
-    box-shadow: 0 0 0 6px rgba(201, 130, 92, 0);
   }
 }
 
-@keyframes inne-fade {
-  from {
+@keyframes inne-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  70%,
+  100% {
+    transform: scale(2.4);
     opacity: 0;
   }
 }
@@ -503,16 +580,6 @@ select.fieldInput {
   from {
     opacity: 0;
     transform: translateY(24px);
-  }
-}
-
-@keyframes inne-drift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  100% {
-    transform: translate3d(9vw, 7vh, 0) scale(1.18);
   }
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SentCard from "@/components/SentCard";
 import { type Lang, t } from "@/lib/i18n";
 import { mailBody, mailtoHref } from "@/lib/site";
 import sub from "../subpage.module.css";
@@ -12,19 +13,17 @@ export default function VinterForm({ lang }: { lang: Lang }) {
 
   if (sent) {
     return (
-      <div className={sub.sentCard}>
-        <span className={sub.sentKicker}>{t(lang, "Påmelding mottatt", "Entry received")}</span>
-        <h3 className={sub.sentTitle}>{t(lang, "Takk — laget er registrert!", "Done — team registered!")}</h3>
+      <SentCard kicker={t(lang, "Nesten i mål", "Almost there")} title={t(lang, "Slik fullfører du", "How to finish")}>
         <p className={sub.sentBody}>
-          {t(lang, "Betal deltakeravgiften på", "Pay the entry fee of")}{" "}
+          {t(lang, "Send e-posten som åpnet seg, og betal deltakeravgiften på", "Send the email that opened, then pay")}{" "}
           <strong className={sub.accent}>
             {t(lang, `500 kr per spiller (1${NNBSP}000 kr for laget)`, `500 kr per player (1${NNBSP}000 kr per team)`)}
           </strong>{" "}
           {t(lang, "til Vipps", "via Vipps")} <strong className={sub.accent}>#946014</strong>
           {t(
             lang,
-            ". Påmeldingen er bekreftet så snart avgiften er registrert.",
-            ". Your entry is confirmed once the fee is registered.",
+            ". Laget er påmeldt når begge deler er gjort.",
+            ". You’re in once both are done.",
           )}
         </p>
         <p className={sub.sentSub}>
@@ -34,7 +33,7 @@ export default function VinterForm({ lang }: { lang: Lang }) {
             "Groups and pairings are posted in our Facebook group. Questions? post@innegolfbergen.no.",
           )}
         </p>
-      </div>
+      </SentCard>
     );
   }
 
@@ -108,6 +107,7 @@ export default function VinterForm({ lang }: { lang: Lang }) {
           required
           type="tel"
           name="telefon"
+          autoComplete="tel"
           placeholder={t(lang, "Kontakttelefon", "Contact phone")}
           className="fieldInput"
         />

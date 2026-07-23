@@ -35,7 +35,7 @@ const pakke = (lang: Lang) => [
   t(lang, "Vi stiller med alt nødvendig golfutstyr", "We provide all the golf gear you need"),
   t(lang, "Stor pizza (1 stor pr. 3–4 barn)", "Large pizza (1 per 3–4 kids)"),
   t(lang, "0,33 l brus til alle", "0.33 l soda for all"),
-  t(lang, "Gratis kaffe til foreldrene til bursdagsbarnet", "Free coffee for the birthday child's parents"),
+  t(lang, "Gratis kaffe til foreldrene til bursdagsbarnet", "Free coffee for the birthday child’s parents"),
   t(lang, "Lov å ta med egen kake — vi har engangsbestikk", "Bring your own cake — we have the cutlery"),
   t(lang, "Varighet ca. 2 timer", "About 2 hours long"),
   t(lang, "Vi tilpasser opplegget etter alder og ønsker", "We tailor it to ages and wishes"),
@@ -66,7 +66,7 @@ export default async function BursdagPage({ params }: { params: Promise<{ lang: 
           </div>
           <h1 data-fade="true" className={`${sub.h1} ${s.heroH1}`}>
             <span className={s.desktopCopy}>
-              {t(lang, "Bursdag de snakker om etterpå.", "A birthday they'll talk about.")}
+              {t(lang, "Bursdag de snakker om etterpå.", "A birthday they’ll talk about.")}
             </span>
             <span className={s.mobileCopy}>{t(lang, "Bursdag de husker.", "One to remember.")}</span>
           </h1>
@@ -179,7 +179,7 @@ export default async function BursdagPage({ params }: { params: Promise<{ lang: 
                 {t(
                   lang,
                   "Gi beskjed i skjemaet, så tilpasser vi mat og drikke.",
-                  "Tell us in the form and we'll adapt food and drinks.",
+                  "Tell us in the form and we’ll adapt food and drinks.",
                 )}
               </p>
             </details>

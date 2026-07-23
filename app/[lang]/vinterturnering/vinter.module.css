@@ -51,16 +51,19 @@
 }
 
 .premierNote {
-  font-size: 13px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
-  color: rgba(26, 16, 10, 0.7);
+  /* ≥4.5:1 on --orange-500 (0.7 fell under AA) */
+  color: rgba(26, 16, 10, 0.85);
   text-transform: uppercase;
 }
 
 .prizeGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  /* pinned to one row — the First/Last zero-padding assumes all four cells
+     share it; auto-fit's 2×2 wrap between 769-1050px misaligned the ledger */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   margin-top: 36px;
   background: rgba(26, 16, 10, 0.18);
@@ -136,7 +139,7 @@
   max-width: 56ch;
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -166,8 +169,10 @@
   padding: clamp(22px, 3vw, 32px) 0;
 }
 
-.phaseBtn:hover {
-  opacity: 0.85;
+@media (hover: hover) and (pointer: fine) {
+  .phaseBtn:hover .phaseTitle {
+    color: var(--orange-300);
+  }
 }
 
 .phaseNum {
@@ -193,11 +198,12 @@
   line-height: 1;
   text-transform: uppercase;
   color: var(--white);
+  transition: color var(--dur-micro) var(--ease-out);
 }
 
 .phaseMeta {
-  font-size: 12.5px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--gray-300);
   text-transform: uppercase;
@@ -209,7 +215,7 @@
   font-weight: 700;
   font-size: 22px;
   color: var(--orange-500);
-  transition: transform 0.3s;
+  /* rotation is spring-driven (ICON_SPRING) in VinterFaser.tsx */
 }
 
 .phaseFinal .phaseNum,
@@ -232,8 +238,8 @@
 
 .detailLabel {
   display: block;
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -243,7 +249,7 @@
 .detailText {
   font-size: 15px;
   line-height: 1.55;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
 }
 
 /* ============ Påmelding ============ */
@@ -251,6 +257,6 @@
   margin: 20px 0 0;
   font-size: 14px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.62);
+  color: var(--text-dim);
   text-wrap: pretty;
 }

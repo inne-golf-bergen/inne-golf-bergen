@@ -1,0 +1,17 @@
+{
+  "/[lang]/bedrift/page": "/[lang]/bedrift",
+  "/[lang]/bursdag/page": "/[lang]/bursdag",
+  "/[lang]/gavekort/page": "/[lang]/gavekort",
+  "/[lang]/medlemskap/page": "/[lang]/medlemskap",
+  "/[lang]/page": "/[lang]",
+  "/[lang]/personvern/page": "/[lang]/personvern",
+  "/[lang]/polf/page": "/[lang]/polf",
+  "/[lang]/praktisk/page": "/[lang]/praktisk",
+  "/[lang]/veien-til-golf/page": "/[lang]/veien-til-golf",
+  "/[lang]/vilkar/page": "/[lang]/vilkar",
+  "/[lang]/vinterturnering/page": "/[lang]/vinterturnering",
+  "/[lang]/vip-losjen/page": "/[lang]/vip-losjen",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/icon.png/route": "/icon.png"
+}

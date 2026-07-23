@@ -7,7 +7,7 @@ import { useEffect } from "react";
  * [data-fade] — intro fade/rise; [data-st] — scroll-triggered reveal.
  * Respects prefers-reduced-motion (content is visible by default; animations
  * only set initial states when they actually run). All tweens are scoped in a
- * gsap.context so unmounting one page never touches another page's triggers.
+ * gsap.context so unmounting one page never touches another page’s triggers.
  */
 export default function SiteFx() {
   useEffect(() => {

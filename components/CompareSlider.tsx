@@ -24,6 +24,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
     let p = 47;
     let raf = 0;
     let down = false;
+    let nudge: { kill: () => void } | undefined;
     const cleanup: (() => void)[] = [];
 
     const apply = () => {
@@ -40,7 +41,8 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
 
     const pd = (e: PointerEvent) => {
       e.preventDefault();
-      if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+      /* the user has the wheel — the intro nudge must never fight the grab */
+      nudge?.kill();
       down = true;
       try {
         wrap.setPointerCapture(e.pointerId);
@@ -67,6 +69,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
     const kd = (e: KeyboardEvent) => {
       if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
       e.preventDefault();
+      nudge?.kill();
       p = Math.min(96, Math.max(4, p + (e.key === "ArrowLeft" ? -3 : 3)));
       apply();
     };
@@ -81,7 +84,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
           io.disconnect();
           import("gsap").then(({ gsap }) => {
             const o = { v: 47 };
-            gsap.to(o, {
+            nudge = gsap.to(o, {
               v: 60,
               duration: 0.95,
               ease: "power2.inOut",
@@ -105,12 +108,26 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
 
     return () => {
       cleanup.forEach((fn) => fn());
+      nudge?.kill();
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
   return (
-    <div ref={wrapRef} id="vg3-compare" className={styles.wrap}>
+    <>
+      {/* ≤768px: the in-image overlay is hidden, so the framing moves above
+          the slider instead of disappearing */}
+      <div className={styles.mobileHead}>
+        <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It’s this real.")}</h2>
+        <p className={styles.copy}>
+          {t(
+            lang,
+            "Dra i skillelinjen — dronefoto mot Virtual Golf 3.",
+            "Drag the line — drone photo vs Virtual Golf 3.",
+          )}
+        </p>
+      </div>
+      <div ref={wrapRef} id="vg3-compare" className={styles.wrap}>
       {/* 250vw on mobile: the 440px-min portrait crop is height-constrained, so
           width-based srcset selection (100vw) would serve a ~750px file and
           upscale it ~2.5×. Over-declaring fetches the full-width original. */}
@@ -136,12 +153,12 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
       </div>
       <div className={styles.overlay}>
         <div className={styles.overlayText}>
-          <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It's this real.")}</h2>
+          <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It’s this real.")}</h2>
           <p className={styles.copy}>
             {t(
               lang,
               "TrackMans nyeste grafikkmotor, som du spiller på i alle våre bayer.",
-              "TrackMan's latest graphics engine, on every bay in both venues.",
+              "TrackMan’s latest graphics engine, on every bay in both venues.",
             )}
           </p>
         </div>
@@ -152,8 +169,9 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
         role="slider"
         tabIndex={0}
         aria-label={t(lang, "Sammenlign dronefoto og Virtual Golf 3", "Compare drone photo and Virtual Golf 3")}
-        aria-valuemin={0}
-        aria-valuemax={100}
+        /* the position is clamped to 4–96 — announce the range we actually allow */
+        aria-valuemin={4}
+        aria-valuemax={96}
         aria-valuenow={47}
         className={styles.line}
       >
@@ -163,5 +181,6 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
         </span>
       </div>
     </div>
+    </>
   );
 }

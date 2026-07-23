@@ -11,17 +11,14 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { EASE_OUT, LINE_SPRING, REVEAL_SPRING } from "./tokens";
 
 /**
  * Landing-page motion primitives (Framer Motion port of LandingFx).
- * Springs are critically damped — nothing here carries user momentum,
- * so per Apple's guidance there is no overshoot. Every component
- * degrades to static markup under prefers-reduced-motion.
+ * Spring/easing values live in ./tokens. Every component degrades to
+ * static markup under prefers-reduced-motion.
  */
-
-const REVEAL_SPRING = { type: "spring", stiffness: 150, damping: 26, mass: 1 } as const;
-const LINE_SPRING = { type: "spring", stiffness: 84, damping: 22, mass: 1 } as const;
-/* fires when the element's top clears the bottom 12% of the viewport (≈ GSAP "top 88%") */
+/* fires when the element’s top clears the bottom 12% of the viewport (≈ GSAP "top 88%") */
 const VIEWPORT = { once: true, margin: "0px 0px -12% 0px" } as const;
 
 /* ---------- scroll / mount reveals ---------- */
@@ -191,7 +188,7 @@ export function CountUp({ value, className }: { value: number; className?: strin
     if (!inView || reduce || !el) return;
     const controls = animate(0, value, {
       duration: 1.4,
-      ease: [0.16, 1, 0.3, 1],
+      ease: EASE_OUT,
       onUpdate: (v) => {
         el.textContent = fmtNum(v);
       },
@@ -221,6 +218,9 @@ export function Magnetic({
 }) {
   const reduce = useReducedMotion();
   const fine = useRef(false);
+  /* rect cached on enter: reading it per-move would measure the already-
+     translated element and feed the offset back into itself */
+  const rect = useRef<DOMRect | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 180, damping: 20, mass: 0.5 });
@@ -230,13 +230,18 @@ export function Magnetic({
     fine.current = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   }, []);
 
+  const onEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    rect.current = e.currentTarget.getBoundingClientRect();
+  };
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduce || !fine.current) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width / 2) * strength);
-    y.set((e.clientY - r.top - r.height / 2) * strength * 1.2);
+    const r = rect.current ?? e.currentTarget.getBoundingClientRect();
+    /* clamp so wide fullWidth CTAs shift subtly instead of chasing the cursor */
+    x.set(Math.max(-14, Math.min(14, (e.clientX - r.left - r.width / 2) * strength)));
+    y.set(Math.max(-10, Math.min(10, (e.clientY - r.top - r.height / 2) * strength * 1.2)));
   };
   const onLeave = () => {
+    rect.current = null;
     x.set(0);
     y.set(0);
   };
@@ -245,6 +250,7 @@ export function Magnetic({
     <motion.div
       className={className}
       style={{ x: sx, y: sy, display: "inline-flex" }}
+      onMouseEnter={onEnter}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
@@ -285,7 +291,7 @@ export function CursorGlow() {
       aria-hidden="true"
       style={{ x: sx, y: sy }}
       animate={{ opacity: seen ? 1 : 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.5, ease: EASE_OUT }}
     />
   );
 }

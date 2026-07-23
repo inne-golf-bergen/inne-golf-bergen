@@ -1,11 +1,13 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { type Lang, langHref, t } from "@/lib/i18n";
 import Button from "./Button";
+import { DUR, EASE_OUT } from "./motion/tokens";
 import styles from "./nav.module.css";
 
 type MenuId = "sentre" | "selskap" | "turn";
@@ -38,12 +40,16 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   const enHref = stripped === "/" ? "/en" : `/en${stripped}`;
   const otherHref = lang === "no" ? enHref : noHref;
 
+  const reduce = useReducedMotion();
   const [menu, setMenu] = useState<MenuId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [glass, setGlass] = useState(false);
   const hoverRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const sheetCloseRef = useRef<HTMLButtonElement>(null);
+  const mobileCloseRef = useRef<HTMLButtonElement>(null);
+  const lastFocusRef = useRef<HTMLElement | null>(null);
 
   // close menus when navigating (adjust state during render, not in an effect)
   const [prevPathname, setPrevPathname] = useState(pathname);
@@ -108,11 +114,46 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen || sheetOpen ? "hidden" : "";
+    const locked = mobileOpen || sheetOpen;
+    /* compensate classic scrollbars so the page doesn’t shift under the lock */
+    const gap = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = locked ? "hidden" : "";
+    document.body.style.paddingRight = locked && gap > 0 ? `${gap}px` : "";
     return () => {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
   }, [mobileOpen, sheetOpen]);
+
+  /* dialog focus: move focus in on open, hand it back on close */
+  useEffect(() => {
+    if (mobileOpen || sheetOpen) {
+      if (!lastFocusRef.current) lastFocusRef.current = document.activeElement as HTMLElement;
+      const target = sheetOpen ? sheetCloseRef : mobileCloseRef;
+      requestAnimationFrame(() => target.current?.focus());
+    } else if (lastFocusRef.current) {
+      lastFocusRef.current.focus();
+      lastFocusRef.current = null;
+    }
+  }, [mobileOpen, sheetOpen]);
+
+  /* minimal Tab trap for the two aria-modal surfaces */
+  const trapTab = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Tab") return;
+    const focusables = e.currentTarget.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   const openSheet = () => {
     setSheetOpen(true);
@@ -142,7 +183,15 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   );
 
   const dropdown = (id: MenuId, label: string, wide: boolean, items: ReactNode) => (
-    <div className={styles.menuWrap} onMouseEnter={() => openHover(id)} onMouseLeave={leaveMenus}>
+    <div
+      className={styles.menuWrap}
+      onMouseEnter={() => openHover(id)}
+      onMouseLeave={leaveMenus}
+      onBlur={(e) => {
+        /* keyboard users tabbing past the last item shouldn’t leave a menu open */
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setMenu(null);
+      }}
+    >
       <button
         type="button"
         onClick={() => toggle(id)}
@@ -155,7 +204,20 @@ export default function SiteNav({ lang }: { lang: Lang }) {
           ▾
         </span>
       </button>
-      {menu === id && <div className={`${styles.dropdown} ${wide ? styles.dropdownWide : ""}`}>{items}</div>}
+      <AnimatePresence>
+        {menu === id && (
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4, transition: { duration: reduce ? 0 : 0.12, ease: "easeOut" } }}
+            transition={{ duration: reduce ? 0 : 0.18, ease: EASE_OUT }}
+            style={{ transformOrigin: "top left" }}
+            className={`${styles.dropdown} ${wide ? styles.dropdownWide : ""}`}
+          >
+            {items}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 
@@ -290,8 +352,19 @@ export default function SiteNav({ lang }: { lang: Lang }) {
         </div>
       </header>
 
+      <AnimatePresence>
       {mobileOpen && (
-        <div role="dialog" aria-modal="true" aria-label={t(lang, "Meny", "Menu")} className={styles.mobileMenu}>
+        <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t(lang, "Meny", "Menu")}
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: reduce ? 0 : DUR.micro, ease: "easeOut" } }}
+          transition={{ duration: reduce ? 0 : DUR.base, ease: EASE_OUT }}
+          className={styles.mobileMenu}
+          onKeyDown={trapTab}
+        >
           <div className={styles.mobileMenuBar}>
             <Link href={logoHref} onClick={closeAllNav} aria-label={homeLabel} className={styles.logo}>
               <Lockup />
@@ -306,6 +379,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
               </Link>
               <button
                 type="button"
+                ref={mobileCloseRef}
                 onClick={() => setMobileOpen(false)}
                 aria-label={t(lang, "Lukk menyen", "Close menu")}
                 className={styles.iconBtn}
@@ -351,7 +425,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             </Link>
             <span className={styles.mobileGroup}>{t(lang, "Verdikort", "Vouchers")}</span>
             <Link href={langHref(lang, "/gavekort")} onClick={closeAllNav} className={styles.mobileLink}>
-              {t(lang, "Kjøp gavekort", "Buy vouchers")}
+              {t(lang, "Kjøp verdikort", "Buy vouchers")}
             </Link>
             <div className={styles.mobileCta}>
               <Button size="lg" fullWidth onClick={openSheet}>
@@ -359,20 +433,38 @@ export default function SiteNav({ lang }: { lang: Lang }) {
               </Button>
             </div>
           </nav>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
 
+      <AnimatePresence>
       {sheetOpen && (
-        <div
+        <motion.div
           role="dialog"
           aria-modal="true"
           aria-label={t(lang, "Velg senter", "Pick venue")}
           className={styles.sheet}
+          onKeyDown={trapTab}
         >
-          <div className={styles.sheetBackdrop} onClick={() => setSheetOpen(false)} />
-          <div className={styles.sheetPanel}>
+          <motion.div
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: reduce ? 0 : DUR.micro, ease: "easeOut" } }}
+            transition={{ duration: reduce ? 0 : DUR.base, ease: EASE_OUT }}
+            className={styles.sheetBackdrop}
+            onClick={() => setSheetOpen(false)}
+          />
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12, transition: { duration: reduce ? 0 : 0.18, ease: "easeOut" } }}
+            /* entrance choreography, deliberately longer than --dur-enter */
+            transition={{ duration: reduce ? 0 : 0.5, ease: EASE_OUT }}
+            className={styles.sheetPanel}
+          >
             <button
               type="button"
+              ref={sheetCloseRef}
               onClick={() => setSheetOpen(false)}
               aria-label={t(lang, "Lukk", "Close")}
               className={`${styles.iconBtn} ${styles.sheetClose}`}
@@ -408,9 +500,10 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                 "Free loaner clubs for men, women and juniors.",
               )}
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
+      </AnimatePresence>
 
       <div className={`m-only ${styles.bookBar}`}>
         <Button size="lg" fullWidth onClick={openSheet}>

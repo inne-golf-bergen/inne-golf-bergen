@@ -12,8 +12,8 @@
 }
 
 .label {
-  font-size: 12px;
-  letter-spacing: 0.26em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-eyebrow);
   font-weight: 600;
   color: var(--orange-300);
   text-transform: uppercase;
@@ -22,14 +22,14 @@
 /* Landing hero variant — white on photo/video */
 .hero .bar {
   height: 2px;
-  background: #fff;
+  background: var(--white);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
 }
 
 .hero .label {
   font-size: 12.5px;
   font-weight: 700;
-  color: #fff6ec;
+  color: var(--white);
   text-shadow:
     0 1px 3px rgba(0, 0, 0, 0.65),
     0 2px 14px rgba(0, 0, 0, 0.45);

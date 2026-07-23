@@ -54,7 +54,8 @@ export default async function BedriftPage({ params }: { params: Promise<{ lang: 
             <Eyebrow>{t(lang, "Bedrift", "Company")}</Eyebrow>
           </div>
           <h1 data-fade="true" className={`${sub.h1} ${s.heroH1}`}>
-            {t(lang, "Firmakvelden alle møter opp på.", "The work night no one skips.")}
+            <span className={s.desktopCopy}>{t(lang, "Firmakvelden alle møter opp på.", "The work night no one skips.")}</span>
+            <span className={s.mobileCopy}>{t(lang, "Kvelden alle møter opp på.", "The night no one skips.")}</span>
           </h1>
           <p data-fade="true" className={s.heroLead}>
             {t(
@@ -138,7 +139,7 @@ export default async function BedriftPage({ params }: { params: Promise<{ lang: 
               {t(
                 lang,
                 "Fortell oss litt om kvelden, så setter vi opp et forslag som passer laget. Svar innen én arbeidsdag.",
-                "Tell us a bit about the night and we'll draft a plan that fits the team. Reply within one workday.",
+                "Tell us a bit about the night and we’ll draft a plan that fits the team. Reply within one workday.",
               )}
             </p>
           </div>

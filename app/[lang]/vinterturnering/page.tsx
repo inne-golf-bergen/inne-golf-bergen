@@ -4,9 +4,12 @@ import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
 import { asLang, type Lang, langAlternates, t } from "@/lib/i18n";
+import { mailtoSubject, SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 import VinterFaser from "./VinterFaser";
-import VinterForm from "./VinterForm";
+/* Season 2025/26 is played out — sign-up is closed. When 2026/27 opens:
+   restore `import VinterForm from "./VinterForm"` and the form column below,
+   and swap the archive copy back to the live entry copy (see git history). */
 import s from "./vinter.module.css";
 
 const NNBSP = " ";
@@ -77,7 +80,7 @@ export default async function VinterturneringPage({ params }: { params: Promise<
           </div>
           <div data-fade="true" className={sub.heroCtaWrap}>
             <Button as="a" href="#pameld" size="lg">
-              {t(lang, "MELD PÅ LAGET", "REGISTER TEAM")}
+              {t(lang, "NESTE SESONG: 2026/27", "NEXT SEASON: 2026/27")}
             </Button>
           </div>
         </div>
@@ -134,34 +137,52 @@ export default async function VinterturneringPage({ params }: { params: Promise<
         </div>
       </section>
 
-      {/* ============ Påmelding ============ */}
+      {/* ============ Neste sesong (sesongen 2025/26 er ferdigspilt) ============ */}
       <section id="pameld" className={`${sub.bg950} ${sub.section}`} style={{ scrollMarginTop: 80 }}>
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
-            <Eyebrow>{t(lang, "Meld på", "Sign up")}</Eyebrow>
-            <h2 className={sub.h2}>{t(lang, "Finn en makker.", "Find a partner.")}</h2>
+            <Eyebrow>{t(lang, "Sesongen er over", "Season done")}</Eyebrow>
+            <h2 className={sub.h2}>{t(lang, "Vi sees til høsten.", "Back this autumn.")}</h2>
             <div className={sub.infoCard}>
-              <span className={sub.infoCardKicker}>{t(lang, "Deltakeravgift", "Entry fee")}</span>
-              <span className={sub.infoCardValue}>{t(lang, "500 kr per spiller", "500 kr per player")}</span>
+              <span className={sub.infoCardKicker}>{t(lang, "Neste sesong", "Next season")}</span>
+              <span className={sub.infoCardValue}>2026/27</span>
               <span className={sub.infoCardText}>
-                {t(lang, "Betales til Vipps", "Pay via Vipps")} <strong className={sub.accent}>#946014</strong>{" "}
                 {t(
                   lang,
-                  `(1${NNBSP}000 kr for laget). Påmeldingen er bekreftet når avgiften er registrert.`,
-                  `(1${NNBSP}000 kr per team). Your entry is confirmed once the fee is registered.`,
+                  "Sesongen 2025/26 er ferdigspilt. Påmeldingen for neste sesong åpner til høsten.",
+                  "The 2025/26 season is played out. Sign-up for next season opens this autumn.",
                 )}
               </span>
             </div>
             <p className={s.pameldNote}>
               {t(lang, "Puljer og lagoppsett publiseres i vår", "Groups and pairings are posted in our")}{" "}
-              <a data-sweep="true" href="https://facebook.com" target="_blank" rel="noopener">
+              <a data-sweep="true" href={SITE.facebook} target="_blank" rel="noopener">
                 {t(lang, "Facebook-gruppe", "Facebook group")}
               </a>
               .
             </p>
           </div>
           <div data-st="true">
-            <VinterForm lang={lang} />
+            <div className={sub.infoCard}>
+              <span className={sub.infoCardKicker}>{t(lang, "Bli varslet", "Be notified")}</span>
+              <span className={sub.infoCardValue}>{t(lang, "Stå først i køen", "First in line")}</span>
+              <span className={sub.infoCardText}>
+                {t(
+                  lang,
+                  "Send oss en e-post, så får du beskjed når påmeldingen åpner.",
+                  "Email us and we’ll tell you the moment sign-up opens.",
+                )}
+              </span>
+            </div>
+            <div className={sub.heroCtaWrap}>
+              <Button
+                as="a"
+                href={mailtoSubject(t(lang, "Varsle meg — Vinterturneringen 2026/27", "Notify me — Winter Cup 2026/27"))}
+                size="lg"
+              >
+                {t(lang, "VARSLE MEG", "NOTIFY ME")}
+              </Button>
+            </div>
           </div>
         </div>
       </section>

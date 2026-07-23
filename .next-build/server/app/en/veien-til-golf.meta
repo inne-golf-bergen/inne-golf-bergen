@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/[lang]/layout,_N_T_/[lang]/veien-til-golf/layout,_N_T_/[lang]/veien-til-golf/page,_N_T_/en/veien-til-golf"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/$d$lang/veien-til-golf/__PAGE__",
+    "/$d$lang/veien-til-golf",
+    "/$d$lang",
+    "/_index",
+    "/_head"
+  ]
+}

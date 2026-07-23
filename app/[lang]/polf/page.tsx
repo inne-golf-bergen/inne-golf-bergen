@@ -4,8 +4,11 @@ import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
 import { asLang, type Lang, langAlternates, langHref, t } from "@/lib/i18n";
+import { mailtoSubject } from "@/lib/site";
 import sub from "../subpage.module.css";
-import PolfForm from "./PolfForm";
+/* Round one (autumn 2025) is settled — entry is closed. When the next POLF is
+   dated: restore `import PolfForm from "./PolfForm"` and the form column below,
+   and swap the archive copy back to the live entry copy (see git history). */
 import s from "./polf.module.css";
 
 const NNBSP = " ";
@@ -47,7 +50,7 @@ const uteRules = (lang: Lang): Rule[] => [
 ];
 
 const pokerRows = (lang: Lang): Rule[] => [
-  { label: "Entry", value: "200 kr + 200 kr bounty (Vipps #963257)" },
+  { label: "Entry", value: "200 kr + 200 kr bounty" },
   {
     label: "Rebuy",
     value: t(
@@ -129,7 +132,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
           </div>
           <div data-fade="true" className={sub.heroCtaWrap}>
             <Button as="a" href="#pameld" size="lg">
-              {t(lang, "MELD DEG PÅ", "SIGN UP")}
+              {t(lang, "NESTE RUNDE", "NEXT ROUND")}
             </Button>
           </div>
         </div>
@@ -139,7 +142,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
       <section className={`${sub.bg900} ${sub.section}`}>
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
-            <Eyebrow>{t(lang, "Hva er POLF?", "What's POLF?")}</Eyebrow>
+            <Eyebrow>{t(lang, "Hva er POLF?", "What’s POLF?")}</Eyebrow>
             <h2 className={`${sub.h2} ${s.introH2}`}>{t(lang, "To spill, én seier.", "Two games, one win.")}</h2>
           </div>
           <div data-st="true">
@@ -198,9 +201,9 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
       <section className={`${sub.bg900} ${sub.section}`}>
         <div className="container">
           <div data-st="true">
-            <Eyebrow>{t(lang, "Arrangement", "The event")}</Eyebrow>
+            <Eyebrow>{t(lang, "Første runde · 2025", "Round one · 2025")}</Eyebrow>
             <h2 className={`${sub.h2} ${sub.h2Mid}`}>
-              {t(lang, "Bergens første POLF-arrangement.", "Bergen's first POLF event.")}
+              {t(lang, "Bergens første POLF-arrangement.", "Bergen’s first POLF event.")}
             </h2>
           </div>
           <div className={s.eventGrid}>
@@ -254,8 +257,8 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
               <p className={s.eventCopy}>
                 {t(
                   lang,
-                  "Texas Hold'em No Limit + Bounty i lokalene våre.",
-                  "Texas Hold'em No Limit + Bounty at our venue.",
+                  "Texas Hold’em No Limit + Bounty i lokalene våre.",
+                  "Texas Hold’em No Limit + Bounty at our venue.",
                 )}
               </p>
               <div className={s.pokerRows}>
@@ -284,23 +287,41 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* ============ Påmelding ============ */}
+      {/* ============ Neste runde (første runde er ferdigspilt) ============ */}
       <section id="pameld" className={`${sub.bg950} ${sub.section}`} style={{ scrollMarginTop: 80 }}>
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
-            <Eyebrow>{t(lang, "Meld deg på", "Sign up")}</Eyebrow>
+            <Eyebrow>{t(lang, "Neste runde", "Next round")}</Eyebrow>
             <h2 className={sub.h2}>{t(lang, "Tør du satse?", "Dare to bet?")}</h2>
             <div className={sub.infoCard}>
-              <span className={sub.infoCardKicker}>{t(lang, "Avgift", "Fee")}</span>
-              <span className={sub.infoCardValue}>600 kr</span>
+              <span className={sub.infoCardKicker}>Status</span>
+              <span className={sub.infoCardValue}>{t(lang, "Ferdigspilt", "Wrapped")}</span>
               <span className={sub.infoCardText}>
-                {t(lang, "Betales til Vipps", "Pay via Vipps")} <strong className={sub.accent}>#963257</strong>
-                {t(lang, ". Når avgiften er betalt, er du registrert.", ". Once the fee is paid, you're in.")}
+                {t(
+                  lang,
+                  "Første runde er avgjort. Neste POLF annonseres her og på Facebook-siden vår.",
+                  "Round one is settled. The next POLF drops here and on our Facebook page.",
+                )}
               </span>
             </div>
           </div>
           <div data-st="true">
-            <PolfForm lang={lang} />
+            <div className={sub.infoCard}>
+              <span className={sub.infoCardKicker}>{t(lang, "Bli varslet", "Be notified")}</span>
+              <span className={sub.infoCardValue}>{t(lang, "Stå først i køen", "First in line")}</span>
+              <span className={sub.infoCardText}>
+                {t(
+                  lang,
+                  "Send oss en e-post, så får du beskjed når neste POLF er klar.",
+                  "Email us and we’ll tell you the moment the next POLF is set.",
+                )}
+              </span>
+            </div>
+            <div className={sub.heroCtaWrap}>
+              <Button as="a" href={mailtoSubject(t(lang, "Varsle meg — neste POLF", "Notify me — next POLF"))} size="lg">
+                {t(lang, "VARSLE MEG", "NOTIFY ME")}
+              </Button>
+            </div>
           </div>
         </div>
       </section>

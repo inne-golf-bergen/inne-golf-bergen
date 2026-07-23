@@ -72,7 +72,7 @@
   max-width: 54ch;
   font-size: clamp(16px, 1.35vw, 19px);
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.86);
+  color: var(--text-strong);
   text-wrap: pretty;
 }
 
@@ -91,8 +91,8 @@
   padding: 10px 18px;
   border: 1px solid rgba(226, 166, 127, 0.5);
   background: rgba(23, 19, 16, 0.5);
-  font-size: 12.5px;
-  letter-spacing: 0.12em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--orange-300);
   text-transform: uppercase;
@@ -114,7 +114,8 @@
   font-weight: 800;
   font-size: clamp(32px, 4.6vw, 64px);
   line-height: 0.98;
-  letter-spacing: -0.01em;
+  /* matches the landing h2 tracking */
+  letter-spacing: -0.015em;
   text-transform: uppercase;
   color: var(--white);
 }
@@ -136,7 +137,7 @@
   max-width: 56ch;
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -152,8 +153,8 @@
 }
 
 .infoCardKicker {
-  font-size: 11.5px;
-  letter-spacing: 0.2em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
@@ -170,7 +171,7 @@
 .infoCardText {
   font-size: 15px;
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
 }
 
 /* ============ Forms ============ */
@@ -190,6 +191,12 @@
 
 .fields950 {
   --field-bg: var(--ink-950);
+}
+
+.formGrid240 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 18px;
 }
 
 .formGrid200 {
@@ -223,11 +230,15 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  /* the sheet-panel arrival move — "something arrived" reads the same site-wide */
+  animation: inne-rise 0.5s var(--ease-out) both;
+  /* focused programmatically for screen readers; not an interactive target */
+  outline: none;
 }
 
 .sentKicker {
-  font-size: 12px;
-  letter-spacing: 0.2em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
@@ -247,14 +258,14 @@
   margin: 0;
   font-size: 16px;
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
 }
 
 .sentSub {
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.7);
+  color: var(--text-mid);
 }
 
 .accent {
@@ -309,20 +320,27 @@
   align-items: center;
   justify-content: center;
   padding: 17px 34px;
-  background: #171008;
+  background: var(--text-on-accent);
   color: var(--white);
+  border-radius: 2px;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background 0.2s;
+  transition:
+    background var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .darkCta:hover {
   background: #302015;
   color: var(--white);
+}
+
+.darkCta:active {
+  transform: scale(0.97);
 }
 
 /* ============ FAQ ============ */
@@ -331,7 +349,7 @@
   max-width: 38ch;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.7);
+  color: var(--text-mid);
 }
 
 .faqLink {
@@ -366,6 +384,13 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--white);
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .faqSummary:hover .faqQ {
+    color: var(--orange-300);
+  }
 }
 
 .faqX {
@@ -380,7 +405,7 @@
   padding: 0 0 20px;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.72);
+  color: var(--text-mid);
   max-width: 60ch;
 }
 
@@ -408,8 +433,8 @@
 }
 
 .specLabel {
-  font-size: 12px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -426,8 +451,8 @@
 .chip {
   padding: 9px 16px;
   border: 1px solid rgba(214, 147, 109, 0.45);
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
@@ -445,6 +470,6 @@
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
   text-wrap: pretty;
 }

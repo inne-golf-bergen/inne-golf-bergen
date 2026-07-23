@@ -29,8 +29,8 @@ export default async function VilkarPage({ params }: { params: Promise<{ lang: s
           <p className={s.heroLead}>
             {t(
               lang,
-              "Sist oppdatert [DATO]. Vilkårene gjelder alle kjøp og bookinger hos INNE Golf Bergen (",
-              "Last updated [DATE]. The terms cover all purchases and bookings at INNE Golf Bergen (",
+              "Vilkårene gjelder alle kjøp og bookinger hos INNE Golf Bergen (",
+              "The terms cover all purchases and booking at INNE Golf Bergen (",
             )}
             {SITE.legalName}, org.nr. {SITE.orgNr}).
           </p>
@@ -59,14 +59,16 @@ export default async function VilkarPage({ params }: { params: Promise<{ lang: s
                   <span className={s.sectionNum}>01</span>
                   <h2 className={s.sectionH2}>{t(lang, "Kjøpsvilkår", "Sales terms")}</h2>
                 </div>
+                {/* Internal handoff note: INNE’s sales terms go in this slot
+                    verbatim once supplied — do not rewrite them. */}
                 <div className={s.slot}>
-                  <span className={s.slotKicker}>{t(lang, "Slot for verbatim tekst", "Slot for verbatim text")}</span>
-                  <span className={s.slotTitle}>{t(lang, "[Lim inn kjøpsvilkår]", "[Paste sales terms]")}</span>
+                  <span className={s.slotKicker}>{t(lang, "Under arbeid", "In progress")}</span>
+                  <span className={s.slotTitle}>{t(lang, "Fullstendige vilkår kommer", "Full terms coming")}</span>
                   <span className={s.slotText}>
                     {t(
                       lang,
-                      "Kundens kjøpsvilkår limes inn her ordrett. Teksten skal ikke omskrives.",
-                      "The client's terms go here verbatim. Do not rewrite the text.",
+                      "Frem til de er publisert: spørsmål om kjøp og booking besvares på post@innegolfbergen.no.",
+                      "Until they’re published, purchase and booking questions: post@innegolfbergen.no.",
                     )}
                   </span>
                 </div>
@@ -78,13 +80,13 @@ export default async function VilkarPage({ params }: { params: Promise<{ lang: s
                   <h2 className={s.sectionH2}>{t(lang, "Booking og avbestilling", "Booking & cancellation")}</h2>
                 </div>
                 <div className={s.slot}>
-                  <span className={s.slotKicker}>{t(lang, "Ny seksjon", "Pending")}</span>
-                  <span className={s.slotTitle}>{t(lang, "[Settes inn]", "[Coming]")}</span>
+                  <span className={s.slotKicker}>{t(lang, "Under arbeid", "In progress")}</span>
+                  <span className={s.slotTitle}>{t(lang, "Regler kommer", "Coming")}</span>
                   <span className={s.slotText}>
                     {t(
                       lang,
-                      "Regler for booking, endring og avbestilling settes inn her etter avklaring med INNE.",
-                      "Rules for booking, changes and cancellation go here once agreed with INNE.",
+                      "Regler for booking, endring og avbestilling publiseres her.",
+                      "Booking, change and cancellation rules will appear here.",
                     )}
                   </span>
                 </div>

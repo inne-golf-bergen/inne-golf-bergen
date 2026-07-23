@@ -1,6 +1,8 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import { EASE_DRAWER, ICON_SPRING } from "@/components/motion/tokens";
 import { type Lang, t } from "@/lib/i18n";
 import s from "./vinter.module.css";
 
@@ -113,47 +115,85 @@ const phases = (lang: Lang): Phase[] => [
 
 export default function VinterFaser({ lang }: { lang: Lang }) {
   const [open, setOpen] = useState(0);
+  const reduce = useReducedMotion();
   const list = phases(lang);
 
   return (
     <div className={s.phaseList}>
-      {list.map((phase, i) => (
-        <div
-          key={phase.num}
-          data-st="true"
-          className={`${s.phase} ${i === list.length - 1 ? s.phaseLast : ""} ${phase.final ? s.phaseFinal : ""}`}
-        >
-          <button
-            type="button"
-            onClick={() => setOpen((o) => (o === i ? -1 : i))}
-            aria-expanded={open === i}
-            className={s.phaseBtn}
+      {list.map((phase, i) => {
+        const isOpen = open === i;
+        return (
+          <div
+            key={phase.num}
+            data-st="true"
+            className={`${s.phase} ${i === list.length - 1 ? s.phaseLast : ""} ${phase.final ? s.phaseFinal : ""}`}
           >
-            <span className={s.phaseNum}>{phase.num}</span>
-            <span className={s.phaseTitleWrap}>
-              <span className={s.phaseTitle}>{phase.title}</span>
-              <span className={s.phaseMeta}>{phase.meta}</span>
-            </span>
-            <span
-              aria-hidden="true"
-              className={s.phasePlus}
-              style={{ transform: open === i ? "rotate(45deg)" : "rotate(0deg)" }}
+            <button
+              type="button"
+              id={`fase-q-${i}`}
+              onClick={() => setOpen((o) => (o === i ? -1 : i))}
+              aria-expanded={isOpen}
+              aria-controls={`fase-a-${i}`}
+              className={s.phaseBtn}
             >
-              +
-            </span>
-          </button>
-          {open === i && (
-            <div className={s.phaseDetail}>
-              {phase.cells.map(([label, text]) => (
-                <div key={label} className={s.detailCell}>
-                  <span className={s.detailLabel}>{label}</span>
-                  <span className={s.detailText}>{text}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+              <span className={s.phaseNum}>{phase.num}</span>
+              <span className={s.phaseTitleWrap}>
+                <span className={s.phaseTitle}>{phase.title}</span>
+                <span className={s.phaseMeta}>{phase.meta}</span>
+              </span>
+              <motion.span
+                aria-hidden="true"
+                className={s.phasePlus}
+                animate={{ rotate: isOpen ? 45 : 0 }}
+                transition={reduce ? { duration: 0 } : ICON_SPRING}
+              >
+                +
+              </motion.span>
+            </button>
+            {/* the Faq.tsx drawer recipe — exit snappier than enter */}
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  key="detail"
+                  id={`fase-a-${i}`}
+                  role="region"
+                  aria-labelledby={`fase-q-${i}`}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{
+                    height: 0,
+                    opacity: 0,
+                    transition: reduce
+                      ? { duration: 0 }
+                      : {
+                          height: { duration: 0.24, ease: EASE_DRAWER },
+                          opacity: { duration: 0.14, ease: "easeOut" },
+                        },
+                  }}
+                  transition={
+                    reduce
+                      ? { duration: 0 }
+                      : {
+                          height: { duration: 0.32, ease: EASE_DRAWER },
+                          opacity: { duration: 0.22, ease: "easeOut" },
+                        }
+                  }
+                  style={{ overflow: "hidden" }}
+                >
+                  <div className={s.phaseDetail}>
+                    {phase.cells.map(([label, text]) => (
+                      <div key={label} className={s.detailCell}>
+                        <span className={s.detailLabel}>{label}</span>
+                        <span className={s.detailText}>{text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
     </div>
   );
 }

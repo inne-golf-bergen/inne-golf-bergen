@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { type Lang, langHref, t } from "@/lib/i18n";
-import { SITE } from "@/lib/site";
+import { mailtoHref, SITE } from "@/lib/site";
 import styles from "./footer.module.css";
 
 export default function SiteFooter({ lang }: { lang: Lang }) {
@@ -54,7 +54,7 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
           <div className={styles.col}>
             <span className={styles.colLabel}>Sandviken</span>
             <span className={styles.colText}>
-              Sandviksbodene 9
+              Sandviksbodene 9, 5035 Bergen
               <br />
               TrackMan iO · 5 m widescreen
               <br />
@@ -86,14 +86,21 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
                 {t(lang, "Få turneringsdatoer og medlemstilbud", "Tournament dates & member offers")}
               </span>
               {subscribed ? (
-                <span className={styles.newsletterThanks}>
-                  {t(lang, "Takk! Du står på lista.", "You're on the list.")}
+                <span role="status" className={styles.newsletterThanks}>
+                  {t(lang, "Send e-posten som åpnet seg — så er du på lista.", "Hit send in the mail that opened — you’re in.")}
                 </span>
               ) : (
                 <form
                   className={styles.newsletterForm}
                   onSubmit={(e) => {
                     e.preventDefault();
+                    /* no list backend — the signup travels as a prefilled email,
+                       like every other form on the site */
+                    const email = String(new FormData(e.currentTarget).get("epost") ?? "");
+                    window.location.href = mailtoHref(
+                      t(lang, "Nyhetsbrev — påmelding", "Newsletter signup"),
+                      t(lang, `Meld meg på nyhetsbrevet: ${email}`, `Newsletter signup: ${email}`),
+                    );
                     setSubscribed(true);
                   }}
                 >

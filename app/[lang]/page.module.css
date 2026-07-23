@@ -21,7 +21,7 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.5s var(--ease-out);
 }
 
 .heroGradV {
@@ -40,18 +40,6 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, rgba(23, 19, 16, 0.44) 0%, rgba(23, 19, 16, 0.08) 40%, rgba(23, 19, 16, 0) 62%);
-}
-
-.heroBlob {
-  position: absolute;
-  width: 58vw;
-  height: 58vw;
-  left: -14vw;
-  top: -20vw;
-  background: radial-gradient(circle, rgba(201, 130, 92, 0.15), transparent 64%);
-  filter: blur(44px);
-  animation: inne-drift 26s ease-in-out infinite alternate;
-  pointer-events: none;
 }
 
 .heroContent {
@@ -76,7 +64,7 @@
   /* display sizes want tighter optical tracking than the -0.01/-0.02 body scale */
   letter-spacing: -0.028em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--white);
   text-shadow:
     0 2px 8px rgba(0, 0, 0, 0.45),
     0 8px 40px rgba(0, 0, 0, 0.35);
@@ -102,7 +90,7 @@
   max-width: 560px;
   font-size: clamp(16px, 1.4vw, 19px);
   line-height: 1.6;
-  color: #fff6ec;
+  color: var(--white);
   text-shadow:
     0 1px 4px rgba(0, 0, 0, 0.6),
     0 4px 18px rgba(0, 0, 0, 0.4);
@@ -175,19 +163,31 @@
 }
 
 .tickerLabel {
-  font-size: 11.5px;
-  letter-spacing: 0.18em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--white);
   text-transform: uppercase;
 }
 
 .pulseDot {
+  position: relative;
   width: 7px;
   height: 7px;
   background: var(--orange-500);
   border-radius: 50%;
   animation: inne-pulse 2.6s ease-in-out infinite;
+}
+
+/* the expanding ring lives on a pseudo-element as transform/opacity —
+   the old box-shadow spread repainted the hero every frame, forever */
+.pulseDot::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 130, 92, 0.55);
+  animation: inne-ring 2.6s ease-in-out infinite;
 }
 
 /* Mobile hero: the fixed BOOK NÅ bar (m-only, same 768px breakpoint) is the
@@ -265,12 +265,6 @@
   overflow: hidden;
 }
 
-.centreMediaWrap {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-}
-
 .centreImg {
   width: 100%;
   height: 100%;
@@ -315,8 +309,8 @@
 }
 
 .centreTag {
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
@@ -342,8 +336,8 @@
 }
 
 .centreRowLabel {
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -351,7 +345,7 @@
 
 .centreRowValue {
   font-size: 14px;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
 }
 
 /* ================= Priser ================= */
@@ -366,7 +360,7 @@
   max-width: 40ch;
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -395,10 +389,10 @@
 }
 
 .priceLabel {
-  font-size: 13px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
-  color: rgba(244, 237, 230, 0.85);
+  color: var(--text-strong);
   text-transform: uppercase;
 }
 
@@ -416,8 +410,8 @@
 }
 
 .priceLinkLabel {
-  font-size: 13px;
-  letter-spacing: 0.16em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
@@ -436,8 +430,8 @@
 }
 
 .priceIncludedLabel {
-  font-size: 12px;
-  letter-spacing: 0.2em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--gray-400);
   text-transform: uppercase;
@@ -446,7 +440,7 @@
 .priceIncludedItem {
   font-size: 14.5px;
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.75);
+  color: var(--text-mid);
 }
 
 /* ================= Medlemskap ================= */
@@ -482,7 +476,7 @@
   max-width: 56ch;
   font-size: clamp(15px, 1.3vw, 18px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.8);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -502,8 +496,8 @@
 .chip {
   padding: 9px 16px;
   border: 1px solid rgba(214, 147, 109, 0.45);
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
@@ -532,6 +526,7 @@
   font-size: 14px;
   letter-spacing: 0.14em;
   color: var(--orange-500);
+  text-transform: uppercase;
 }
 
 .stepTitle {
@@ -550,7 +545,7 @@
   margin: 12px 0 0;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.7);
+  color: var(--text-mid);
   text-wrap: pretty;
 }
 
@@ -637,7 +632,8 @@
   font-weight: 800;
   font-size: clamp(36px, 5.4vw, 76px);
   line-height: 0.98;
-  letter-spacing: -0.01em;
+  /* keeps the bigger-equals-tighter progression (h2 -0.015 → heroH1 -0.028) */
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--white);
   text-shadow: 0 2px 34px rgba(13, 10, 8, 0.8);
@@ -647,7 +643,7 @@
   max-width: 46ch;
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.86);
+  color: var(--text-strong);
   text-wrap: pretty;
   text-shadow: 0 1px 22px rgba(13, 10, 8, 0.85);
 }
@@ -711,7 +707,7 @@
   border: 1px solid var(--line-12);
   text-decoration: none;
   color: var(--white);
-  transition: border-color 0.25s;
+  transition: border-color var(--dur-base) var(--ease-out);
 }
 
 .photoCard:hover {
@@ -720,12 +716,6 @@
 }
 
 .photoCardMedia {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-}
-
-.photoCardMediaWrap {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
@@ -755,8 +745,8 @@
   color: var(--text-on-accent);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 11.5px;
-  letter-spacing: 0.12em;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
   text-transform: uppercase;
 }
 
@@ -780,7 +770,7 @@
   margin: 0;
   font-size: 14.5px;
   line-height: 1.6;
-  color: rgba(244, 237, 230, 0.68);
+  color: var(--text-mid);
   text-wrap: pretty;
   flex: 1;
 }
@@ -788,15 +778,15 @@
 .cardCta {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 12.5px;
-  letter-spacing: 0.1em;
+  font-size: var(--label-size-m);
+  letter-spacing: var(--label-track-m);
   color: var(--orange-500);
   text-transform: uppercase;
 }
 
 .cardCtaArrow {
   display: inline-block;
-  transition: transform 300ms var(--ease-out);
+  transition: transform var(--dur-enter) var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -815,8 +805,8 @@
   text-decoration: none;
   color: var(--white);
   transition:
-    border-color 0.25s,
-    background 0.25s;
+    border-color var(--dur-base) var(--ease-out),
+    background var(--dur-base) var(--ease-out);
 }
 
 .lineCard:hover {
@@ -839,7 +829,7 @@
   margin: 0;
   font-size: 14.5px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.68);
+  color: var(--text-mid);
   text-wrap: pretty;
   flex: 1;
 }
@@ -888,17 +878,18 @@
   align-items: center;
   justify-content: center;
   padding: 17px 34px;
-  background: #171008;
+  background: var(--text-on-accent);
   color: var(--white);
+  border-radius: 2px;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   transition:
-    background 0.2s,
-    transform 160ms var(--ease-out);
+    background var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .darkCta:hover {
@@ -916,7 +907,7 @@
   max-width: 38ch;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.7);
+  color: var(--text-mid);
 }
 
 .faqLink {
@@ -963,6 +954,13 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--white);
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .faqSummary:hover .faqQ {
+    color: var(--orange-300);
+  }
 }
 
 .faqX {
@@ -977,7 +975,7 @@
   padding: 0 0 20px;
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(244, 237, 230, 0.72);
+  color: var(--text-mid);
   max-width: 60ch;
 }
 

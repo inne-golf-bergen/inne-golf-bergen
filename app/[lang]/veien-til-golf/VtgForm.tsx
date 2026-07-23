@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import SentCard from "@/components/SentCard";
 import { type Lang, t } from "@/lib/i18n";
-import { mailBody, mailtoHref } from "@/lib/site";
+import { mailBody, mailtoHref, mailtoSubject, SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 
 export default function VtgForm({ lang }: { lang: Lang }) {
@@ -10,17 +11,22 @@ export default function VtgForm({ lang }: { lang: Lang }) {
 
   if (sent) {
     return (
-      <div className={sub.sentCard}>
-        <span className={sub.sentKicker}>{t(lang, "Sendt", "Sent")}</span>
-        <h3 className={sub.sentTitle}>{t(lang, "Takk!", "Done!")}</h3>
+      <SentCard kicker={t(lang, "Nesten i mål", "Almost there")} title={t(lang, "Send e-posten.", "Hit send.")}>
         <p className={sub.sentBody}>
           {t(
             lang,
-            "Vi tar kontakt med kursdatoer som passer deg. Har du det travelt, ring/SMS Kjetil på 913 30 248.",
-            "We'll reach out with course dates that fit. In a hurry? Call/text Kjetil on 913 30 248.",
+            "Trykk send i e-posten som åpnet seg, så tar vi kontakt med kursdatoer som passer. Har du det travelt, ring/SMS Kjetil på 913 30 248.",
+            "Hit send in the email that opened and we’ll suggest course dates. In a hurry? Call/text Kjetil on 913 30 248.",
           )}
         </p>
-      </div>
+        <p className={sub.sentSub}>
+          {t(lang, "Åpnet det ikke noe? Send detaljene til", "Nothing opened? Send the details to")}{" "}
+          <a data-sweep="true" href={mailtoSubject(t(lang, "Interesse — Veien til Golf", "Interest — Veien til Golf"))}>
+            {SITE.email}
+          </a>
+          .
+        </p>
+      </SentCard>
     );
   }
 
@@ -45,7 +51,14 @@ export default function VtgForm({ lang }: { lang: Lang }) {
     >
       <label>
         <span className="fieldLabel">{t(lang, "Navn", "Name")}</span>
-        <input required type="text" name="navn" placeholder={t(lang, "Fullt navn", "Full name")} className="fieldInput" />
+        <input
+          required
+          type="text"
+          name="navn"
+          autoComplete="name"
+          placeholder={t(lang, "Fullt navn", "Full name")}
+          className="fieldInput"
+        />
       </label>
       <div className={sub.formGrid160}>
         <label>
@@ -74,7 +87,7 @@ export default function VtgForm({ lang }: { lang: Lang }) {
         />
       </label>
       <button type="submit" className="formSubmit">
-        {t(lang, "Meld interesse", "I'm interested")}
+        {t(lang, "Meld interesse", "I’m interested")}
       </button>
       <p className={sub.formFoot}>
         {t(

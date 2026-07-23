@@ -42,7 +42,7 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
             {t(
               lang,
               "Begge sentre er selvbetjente og åpne hele døgnet. Her finner du frem — og inn.",
-              "Both venues are self-serve and open 24/7. Here's how to find us — and get in.",
+              "Both venues are self-serve and open 24/7. Here’s how to find us — and get in.",
             )}
           </p>
         </div>
@@ -77,7 +77,15 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
             <div className={s.centreRows}>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Adresse", "Address")}</span>
-                <span className={s.centreRowValue}>Haukedalen 1, 5121 Ulset</span>
+                <a
+                  data-sweep="true"
+                  href="https://maps.google.com/?q=Haukedalen+1,+5121+Ulset"
+                  target="_blank"
+                  rel="noopener"
+                  className={s.centreRowValue}
+                >
+                  Haukedalen 1, 5121 Ulset
+                </a>
               </div>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Parkering", "Parking")}</span>
@@ -109,7 +117,15 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
             <div className={s.centreRows}>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Adresse", "Address")}</span>
-                <span className={s.centreRowValue}>Sandviksbodene 9</span>
+                <a
+                  data-sweep="true"
+                  href="https://maps.google.com/?q=Sandviksbodene+9,+5035+Bergen"
+                  target="_blank"
+                  rel="noopener"
+                  className={s.centreRowValue}
+                >
+                  Sandviksbodene 9, 5035 Bergen
+                </a>
               </div>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Parkering", "Parking")}</span>
@@ -190,7 +206,7 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
                 {t(
                   lang,
                   "Lås opp døra med mobilen fra bekreftelsen — så er du inne. Ingen nøkkel, ingen kode å huske.",
-                  "Unlock the door with your phone from the confirmation — and you're in. No key, no code.",
+                  "Unlock the door with your phone from the confirmation — and you’re in. No key, no code.",
                 )}
               </span>
             </div>

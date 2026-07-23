@@ -69,7 +69,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
           <p data-fade="true" className={s.heroLead}>
             {t(lang, `Årsmedlemskap 1${NNBSP}800 kr per år`, `Annual membership 1${NNBSP}800 kr/yr`)}{" "}
             <span className={s.heroLeadPrice}>
-              {t(lang, `— det er 150 kr i måneden.`, `— that's 150 kr a month.`)}
+              {t(lang, `— det er 150 kr i måneden.`, `— that’s 150 kr a month.`)}
             </span>
           </p>
           <div data-fade="true" className={s.heroCtaWrap}>
@@ -123,7 +123,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
                 {t(
                   lang,
                   "Gratis lånekøller, baller og tees — herre, dame og junior",
-                  "Free loaner clubs, balls, tees — men's, women's, junior",
+                  "Free loaner clubs, balls, tees — men’s, women’s, junior",
                 )}
               </span>
             </div>
@@ -376,7 +376,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
             <Eyebrow>FAQ</Eyebrow>
             <h2 className={`${sub.h2} ${sub.h2Large}`}>{t(lang, "Det du lurer på.", "Your questions.")}</h2>
             <p className={sub.faqLead}>
-              {t(lang, "Finner du ikke svaret? Skriv til", "Can't find the answer? Write to")}{" "}
+              {t(lang, "Finner du ikke svaret? Skriv til", "Can’t find the answer? Write to")}{" "}
               <a data-sweep="true" href={`mailto:${SITE.email}`} className={sub.faqLink}>
                 {SITE.email}
               </a>
@@ -431,7 +431,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
                 {t(
                   lang,
                   "Verdikortet er gyldig frem til det er brukt opp.",
-                  "The voucher stays valid until it's used up.",
+                  "The voucher stays valid until it’s used up.",
                 )}
               </p>
             </details>
