@@ -107,6 +107,7 @@ export default function VinterForm({ lang }: { lang: Lang }) {
           required
           type="tel"
           name="telefon"
+          autoComplete="tel"
           placeholder={t(lang, "Kontakttelefon", "Contact phone")}
           className="fieldInput"
         />

@@ -193,6 +193,12 @@
   --field-bg: var(--ink-950);
 }
 
+.formGrid240 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 18px;
+}
+
 .formGrid200 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -378,6 +384,13 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--white);
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .faqSummary:hover .faqQ {
+    color: var(--orange-300);
+  }
 }
 
 .faqX {

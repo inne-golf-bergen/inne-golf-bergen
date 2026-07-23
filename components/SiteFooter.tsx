@@ -54,7 +54,7 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
           <div className={styles.col}>
             <span className={styles.colLabel}>Sandviken</span>
             <span className={styles.colText}>
-              Sandviksbodene 9
+              Sandviksbodene 9, 5035 Bergen
               <br />
               TrackMan iO · 5 m widescreen
               <br />

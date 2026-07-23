@@ -51,7 +51,14 @@ export default function VtgForm({ lang }: { lang: Lang }) {
     >
       <label>
         <span className="fieldLabel">{t(lang, "Navn", "Name")}</span>
-        <input required type="text" name="navn" placeholder={t(lang, "Fullt navn", "Full name")} className="fieldInput" />
+        <input
+          required
+          type="text"
+          name="navn"
+          autoComplete="name"
+          placeholder={t(lang, "Fullt navn", "Full name")}
+          className="fieldInput"
+        />
       </label>
       <div className={sub.formGrid160}>
         <label>

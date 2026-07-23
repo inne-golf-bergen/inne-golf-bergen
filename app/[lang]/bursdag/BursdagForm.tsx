@@ -54,7 +54,9 @@ export default function BursdagForm({ lang }: { lang: Lang }) {
         setSent(true);
       }}
     >
-      <div className={sub.formGrid180}>
+      {/* 2×2 at the form-column width — formGrid180 left "Senter" orphaned on
+          its own row next to two empty tracks */}
+      <div className={sub.formGrid240}>
         <label>
           <span className="fieldLabel">{t(lang, "Dato", "Date")}</span>
           <input required type="date" name="dato" className="fieldInput" />
@@ -77,16 +79,37 @@ export default function BursdagForm({ lang }: { lang: Lang }) {
       </div>
       <label>
         <span className="fieldLabel">{t(lang, "Navn", "Name")}</span>
-        <input required type="text" name="navn" placeholder={t(lang, "Ditt navn", "Your name")} className="fieldInput" />
+        <input
+          required
+          type="text"
+          name="navn"
+          autoComplete="name"
+          placeholder={t(lang, "Ditt navn", "Your name")}
+          className="fieldInput"
+        />
       </label>
       <div className={sub.formGrid180}>
         <label>
           <span className="fieldLabel">{t(lang, "Telefon", "Phone")}</span>
-          <input required type="tel" name="telefon" placeholder={t(lang, "Telefonnummer", "Phone number")} className="fieldInput" />
+          <input
+            required
+            type="tel"
+            name="telefon"
+            autoComplete="tel"
+            placeholder={t(lang, "Telefonnummer", "Phone number")}
+            className="fieldInput"
+          />
         </label>
         <label>
           <span className="fieldLabel">{t(lang, "E-post", "Email")}</span>
-          <input required type="email" name="epost" placeholder={t(lang, "din@epost.no", "you@mail.com")} className="fieldInput" />
+          <input
+            required
+            type="email"
+            name="epost"
+            autoComplete="email"
+            placeholder={t(lang, "din@epost.no", "you@mail.com")}
+            className="fieldInput"
+          />
         </label>
       </div>
       <label>

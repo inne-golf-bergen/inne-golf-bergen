@@ -47,6 +47,9 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   const [glass, setGlass] = useState(false);
   const hoverRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const sheetCloseRef = useRef<HTMLButtonElement>(null);
+  const mobileCloseRef = useRef<HTMLButtonElement>(null);
+  const lastFocusRef = useRef<HTMLElement | null>(null);
 
   // close menus when navigating (adjust state during render, not in an effect)
   const [prevPathname, setPrevPathname] = useState(pathname);
@@ -111,11 +114,46 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen || sheetOpen ? "hidden" : "";
+    const locked = mobileOpen || sheetOpen;
+    /* compensate classic scrollbars so the page doesn't shift under the lock */
+    const gap = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = locked ? "hidden" : "";
+    document.body.style.paddingRight = locked && gap > 0 ? `${gap}px` : "";
     return () => {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
   }, [mobileOpen, sheetOpen]);
+
+  /* dialog focus: move focus in on open, hand it back on close */
+  useEffect(() => {
+    if (mobileOpen || sheetOpen) {
+      if (!lastFocusRef.current) lastFocusRef.current = document.activeElement as HTMLElement;
+      const target = sheetOpen ? sheetCloseRef : mobileCloseRef;
+      requestAnimationFrame(() => target.current?.focus());
+    } else if (lastFocusRef.current) {
+      lastFocusRef.current.focus();
+      lastFocusRef.current = null;
+    }
+  }, [mobileOpen, sheetOpen]);
+
+  /* minimal Tab trap for the two aria-modal surfaces */
+  const trapTab = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Tab") return;
+    const focusables = e.currentTarget.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   const openSheet = () => {
     setSheetOpen(true);
@@ -145,7 +183,15 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   );
 
   const dropdown = (id: MenuId, label: string, wide: boolean, items: ReactNode) => (
-    <div className={styles.menuWrap} onMouseEnter={() => openHover(id)} onMouseLeave={leaveMenus}>
+    <div
+      className={styles.menuWrap}
+      onMouseEnter={() => openHover(id)}
+      onMouseLeave={leaveMenus}
+      onBlur={(e) => {
+        /* keyboard users tabbing past the last item shouldn't leave a menu open */
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setMenu(null);
+      }}
+    >
       <button
         type="button"
         onClick={() => toggle(id)}
@@ -317,6 +363,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
           exit={{ opacity: 0, transition: { duration: reduce ? 0 : DUR.micro, ease: "easeOut" } }}
           transition={{ duration: reduce ? 0 : DUR.base, ease: EASE_OUT }}
           className={styles.mobileMenu}
+          onKeyDown={trapTab}
         >
           <div className={styles.mobileMenuBar}>
             <Link href={logoHref} onClick={closeAllNav} aria-label={homeLabel} className={styles.logo}>
@@ -332,6 +379,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
               </Link>
               <button
                 type="button"
+                ref={mobileCloseRef}
                 onClick={() => setMobileOpen(false)}
                 aria-label={t(lang, "Lukk menyen", "Close menu")}
                 className={styles.iconBtn}
@@ -396,6 +444,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
           aria-modal="true"
           aria-label={t(lang, "Velg senter", "Pick venue")}
           className={styles.sheet}
+          onKeyDown={trapTab}
         >
           <motion.div
             initial={reduce ? false : { opacity: 0 }}
@@ -415,6 +464,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
           >
             <button
               type="button"
+              ref={sheetCloseRef}
               onClick={() => setSheetOpen(false)}
               aria-label={t(lang, "Lukk", "Close")}
               className={`${styles.iconBtn} ${styles.sheetClose}`}

@@ -33,12 +33,11 @@ const specs = (lang: Lang): [string, string][] => [
   ["Bay", t(lang, "Egen bay", "Own bay")],
 ];
 
+/* facts the spec list above does NOT already state — never a repeat of it */
 const chips = (lang: Lang) => [
-  t(lang, "6–8 personer", "6–8 people"),
-  "16:9 widescreen",
-  t(lang, "Storskjerm med live sport", "Big screen, live sport"),
-  t(lang, "Pokerbord", "Poker"),
-  t(lang, "Egen bay", "Own bay"),
+  t(lang, "Ta med egen mat", "Bring own food"),
+  t(lang, "Book hele kvelden", "Book all night"),
+  t(lang, "Åpent hele døgnet", "Open 24/7"),
 ];
 
 export default async function VipLosjenPage({ params }: { params: Promise<{ lang: string }> }) {

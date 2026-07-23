@@ -41,7 +41,9 @@ export default function BedriftForm({ lang }: { lang: Lang }) {
           [t(lang, "Antall", "People"), f.get("antall")],
           [t(lang, "Ønsket dato", "Date"), f.get("dato")],
           [t(lang, "Senter", "Venue"), f.get("senter")],
-          [t(lang, "Kontakt", "Contact"), f.get("kontakt")],
+          [t(lang, "Navn", "Name"), f.get("navn")],
+          [t(lang, "Telefon", "Phone"), f.get("telefon")],
+          [t(lang, "E-post", "Email"), f.get("epost")],
           [t(lang, "Om kvelden", "The night"), f.get("notat")],
         ]);
         window.location.href = mailtoHref(t(lang, "Bedriftsforespørsel", "Company inquiry"), body);
@@ -78,15 +80,40 @@ export default function BedriftForm({ lang }: { lang: Lang }) {
         </label>
       </div>
       <label>
-        <span className="fieldLabel">{t(lang, "Kontakt", "Contact")}</span>
+        <span className="fieldLabel">{t(lang, "Navn", "Name")}</span>
         <input
           required
           type="text"
-          name="kontakt"
-          placeholder={t(lang, "Navn, e-post og telefon", "Name, email and phone")}
+          name="navn"
+          autoComplete="name"
+          placeholder={t(lang, "Ditt navn", "Your name")}
           className="fieldInput"
         />
       </label>
+      <div className={sub.formGrid180}>
+        <label>
+          <span className="fieldLabel">{t(lang, "Telefon", "Phone")}</span>
+          <input
+            required
+            type="tel"
+            name="telefon"
+            autoComplete="tel"
+            placeholder={t(lang, "Telefonnummer", "Phone number")}
+            className="fieldInput"
+          />
+        </label>
+        <label>
+          <span className="fieldLabel">{t(lang, "E-post", "Email")}</span>
+          <input
+            required
+            type="email"
+            name="epost"
+            autoComplete="email"
+            placeholder={t(lang, "din@epost.no", "you@mail.com")}
+            className="fieldInput"
+          />
+        </label>
+      </div>
       <label>
         <span className="fieldLabel">{t(lang, "Om kvelden (valgfritt)", "The night (optional)")}</span>
         <textarea

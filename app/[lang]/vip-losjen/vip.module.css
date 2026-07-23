@@ -67,6 +67,19 @@
   min-height: 150px;
 }
 
+/* phones: a tight 2×2 matrix instead of four 150px boxes for four words */
+@media (max-width: 768px) {
+  .passerGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .passerCell {
+    min-height: 96px;
+    padding: 16px;
+  }
+}
+
 .passerText {
   font-family: var(--font-display);
   font-weight: 800;

@@ -77,7 +77,15 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
             <div className={s.centreRows}>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Adresse", "Address")}</span>
-                <span className={s.centreRowValue}>Haukedalen 1, 5121 Ulset</span>
+                <a
+                  data-sweep="true"
+                  href="https://maps.google.com/?q=Haukedalen+1,+5121+Ulset"
+                  target="_blank"
+                  rel="noopener"
+                  className={s.centreRowValue}
+                >
+                  Haukedalen 1, 5121 Ulset
+                </a>
               </div>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Parkering", "Parking")}</span>
@@ -109,7 +117,15 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
             <div className={s.centreRows}>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Adresse", "Address")}</span>
-                <span className={s.centreRowValue}>Sandviksbodene 9</span>
+                <a
+                  data-sweep="true"
+                  href="https://maps.google.com/?q=Sandviksbodene+9,+5035+Bergen"
+                  target="_blank"
+                  rel="noopener"
+                  className={s.centreRowValue}
+                >
+                  Sandviksbodene 9, 5035 Bergen
+                </a>
               </div>
               <div className={s.centreRow}>
                 <span className={s.centreRowLabel}>{t(lang, "Parkering", "Parking")}</span>

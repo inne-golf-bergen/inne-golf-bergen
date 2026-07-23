@@ -51,7 +51,14 @@ export default function PolfForm({ lang }: { lang: Lang }) {
     >
       <label>
         <span className="fieldLabel">{t(lang, "Navn", "Name")}</span>
-        <input required type="text" name="navn" placeholder={t(lang, "Fullt navn", "Full name")} className="fieldInput" />
+        <input
+          required
+          type="text"
+          name="navn"
+          autoComplete="name"
+          placeholder={t(lang, "Fullt navn", "Full name")}
+          className="fieldInput"
+        />
       </label>
       <div className={sub.formGrid200}>
         <label>
@@ -60,6 +67,7 @@ export default function PolfForm({ lang }: { lang: Lang }) {
             required
             type="email"
             name="epost"
+            autoComplete="email"
             placeholder={t(lang, "din@epost.no", "you@mail.com")}
             className="fieldInput"
           />

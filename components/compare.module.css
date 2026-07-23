@@ -49,6 +49,27 @@
   }
 }
 
+/* mobile framing block — replaces the hidden overlay below 768px */
+.mobileHead {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileHead {
+    display: block;
+    padding: 0 20px 24px;
+  }
+
+  .mobileHead .title {
+    text-shadow: none;
+  }
+
+  .mobileHead .copy {
+    text-shadow: none;
+    color: var(--text-mid);
+  }
+}
+
 .title {
   margin: 0;
   font-family: var(--font-display);
@@ -87,6 +108,8 @@
 
 .line:focus-visible {
   outline: none;
+  /* the ring belongs on the knob, not the full-height strip */
+  box-shadow: none;
 }
 
 .line:focus-visible .knob {

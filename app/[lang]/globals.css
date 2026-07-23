@@ -153,6 +153,15 @@ button {
   font-family: inherit;
 }
 
+/* every interactive element answers keyboard focus with the copper ring;
+   components with a bespoke ring (compare-slider knob) override locally */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
 /* layout helpers */
 .container {
   max-width: 1440px;
@@ -386,6 +395,11 @@ a[data-sweep-in]:hover::after {
 
 .fieldInput:focus {
   border-color: var(--orange-500);
+}
+
+/* only after interaction — never on pristine fields */
+.fieldInput:user-invalid {
+  border-color: #b3564a;
 }
 
 textarea.fieldInput {

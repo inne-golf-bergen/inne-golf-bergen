@@ -40,6 +40,14 @@ export async function generateMetadata({
       "Indoor golf in Bergen — TrackMan iO simulators in Åsane and Sandviken. Self-serve, open 24/7. Book a bay from 100 kr per 30 min.",
     ),
     alternates: langAlternates("/"),
+    /* shares into Slack/iMessage/Facebook get the strongest asset: the venue */
+    openGraph: {
+      siteName: "INNE Golf Bergen",
+      type: "website",
+      locale: lang === "no" ? "nb_NO" : "en_US",
+      images: [{ url: "/assets/photos/bays-wide.jpg", width: 1200, height: 630 }],
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 

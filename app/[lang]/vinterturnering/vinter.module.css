@@ -61,7 +61,9 @@
 
 .prizeGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  /* pinned to one row — the First/Last zero-padding assumes all four cells
+     share it; auto-fit's 2×2 wrap between 769-1050px misaligned the ledger */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   margin-top: 36px;
   background: rgba(26, 16, 10, 0.18);
@@ -167,8 +169,10 @@
   padding: clamp(22px, 3vw, 32px) 0;
 }
 
-.phaseBtn:hover {
-  opacity: 0.85;
+@media (hover: hover) and (pointer: fine) {
+  .phaseBtn:hover .phaseTitle {
+    color: var(--orange-300);
+  }
 }
 
 .phaseNum {
@@ -194,6 +198,7 @@
   line-height: 1;
   text-transform: uppercase;
   color: var(--white);
+  transition: color var(--dur-micro) var(--ease-out);
 }
 
 .phaseMeta {

@@ -954,6 +954,13 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--white);
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .faqSummary:hover .faqQ {
+    color: var(--orange-300);
+  }
 }
 
 .faqX {
