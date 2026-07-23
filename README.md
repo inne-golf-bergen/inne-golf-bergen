@@ -3,6 +3,10 @@
 Produksjonsimplementasjon av Claude Design-håndoffen «INNE Golf Bergen hero section»
 (12 sider, norsk bokmål, «Kobber & eik»-designspråket).
 
+**Live:** <https://inne-golf-bergen.vercel.app> — auto-deploy fra `main` via Vercel.
+(Domenet innegolfbergen.no peker fortsatt på den gamle løsningen hos en annen
+leverandør; flyttes til Vercel som et eget steg senere.)
+
 ## Stack
 
 - **Next.js 16** (App Router, statisk prerendret) + **React 19** + TypeScript
