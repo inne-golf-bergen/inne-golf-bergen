@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Schibsted_Grotesk, Syne } from "next/font/google";
+import { CursorGlow } from "@/components/motion/fx";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { asLang, LANGS, langAlternates, t } from "@/lib/i18n";
@@ -63,6 +64,10 @@ export default async function RootLayout({
         <SiteNav lang={lang} />
         {children}
         <SiteFooter lang={lang} />
+        {/* site-wide ambience — the kobber & eik "room tone". Both self-disable
+            for reduced motion; the glow additionally needs a fine pointer. */}
+        <CursorGlow />
+        <div id="inne-grain" aria-hidden="true" />
       </body>
     </html>
   );

@@ -218,6 +218,9 @@ export function Magnetic({
 }) {
   const reduce = useReducedMotion();
   const fine = useRef(false);
+  /* rect cached on enter: reading it per-move would measure the already-
+     translated element and feed the offset back into itself */
+  const rect = useRef<DOMRect | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 180, damping: 20, mass: 0.5 });
@@ -227,13 +230,18 @@ export function Magnetic({
     fine.current = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   }, []);
 
+  const onEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    rect.current = e.currentTarget.getBoundingClientRect();
+  };
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduce || !fine.current) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width / 2) * strength);
-    y.set((e.clientY - r.top - r.height / 2) * strength * 1.2);
+    const r = rect.current ?? e.currentTarget.getBoundingClientRect();
+    /* clamp so wide fullWidth CTAs shift subtly instead of chasing the cursor */
+    x.set(Math.max(-14, Math.min(14, (e.clientX - r.left - r.width / 2) * strength)));
+    y.set(Math.max(-10, Math.min(10, (e.clientY - r.top - r.height / 2) * strength * 1.2)));
   };
   const onLeave = () => {
+    rect.current = null;
     x.set(0);
     y.set(0);
   };
@@ -242,6 +250,7 @@ export function Magnetic({
     <motion.div
       className={className}
       style={{ x: sx, y: sy, display: "inline-flex" }}
+      onMouseEnter={onEnter}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >

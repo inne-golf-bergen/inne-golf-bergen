@@ -9,7 +9,6 @@ import {
   Cascade,
   CascadeItem,
   CountUp,
-  CursorGlow,
   FadeUp,
   HeroIntro,
   HeroItem,
@@ -135,7 +134,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           />
           <div className={s.heroGradV} />
           <div className={s.heroGradH} />
-          <div className={s.heroBlob} />
         </div>
         <HeroIntro className={s.heroContent}>
           <HeroItem>
@@ -659,8 +657,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      <CursorGlow />
-      <div id="inne-grain" aria-hidden="true" />
     </main>
   );
 }

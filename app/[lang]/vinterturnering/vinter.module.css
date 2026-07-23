@@ -209,7 +209,7 @@
   font-weight: 700;
   font-size: 22px;
   color: var(--orange-500);
-  transition: transform var(--dur-enter) var(--ease-out);
+  /* rotation is spring-driven (ICON_SPRING) in VinterFaser.tsx */
 }
 
 .phaseFinal .phaseNum,

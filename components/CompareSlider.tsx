@@ -24,6 +24,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
     let p = 47;
     let raf = 0;
     let down = false;
+    let nudge: { kill: () => void } | undefined;
     const cleanup: (() => void)[] = [];
 
     const apply = () => {
@@ -40,6 +41,8 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
 
     const pd = (e: PointerEvent) => {
       e.preventDefault();
+      /* the user has the wheel — the intro nudge must never fight the grab */
+      nudge?.kill();
       if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
       down = true;
       try {
@@ -67,6 +70,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
     const kd = (e: KeyboardEvent) => {
       if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
       e.preventDefault();
+      nudge?.kill();
       p = Math.min(96, Math.max(4, p + (e.key === "ArrowLeft" ? -3 : 3)));
       apply();
     };
@@ -81,7 +85,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
           io.disconnect();
           import("gsap").then(({ gsap }) => {
             const o = { v: 47 };
-            gsap.to(o, {
+            nudge = gsap.to(o, {
               v: 60,
               duration: 0.95,
               ease: "power2.inOut",
@@ -105,6 +109,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
 
     return () => {
       cleanup.forEach((fn) => fn());
+      nudge?.kill();
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);

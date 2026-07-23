@@ -1,11 +1,13 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { type Lang, langHref, t } from "@/lib/i18n";
 import Button from "./Button";
+import { DUR, EASE_OUT } from "./motion/tokens";
 import styles from "./nav.module.css";
 
 type MenuId = "sentre" | "selskap" | "turn";
@@ -38,6 +40,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   const enHref = stripped === "/" ? "/en" : `/en${stripped}`;
   const otherHref = lang === "no" ? enHref : noHref;
 
+  const reduce = useReducedMotion();
   const [menu, setMenu] = useState<MenuId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -155,7 +158,20 @@ export default function SiteNav({ lang }: { lang: Lang }) {
           ▾
         </span>
       </button>
-      {menu === id && <div className={`${styles.dropdown} ${wide ? styles.dropdownWide : ""}`}>{items}</div>}
+      <AnimatePresence>
+        {menu === id && (
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4, transition: { duration: reduce ? 0 : 0.12, ease: "easeOut" } }}
+            transition={{ duration: reduce ? 0 : 0.18, ease: EASE_OUT }}
+            style={{ transformOrigin: "top left" }}
+            className={`${styles.dropdown} ${wide ? styles.dropdownWide : ""}`}
+          >
+            {items}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 
@@ -290,8 +306,18 @@ export default function SiteNav({ lang }: { lang: Lang }) {
         </div>
       </header>
 
+      <AnimatePresence>
       {mobileOpen && (
-        <div role="dialog" aria-modal="true" aria-label={t(lang, "Meny", "Menu")} className={styles.mobileMenu}>
+        <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t(lang, "Meny", "Menu")}
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: reduce ? 0 : DUR.micro, ease: "easeOut" } }}
+          transition={{ duration: reduce ? 0 : DUR.base, ease: EASE_OUT }}
+          className={styles.mobileMenu}
+        >
           <div className={styles.mobileMenuBar}>
             <Link href={logoHref} onClick={closeAllNav} aria-label={homeLabel} className={styles.logo}>
               <Lockup />
@@ -359,18 +385,34 @@ export default function SiteNav({ lang }: { lang: Lang }) {
               </Button>
             </div>
           </nav>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
 
+      <AnimatePresence>
       {sheetOpen && (
-        <div
+        <motion.div
           role="dialog"
           aria-modal="true"
           aria-label={t(lang, "Velg senter", "Pick venue")}
           className={styles.sheet}
         >
-          <div className={styles.sheetBackdrop} onClick={() => setSheetOpen(false)} />
-          <div className={styles.sheetPanel}>
+          <motion.div
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: reduce ? 0 : DUR.micro, ease: "easeOut" } }}
+            transition={{ duration: reduce ? 0 : DUR.base, ease: EASE_OUT }}
+            className={styles.sheetBackdrop}
+            onClick={() => setSheetOpen(false)}
+          />
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12, transition: { duration: reduce ? 0 : 0.18, ease: "easeOut" } }}
+            /* entrance choreography, deliberately longer than --dur-enter */
+            transition={{ duration: reduce ? 0 : 0.5, ease: EASE_OUT }}
+            className={styles.sheetPanel}
+          >
             <button
               type="button"
               onClick={() => setSheetOpen(false)}
@@ -408,9 +450,10 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                 "Free loaner clubs for men, women and juniors.",
               )}
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
+      </AnimatePresence>
 
       <div className={`m-only ${styles.bookBar}`}>
         <Button size="lg" fullWidth onClick={openSheet}>
