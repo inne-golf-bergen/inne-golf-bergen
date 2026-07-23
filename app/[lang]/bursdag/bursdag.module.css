@@ -61,7 +61,9 @@
   .heroH1 {
     -webkit-hyphens: none;
     hyphens: none;
+    /* EN "REMEMBER." is 10.4em — fit it rather than hard-cut on tiny phones */
     font-size: 28px;
+    font-size: min(28px, max(18px, 8.2cqw));
   }
 }
 

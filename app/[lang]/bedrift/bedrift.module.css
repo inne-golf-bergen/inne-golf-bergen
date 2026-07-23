@@ -14,8 +14,12 @@
 }
 
 .heroH1 {
-  max-width: 15ch;
+  /* wide enough for "FIRMAKVELDEN" (13.6em in Syne 800) — 15ch clipped it
+     and forced a hyphen break at every width */
+  max-width: min(100%, 14.5em);
+  /* cqw term keeps the longest word on one line (container: heroContent) */
   font-size: clamp(40px, 7vw, 110px);
+  font-size: min(clamp(40px, 7vw, 110px), max(40px, 7.2cqw));
   line-height: 0.94;
 }
 
@@ -66,6 +70,8 @@
   padding: clamp(26px, 3vw, 38px);
   background: var(--ink-850);
   border: 1px solid var(--line-12);
+  /* the title sizes itself to the card (cqw below) */
+  container-type: inline-size;
 }
 
 .pakkeCardFeatured {
@@ -109,7 +115,9 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
+  /* "TURNERINGS-" (11.7em with its soft hyphen) must fit the card line */
   font-size: clamp(24px, 2.4vw, 32px);
+  font-size: min(clamp(24px, 2.4vw, 32px), max(19px, 8.3cqw));
   line-height: 1.05;
   min-height: 2.1em;
   text-transform: uppercase;

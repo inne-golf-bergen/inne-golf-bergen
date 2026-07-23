@@ -20,7 +20,10 @@
 }
 
 .heroH1 {
+  /* "TURNERINGEN." is 12.9em in Syne 800 — the cqw term (container:
+     heroContent) keeps it un-hyphenated on one line at ultra-wide */
   font-size: clamp(38px, 6.4vw, 116px);
+  font-size: min(clamp(38px, 6.4vw, 116px), max(38px, 7.6cqw));
   line-height: 0.9;
 }
 

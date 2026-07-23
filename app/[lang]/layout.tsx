@@ -65,6 +65,14 @@ export default async function RootLayout({
   return (
     <html lang={lang} className={`${syne.variable} ${schibsted.variable}`}>
       <body>
+        {/* header glass must react to scroll before hydration too (anchor
+            landings, restored scroll) — a class beats a React-only state */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var f=function(){document.body.classList.toggle('inne-scrolled',window.scrollY>24)};addEventListener('scroll',f,{passive:true});f()})();",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(locationsJsonld(lang)) }}

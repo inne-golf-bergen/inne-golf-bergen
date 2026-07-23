@@ -12,7 +12,7 @@ import sub from "../subpage.module.css";
    and swap the archive copy back to the live entry copy (see git history). */
 import s from "./polf.module.css";
 
-const NNBSP = " ";
+const NNBSP = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
 
 export async function generateMetadata({
   params,
@@ -211,7 +211,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
           <div className={s.eventGrid}>
             <div data-st="true" className={s.eventCard}>
               <span className={s.eventKicker}>{t(lang, "Del 1", "Act 1")}</span>
-              <h3 className={s.eventTitle}>{t(lang, "Golfrunden", "Golf round")}</h3>
+              <h3 className={s.eventTitle}>{t(lang, "Golf\u00adrunden", "Golf round")}</h3>
               <span className={s.eventDate}>{t(lang, "22. okt – 4. des", "22 Oct – 4 Dec")}</span>
               <ul className={s.eventList}>
                 {[
@@ -252,7 +252,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
 
             <div data-st="true" className={s.eventCard}>
               <span className={s.eventKicker}>{t(lang, "Del 2", "Act 2")}</span>
-              <h3 className={s.eventTitle}>{t(lang, "Pokerturnering", "Poker night")}</h3>
+              <h3 className={s.eventTitle}>{t(lang, "Poker\u00adturnering", "Poker night")}</h3>
               <span className={s.eventDate}>
                 {t(lang, "Fredag 5. des · kl. 19:00 · hos INNE Golf Bergen", "Friday 5 Dec · 19:00 · at INNE Golf Bergen")}
               </span>
@@ -331,7 +331,9 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
       {/* ============ Arranger POLF ============ */}
       <section className={sub.copperBand}>
         <div data-st="true" className={`container ${sub.copperInner}`}>
-          <div className={sub.copperText} style={{ maxWidth: "52ch" }}>
+          {/* line length lives on the copy (subpage copperCopy) — capping the
+              whole column squeezed the headline into hyphen breaks */}
+          <div className={sub.copperText}>
             <h2 className={`${sub.copperH2} ${sub.copperH2Small}`}>
               {t(lang, "Vil du arrangere POLF?", "Want to host POLF?")}
             </h2>

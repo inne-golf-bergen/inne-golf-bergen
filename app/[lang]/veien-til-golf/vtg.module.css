@@ -115,6 +115,8 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+  /* the price sizes itself to the card (cqw on .kursPrice) */
+  container-type: inline-size;
 }
 
 .kursHead {
@@ -144,6 +146,7 @@
 
 .kursPriceRow {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 12px;
 }
@@ -151,7 +154,10 @@
 .kursPrice {
   font-family: var(--font-display);
   font-weight: 800;
+  /* a price never breaks internally; it scales to the card instead */
+  white-space: nowrap;
   font-size: clamp(40px, 4.4vw, 58px);
+  font-size: min(clamp(40px, 4.4vw, 58px), max(30px, 13.5cqw));
   line-height: 1;
   color: var(--white);
 }

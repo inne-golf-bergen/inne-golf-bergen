@@ -8,9 +8,9 @@ import { SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 import s from "./medlemskap.module.css";
 
-const NNBSP = " ";
-const THIN = " ";
-const MINUS = "−";
+const NNBSP = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
+const THIN = "\u202f";
+const MINUS = "\u2212";
 
 export async function generateMetadata({
   params,
@@ -57,7 +57,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
   return (
     <main>
       {/* ============ Hero ============ */}
-      <section className={`${sub.bg900} ${sub.textHero}`}>
+      <section className={`${sub.bg900} ${sub.textHero} ${s.hero}`}>
         <div className="container">
           <div data-fade="true">
             <Eyebrow>{t(lang, <>Priser &amp; medlemskap</>, <>Prices &amp; membership</>)}</Eyebrow>
@@ -249,7 +249,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
             <Eyebrow>{t(lang, "Partnere", "Partners")}</Eyebrow>
-            <h2 className={`${sub.h2} ${sub.h2Large}`}>{t(lang, "Fordeler i byen.", "Perks in town.")}</h2>
+            <h2 className={`${sub.h2} ${sub.h2Large} ${sub.h2FitCol}`}>{t(lang, "Fordeler i byen.", "Perks in town.")}</h2>
             <p className={s.partnerLead}>
               {t(
                 lang,
@@ -374,7 +374,9 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
             <Eyebrow>FAQ</Eyebrow>
-            <h2 className={`${sub.h2} ${sub.h2Large}`}>{t(lang, "Det du lurer på.", "Your questions.")}</h2>
+            <h2 className={`${sub.h2} ${sub.h2Large} ${sub.h2FitCol}`}>
+              {t(lang, "Det du lurer på.", "Your questions.")}
+            </h2>
             <p className={sub.faqLead}>
               {t(lang, "Finner du ikke svaret? Skriv til", "Can’t find the answer? Write to")}{" "}
               <a data-sweep="true" href={`mailto:${SITE.email}`} className={sub.faqLink}>

@@ -18,8 +18,8 @@ export default function VtgForm({ lang }: { lang: Lang }) {
         <p className={sub.sentBody}>
           {t(
             lang,
-            "Vi tar kontakt med kursdatoer som passer. Har du det travelt, ring/SMS Kjetil på 913 30 248.",
-            "We’ll suggest course dates that fit. In a hurry? Call/text Kjetil on 913 30 248.",
+            "Vi tar kontakt med kursdatoer som passer. Har du det travelt, ring/SMS Kjetil på 913\u00a030\u00a0248.",
+            "We’ll suggest course dates that fit. In a hurry? Call/text Kjetil on 913\u00a030\u00a0248.",
           )}
         </p>
         <p className={sub.sentSub}>
