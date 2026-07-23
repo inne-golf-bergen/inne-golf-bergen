@@ -105,6 +105,26 @@
   text-wrap: pretty;
 }
 
+/* Stacked layout: cells sit under each other, so drop the row padding
+   that aligns the first/last cell in the horizontal desktop grid. */
+@media (max-width: 768px) {
+  .prizeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .prizeCell {
+    padding: 20px 0;
+  }
+
+  .prizeCellFirst {
+    padding-top: 0;
+  }
+
+  .prizeCellLast {
+    padding-bottom: 0;
+  }
+}
+
 /* ============ Turneringsplan ============ */
 .planWrap {
   max-width: 1000px;
