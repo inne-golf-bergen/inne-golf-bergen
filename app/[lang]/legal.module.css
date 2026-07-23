@@ -170,6 +170,50 @@
   text-wrap: pretty;
 }
 
+.inlineLink {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Copper mini-heading inside a section (e.g. "Oppfyllelse", "Heving"). */
+.subHead {
+  margin: 10px 0 -2px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.listItem {
+  position: relative;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-mid);
+  text-wrap: pretty;
+}
+
+.listItem::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  background: var(--orange-500);
+}
+
 .reviewTag {
   align-self: flex-start;
   font-size: var(--label-size-s);

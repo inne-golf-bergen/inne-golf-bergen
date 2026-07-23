@@ -25,10 +25,8 @@ const ALLOWED = new Map([
   ["as the tour.", "h2 second line; the full heading is equal length"],
   ["Practice", "wrapping chip; the chip row total is shorter than Norwegian"],
   ["Theory", "step-card title; card width is set by far longer siblings"],
-  ["Purpose", "legal section heading and TOC entry, auto width"],
   ["Pre-party", "occasion grid cell; cell width sized by 10-char Norwegian max"],
   ["Get 2 800.", "hero h1 line; the English block is narrower than the Norwegian"],
-  ["03 · Purpose", "legal TOC entry, auto width"],
   ["Close", "aria-label only — never rendered"],
   ["Birthday — INNE Golf Bergen", "browser-tab <title>, no layout box"],
 ]);
