@@ -89,7 +89,6 @@ export default function MedlemskapPage() {
             <div className={s.priceIncluded}>
               <span className={s.priceIncludedLabel}>Alltid inkludert</span>
               <span className={s.priceIncludedItem}>Gratis lånekøller, baller og tees — herre, dame og junior</span>
-              <span className={s.priceIncludedItem}>Betal med kort eller Vipps</span>
             </div>
           </div>
         </div>
@@ -324,7 +323,7 @@ export default function MedlemskapPage() {
                   +
                 </span>
               </summary>
-              <p className={`${sub.faqA} ${sub.faqAPlaceholder}`}>[GYLDIGHET SETTES INN — bekreftes]</p>
+              <p className={sub.faqA}>Verdikortet er gyldig frem til det er brukt opp.</p>
             </details>
             <details className={`inne-faq ${sub.faqItem} ${sub.faqItemLast}`}>
               <summary className={sub.faqSummary}>
@@ -333,7 +332,9 @@ export default function MedlemskapPage() {
                   +
                 </span>
               </summary>
-              <p className={`${sub.faqA} ${sub.faqAPlaceholder}`}>[OPPSIGELSE OG FORNYELSE SETTES INN — bekreftes]</p>
+              <p className={sub.faqA}>
+                Oppsigelse og fornyelse må gjøres hvert år — det skjer ikke automatisk.
+              </p>
             </details>
           </div>
         </div>
