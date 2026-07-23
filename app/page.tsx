@@ -271,7 +271,6 @@ export default function Home() {
             <div className={s.priceIncluded}>
               <span className={s.priceIncludedLabel}>Alltid inkludert</span>
               <span className={s.priceIncludedItem}>Gratis lånekøller, baller og tees — herre, dame og junior</span>
-              <span className={s.priceIncludedItem}>Betal med kort eller Vipps</span>
             </div>
           </FadeUp>
         </div>

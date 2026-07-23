@@ -309,7 +309,7 @@ export default function SiteNav() {
               </Link>
             </div>
             <p className={styles.sheetNote}>
-              Betal med kort eller Vipps. Gratis lånekøller til herrer, damer og juniorer.
+              Gratis lånekøller til herrer, damer og juniorer.
             </p>
           </div>
         </div>
