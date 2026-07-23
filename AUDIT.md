@@ -92,6 +92,10 @@ Language switch (route navigation), mobile sticky book bar (must exist at first 
 
 **Copper shot-tracer arc over «Betal 1 800. / Få 2 800.»** — TrackMan's own product identity is the orange tracer; drawing one in kobber from the paid numeral to the received numeral compounds the site's existing personality peak, is product-true, costs zero dependencies. `motion.path` pathLength 0→1, `--orange-400` stroke, ~1.2 s house ease after the CountUp triggers; static path under reduced motion; hidden where the stacked layout leaves no arc room. Runners-up considered and rejected: hero period "ball drop" bounce (breaks the no-overshoot policy), scroll-progress hairline (generic).
 
+## Post-implementation status (2026-07-23)
+
+All seven passes landed (see git log `5708af6..ed688e6`). Adversarial re-verification of the diff: **0 motion-rule violations** (4 judgment notes, all sanctioned: idle-only compare nudge, 900 ms ambient photo zoom, 0.5 s sheet entrance, and the compare slider's position-driven `left` writes). One found-and-fixed defect: the branded 404 needed a `[...rest]` catch-all to be reachable. Gates green: `tsc`, `eslint`, `check-i18n-lengths` (737 pairs), `next build` (all routes SSG both languages). Estimated rubric after fixes: Design 36 / Usability 27 / Creativity 17 / Content 9 ≈ **89/100**. Remaining known gaps are listed at the end of the report accompanying this audit (Sandviken Facebook-group URL, real legal copy, VtG duplicate ÅGF sentence, dropdown roving-tabindex semantics).
+
 ## 9. Implementation plan (one concern per pass, commit per pass)
 
 1. **Motion foundation** — tokens (CSS + TS), transition sweep, RM scroll gate, exits groundwork.
