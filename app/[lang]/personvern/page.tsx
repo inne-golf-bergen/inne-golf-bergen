@@ -29,8 +29,8 @@ const sections = (lang: Lang): { id: string; num: string; title: string; text?: 
     title: t(lang, "Hvilke opplysninger", "What we collect"),
     text: t(
       lang,
-      "Beskrivelse av hvilke personopplysninger som samles inn ved booking, medlemskap, verdikort og påmelding til turneringer settes inn her.",
-      "A description of the personal data collected for booking, membership, vouchers and tournament entry goes here.",
+      "Full oversikt over opplysningene som samles inn ved booking, medlemskap, verdikort og turneringspåmelding kommer her.",
+      "A full list of the data collected for booking, membership, vouchers and tournament entry is coming here.",
     ),
   },
   {
@@ -39,8 +39,8 @@ const sections = (lang: Lang): { id: string; num: string; title: string; text?: 
     title: t(lang, "Formål", "Purpose"),
     text: t(
       lang,
-      "Formålet med behandlingen og rettslig grunnlag (avtale, samtykke, berettiget interesse) settes inn her.",
-      "The purpose of processing and legal basis (contract, consent, legitimate interest) goes here.",
+      "Formålet med behandlingen og rettslig grunnlag (avtale, samtykke, berettiget interesse) beskrives her.",
+      "The purpose of processing and legal basis (contract, consent, legitimate interest) appears here.",
     ),
   },
   {
@@ -49,8 +49,8 @@ const sections = (lang: Lang): { id: string; num: string; title: string; text?: 
     title: t(lang, "Lagringstid", "Retention"),
     text: t(
       lang,
-      "Hvor lenge opplysningene lagres, og rutiner for sletting, settes inn her.",
-      "How long data is stored, and deletion routines, goes here.",
+      "Hvor lenge opplysningene lagres, og rutiner for sletting, publiseres her.",
+      "How long data is stored, and deletion routines, appear here.",
     ),
   },
   {
@@ -77,8 +77,8 @@ export default async function PersonvernPage({ params }: { params: Promise<{ lan
           <p className={s.heroLead}>
             {t(
               lang,
-              "Slik behandler INNE Golf Bergen personopplysninger. Utkast — hele erklæringen krever juridisk gjennomgang før publisering.",
-              "How INNE Golf Bergen handles personal data. Draft — the full policy needs legal review before publishing.",
+              "Slik behandler INNE Golf Bergen personopplysninger. Den fullstendige erklæringen er under arbeid.",
+              "How INNE Golf Bergen handles personal data. The full policy is in progress.",
             )}
           </p>
         </div>
@@ -127,9 +127,7 @@ export default async function PersonvernPage({ params }: { params: Promise<{ lan
                     ) : (
                       <p className={s.sectionText}>{section.text}</p>
                     )}
-                    <span className={s.reviewTag}>
-                      {t(lang, "[Juridisk gjennomgang kreves]", "[Legal review required]")}
-                    </span>
+                    <span className={s.reviewTag}>{t(lang, "Under arbeid", "In progress")}</span>
                   </div>
                 </section>
               ))}
@@ -147,9 +145,6 @@ export default async function PersonvernPage({ params }: { params: Promise<{ lan
                     </a>
                     . {SITE.legalName} · Org.nr. {SITE.orgNr}.
                   </p>
-                  <span className={s.reviewTag}>
-                    {t(lang, "[Juridisk gjennomgang kreves]", "[Legal review required]")}
-                  </span>
                 </div>
               </section>
             </div>

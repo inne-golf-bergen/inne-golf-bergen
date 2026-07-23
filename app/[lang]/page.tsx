@@ -628,8 +628,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <p className={s.gavekortCopy}>
               {t(
                 lang,
-                `Verdikort fra 820 kr — opptil 30${THIN}% ekstra verdi å spille for. Gjelder i begge sentre.`,
-                `Vouchers from 820 kr — up to 30${THIN}% extra value to play for. Valid at both venues.`,
+                `Verdikort fra 820 kr — opptil 43${THIN}% ekstra verdi å spille for. Gjelder i begge sentre.`,
+                `Vouchers from 820 kr — up to 43${THIN}% extra value to play for. Valid at both venues.`,
               )}
             </p>
           </div>

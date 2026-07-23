@@ -18,8 +18,8 @@ export async function generateMetadata({
     title: t(lang, "Verdikort — INNE Golf Bergen", "Vouchers — INNE Golf Bergen"),
     description: t(
       lang,
-      "Verdikort fra 820 kr med opptil 30 % ekstra verdi — spar på golf hele året. Gjelder i begge sentre.",
-      "Vouchers from 820 kr with up to 30 % extra value — save on golf all year. Valid at both venues.",
+      "Verdikort fra 820 kr med opptil 43 % ekstra verdi — spar på golf hele året. Gjelder i begge sentre.",
+      "Vouchers from 820 kr with up to 43 % extra value — save on golf all year. Valid at both venues.",
     ),
     alternates: langAlternates("/gavekort"),
   };
@@ -41,8 +41,8 @@ export default async function GavekortPage({ params }: { params: Promise<{ lang:
           <p data-fade="true" className={s.heroLead}>
             {t(
               lang,
-              `Fyll opp én gang og få opptil 30${THIN}% ekstra verdi å spille for — gjelder i begge sentre.`,
-              `Top up once and get up to 30${THIN}% extra value to play for — valid at both venues.`,
+              `Fyll opp én gang og få opptil 43${THIN}% ekstra verdi å spille for — gjelder i begge sentre.`,
+              `Top up once and get up to 43${THIN}% extra value to play for — valid at both venues.`,
             )}
           </p>
         </div>
@@ -71,7 +71,7 @@ export default async function GavekortPage({ params }: { params: Promise<{ lang:
               )}
             </span>
             <span className={s.footPlaceholder}>
-              {t(lang, "[Gyldighet/utløp bekreftes]", "[Validity/expiry TBC]")}
+              {t(lang, "Gyldighet vises ved kjøp", "Expiry shown at checkout")}
             </span>
           </div>
         </div>

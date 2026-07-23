@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import SentCard from "@/components/SentCard";
 import { type Lang, t } from "@/lib/i18n";
-import { mailBody, mailtoHref } from "@/lib/site";
+import { mailBody, mailtoHref, mailtoSubject, SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 
 export default function BedriftForm({ lang }: { lang: Lang }) {
@@ -10,11 +11,22 @@ export default function BedriftForm({ lang }: { lang: Lang }) {
 
   if (sent) {
     return (
-      <div className={sub.sentCard}>
-        <span className={sub.sentKicker}>{t(lang, "Sendt", "Sent")}</span>
-        <h3 className={sub.sentTitle}>{t(lang, "Takk!", "Done!")}</h3>
-        <p className={sub.sentBody}>{t(lang, "Svar innen én arbeidsdag.", "Reply within one workday.")}</p>
-      </div>
+      <SentCard kicker={t(lang, "Nesten i mål", "Almost there")} title={t(lang, "Send e-posten.", "Hit send.")}>
+        <p className={sub.sentBody}>
+          {t(
+            lang,
+            "Vi har gjort klar en e-post i e-postprogrammet ditt — trykk send der, så svarer vi innen én arbeidsdag.",
+            "We’ve drafted an email in your mail app — hit send there and we’ll reply within one workday.",
+          )}
+        </p>
+        <p className={sub.sentSub}>
+          {t(lang, "Åpnet det ikke noe? Send detaljene til", "Nothing opened? Send the details to")}{" "}
+          <a data-sweep="true" href={mailtoSubject(t(lang, "Bedriftsforespørsel", "Company inquiry"))}>
+            {SITE.email}
+          </a>
+          .
+        </p>
+      </SentCard>
     );
   }
 

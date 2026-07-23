@@ -13,6 +13,7 @@ export const SITE = {
   bookSandviken: "https://albaplay.com/en/venue/inne-golf-bergen-avd-sandviken",
   membership: "https://albaplay.com/en/venue/ingolf-bergen/offers/membership",
   gavekortBase: "https://albaplay.com/en/venue/ingolf-bergen/offers/vouchers",
+  gavekortSandviken: "https://albaplay.com/en/venue/inne-golf-bergen-avd-sandviken/offers/vouchers",
 } as const;
 
 /** Builds a mailto: link to post@ with a prefilled subject and body. */

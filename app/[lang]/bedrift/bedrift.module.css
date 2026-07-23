@@ -28,6 +28,29 @@
   text-wrap: pretty;
 }
 
+/* Shorter hero headline on mobile — "Firmakvelden" would hyphenate mid-word
+   at 40px in a 350px column, so mobile drops the compound (the "Bedrift"
+   eyebrow above keeps the context). Mirrors the bursdag hero pattern. */
+.mobileCopy {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktopCopy {
+    display: none;
+  }
+
+  .mobileCopy {
+    display: inline;
+  }
+
+  .heroH1 {
+    -webkit-hyphens: none;
+    hyphens: none;
+    font-size: 30px;
+  }
+}
+
 /* ============ Pakker ============ */
 .pakkeGrid {
   display: grid;

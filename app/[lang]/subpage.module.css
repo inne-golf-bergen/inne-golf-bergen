@@ -223,6 +223,10 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  /* the sheet-panel arrival move — "something arrived" reads the same site-wide */
+  animation: inne-rise 0.5s var(--ease-out) both;
+  /* focused programmatically for screen readers; not an interactive target */
+  outline: none;
 }
 
 .sentKicker {
