@@ -147,6 +147,7 @@
   padding: 0 14px;
   height: 46px;
   outline: none;
+  transition: border-color var(--dur-micro) var(--ease-out);
 }
 
 .newsletterInput:focus {
@@ -165,7 +166,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background var(--dur-base) var(--ease-out);
 }
 
 .newsletterBtn:hover {

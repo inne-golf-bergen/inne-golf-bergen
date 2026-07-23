@@ -11,16 +11,13 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { EASE_OUT, LINE_SPRING, REVEAL_SPRING } from "./tokens";
 
 /**
  * Landing-page motion primitives (Framer Motion port of LandingFx).
- * Springs are critically damped — nothing here carries user momentum,
- * so per Apple's guidance there is no overshoot. Every component
- * degrades to static markup under prefers-reduced-motion.
+ * Spring/easing values live in ./tokens. Every component degrades to
+ * static markup under prefers-reduced-motion.
  */
-
-const REVEAL_SPRING = { type: "spring", stiffness: 150, damping: 26, mass: 1 } as const;
-const LINE_SPRING = { type: "spring", stiffness: 84, damping: 22, mass: 1 } as const;
 /* fires when the element's top clears the bottom 12% of the viewport (≈ GSAP "top 88%") */
 const VIEWPORT = { once: true, margin: "0px 0px -12% 0px" } as const;
 
@@ -191,7 +188,7 @@ export function CountUp({ value, className }: { value: number; className?: strin
     if (!inView || reduce || !el) return;
     const controls = animate(0, value, {
       duration: 1.4,
-      ease: [0.16, 1, 0.3, 1],
+      ease: EASE_OUT,
       onUpdate: (v) => {
         el.textContent = fmtNum(v);
       },
@@ -285,7 +282,7 @@ export function CursorGlow() {
       aria-hidden="true"
       style={{ x: sx, y: sy }}
       animate={{ opacity: seen ? 1 : 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.5, ease: EASE_OUT }}
     />
   );
 }

@@ -3,10 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import s from "@/app/[lang]/page.module.css";
-
-const ICON_SPRING = { type: "spring", stiffness: 260, damping: 22 } as const;
-/* iOS drawer curve — decisive open, no dead time */
-const HEIGHT_EASE = [0.32, 0.72, 0, 1] as const;
+import { EASE_DRAWER, ICON_SPRING } from "./motion/tokens";
 
 /**
  * FAQ accordion. Controlled buttons instead of native <details> so the
@@ -65,7 +62,7 @@ export default function Faq({ items }: { items: { q: string; a: string }[] }) {
                     transition: reduce
                       ? { duration: 0 }
                       : {
-                          height: { duration: 0.24, ease: HEIGHT_EASE },
+                          height: { duration: 0.24, ease: EASE_DRAWER },
                           opacity: { duration: 0.14, ease: "easeOut" },
                         },
                   }}
@@ -73,7 +70,7 @@ export default function Faq({ items }: { items: { q: string; a: string }[] }) {
                     reduce
                       ? { duration: 0 }
                       : {
-                          height: { duration: 0.32, ease: HEIGHT_EASE },
+                          height: { duration: 0.32, ease: EASE_DRAWER },
                           opacity: { duration: 0.22, ease: "easeOut" },
                         }
                   }

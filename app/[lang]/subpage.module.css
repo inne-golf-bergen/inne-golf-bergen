@@ -317,7 +317,9 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background 0.2s;
+  transition:
+    background var(--dur-base) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .darkCta:hover {

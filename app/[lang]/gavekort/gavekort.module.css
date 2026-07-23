@@ -50,8 +50,8 @@
   text-transform: uppercase;
   color: rgba(244, 237, 230, 0.7);
   transition:
-    background 0.2s,
-    color 0.2s;
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
 }
 
 .toggleBtnActive {
@@ -194,7 +194,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background var(--dur-base) var(--ease-out);
 }
 
 .buyBtn:hover {

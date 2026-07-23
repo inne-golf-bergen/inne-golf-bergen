@@ -21,7 +21,7 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.5s var(--ease-out);
 }
 
 .heroGradV {
@@ -711,7 +711,7 @@
   border: 1px solid var(--line-12);
   text-decoration: none;
   color: var(--white);
-  transition: border-color 0.25s;
+  transition: border-color var(--dur-base) var(--ease-out);
 }
 
 .photoCard:hover {
@@ -796,7 +796,7 @@
 
 .cardCtaArrow {
   display: inline-block;
-  transition: transform 300ms var(--ease-out);
+  transition: transform var(--dur-enter) var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -815,8 +815,8 @@
   text-decoration: none;
   color: var(--white);
   transition:
-    border-color 0.25s,
-    background 0.25s;
+    border-color var(--dur-base) var(--ease-out),
+    background var(--dur-base) var(--ease-out);
 }
 
 .lineCard:hover {
@@ -897,8 +897,8 @@
   text-transform: uppercase;
   text-decoration: none;
   transition:
-    background 0.2s,
-    transform 160ms var(--ease-out);
+    background var(--dur-base) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .darkCta:hover {

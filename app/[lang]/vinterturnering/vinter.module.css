@@ -209,7 +209,7 @@
   font-weight: 700;
   font-size: 22px;
   color: var(--orange-500);
-  transition: transform 0.3s;
+  transition: transform var(--dur-enter) var(--ease-out);
 }
 
 .phaseFinal .phaseNum,
