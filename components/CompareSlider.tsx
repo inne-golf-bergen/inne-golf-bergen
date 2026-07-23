@@ -47,11 +47,11 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
       nudge?.kill();
       down = true;
       try {
-        wrap.setPointerCapture(e.pointerId);
+        line.setPointerCapture(e.pointerId);
       } catch {
         // ignore
       }
-      set(e.clientX);
+      /* no jump-to-click: the drag starts from where the divider already sits */
     };
     const pm = (e: PointerEvent) => {
       if (down) set(e.clientX);
@@ -59,12 +59,13 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
     const pu = () => {
       down = false;
     };
-    wrap.addEventListener("pointerdown", pd);
-    wrap.addEventListener("pointermove", pm);
+    /* only the divider grabs — a click or tap elsewhere in the frame does nothing */
+    line.addEventListener("pointerdown", pd);
+    window.addEventListener("pointermove", pm);
     window.addEventListener("pointerup", pu);
     cleanup.push(() => {
-      wrap.removeEventListener("pointerdown", pd);
-      wrap.removeEventListener("pointermove", pm);
+      line.removeEventListener("pointerdown", pd);
+      window.removeEventListener("pointermove", pm);
       window.removeEventListener("pointerup", pu);
     });
 
