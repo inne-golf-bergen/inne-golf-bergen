@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/[lang]/layout,_N_T_/[lang]/vip-losjen/layout,_N_T_/[lang]/vip-losjen/page,_N_T_/no/vip-losjen"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/$d$lang/vip-losjen/__PAGE__",
+    "/$d$lang/vip-losjen",
+    "/$d$lang",
+    "/_index",
+    "/_head"
+  ]
+}

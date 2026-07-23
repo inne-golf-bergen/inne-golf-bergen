@@ -576,12 +576,6 @@ select.fieldInput {
   }
 }
 
-@keyframes inne-fade {
-  from {
-    opacity: 0;
-  }
-}
-
 @keyframes inne-rise {
   from {
     opacity: 0;

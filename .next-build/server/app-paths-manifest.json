@@ -1,0 +1,17 @@
+{
+  "/[lang]/bedrift/page": "app/[lang]/bedrift/page.js",
+  "/[lang]/bursdag/page": "app/[lang]/bursdag/page.js",
+  "/[lang]/gavekort/page": "app/[lang]/gavekort/page.js",
+  "/[lang]/medlemskap/page": "app/[lang]/medlemskap/page.js",
+  "/[lang]/page": "app/[lang]/page.js",
+  "/[lang]/personvern/page": "app/[lang]/personvern/page.js",
+  "/[lang]/polf/page": "app/[lang]/polf/page.js",
+  "/[lang]/praktisk/page": "app/[lang]/praktisk/page.js",
+  "/[lang]/veien-til-golf/page": "app/[lang]/veien-til-golf/page.js",
+  "/[lang]/vilkar/page": "app/[lang]/vilkar/page.js",
+  "/[lang]/vinterturnering/page": "app/[lang]/vinterturnering/page.js",
+  "/[lang]/vip-losjen/page": "app/[lang]/vip-losjen/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/icon.png/route": "app/icon.png/route.js"
+}
