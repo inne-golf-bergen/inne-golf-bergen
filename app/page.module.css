@@ -109,15 +109,15 @@
   text-wrap: pretty;
 }
 
+.heroLeadPrice {
+  display: block;
+  margin-top: 4px;
+}
+
 /* Hide the booking clause on mobile so the lead reads shorter */
 @media (max-width: 768px) {
   .heroLeadBooking {
     display: none;
-  }
-
-  .heroLeadPrice {
-    display: block;
-    margin-top: 4px;
   }
 }
 
