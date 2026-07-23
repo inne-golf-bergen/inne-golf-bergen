@@ -45,7 +45,8 @@ export default function MedlemskapPage() {
             <span className={`${s.heroLine} ${s.heroAccent}`}>{`Få 2${NNBSP}800.`}</span>
           </h1>
           <p data-fade="true" className={s.heroLead}>
-            {`Årsmedlemskap 1${NNBSP}800 kr per år — det er 150 kr i måneden.`}
+            {`Årsmedlemskap 1${NNBSP}800 kr per år`}{" "}
+            <span className={s.heroLeadPrice}>{`— det er 150 kr i måneden.`}</span>
           </p>
           <div data-fade="true" className={s.heroCtaWrap}>
             <Button as="a" href={SITE.membership} size="lg">

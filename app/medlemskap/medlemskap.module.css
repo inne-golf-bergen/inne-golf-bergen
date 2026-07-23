@@ -30,6 +30,13 @@
   margin-top: 34px;
 }
 
+@media (max-width: 768px) {
+  .heroLeadPrice {
+    display: block;
+    margin-top: 4px;
+  }
+}
+
 /* ============ Priser ============ */
 .priserSection {
   background: var(--ink-950);
