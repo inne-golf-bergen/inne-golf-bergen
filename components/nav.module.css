@@ -11,7 +11,8 @@
     border-color var(--dur-slow) var(--ease-out);
 }
 
-.headerGlass {
+/* driven by the inline scroll script in layout.tsx — works pre-hydration */
+:global(body.inne-scrolled) .header {
   background: rgba(23, 19, 16, 0.6);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);

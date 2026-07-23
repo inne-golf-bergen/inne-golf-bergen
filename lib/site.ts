@@ -3,11 +3,11 @@ import { type Lang, t } from "./i18n";
 export const SITE = {
   name: "INNE Golf Bergen",
   legalName: "IN GOLF BERGEN DA",
-  orgNr: "933 998 584",
+  orgNr: "933\u00a0998\u00a0584", // NBSP joins — the number never line-breaks
   email: "post@innegolfbergen.no",
   instagram: "https://instagram.com/innegolfbergen",
   facebook: "https://www.facebook.com/profile.php?id=61564888844128",
-  phones: ["913 30 248", "404 73 935", "995 38 913"],
+  phones: ["913\u00a030\u00a0248", "404\u00a073\u00a0935", "995\u00a038\u00a0913"],
   phoneHrefs: ["+4791330248", "+4740473935", "+4799538913"],
   bookAsane: "https://albaplay.com/en/venue/ingolf-bergen",
   bookSandviken: "https://albaplay.com/en/venue/inne-golf-bergen-avd-sandviken",

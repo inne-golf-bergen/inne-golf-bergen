@@ -6,7 +6,8 @@ import sub from "../subpage.module.css";
 import GavekortVelger from "./GavekortVelger";
 import s from "./gavekort.module.css";
 
-const THIN = " ";
+/* U+202F narrow no-break space — keeps "43 %" together; escape form on purpose */
+const THIN = "\u202f";
 
 export async function generateMetadata({
   params,

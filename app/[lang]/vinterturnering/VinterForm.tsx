@@ -7,7 +7,7 @@ import { useSendForm } from "@/lib/forms";
 import { type Lang, t } from "@/lib/i18n";
 import sub from "../subpage.module.css";
 
-const NNBSP = " ";
+const NNBSP = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
 
 export default function VinterForm({ lang }: { lang: Lang }) {
   const { status, fallbackHref, send } = useSendForm("vinter", t(lang, "Påmelding Vinterturneringen", "Winter Cup entry"));

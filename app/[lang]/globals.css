@@ -87,6 +87,13 @@
   }
 }
 
+/* Mobile browsers (Android font boosting, iOS landscape) must never inflate
+   text beyond the authored scale — sized type would wrap and stack. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   background: var(--ink-900);
@@ -107,11 +114,25 @@ h5,
 h6 {
   margin: 0;
   text-wrap: balance;
-  /* long Norwegian compounds (Personvernerklæring, Turneringskveld, …) must
-     hyphenate rather than overflow at narrow widths; break-word is the fallback */
   overflow-wrap: break-word;
-  -webkit-hyphens: auto;
-  hyphens: auto;
+  /* NO auto hyphens at display sizes: text-wrap balance + hyphens auto makes
+     the browser prefer mid-word cuts ("FIRMAKVEL-DEN") to even out lines. */
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+/* narrow phones: long Norwegian compounds (Personvernerklæring, …) must
+   hyphenate rather than overflow — here lines are short enough to need it */
+@media (max-width: 599px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
 }
 
 p {

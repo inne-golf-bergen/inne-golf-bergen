@@ -28,6 +28,11 @@
   align-items: start;
 }
 
+/* columns are containers so display type can fit itself with cqw */
+.splitGrid > * {
+  container-type: inline-size;
+}
+
 /* ============ Photo hero ============ */
 .hero {
   position: relative;
@@ -56,6 +61,8 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 170px clamp(20px, 4vw, 56px) clamp(48px, 8vh, 80px);
+  /* hero display type sizes itself in cqw so its longest word always fits */
+  container-type: inline-size;
 }
 
 .h1 {
@@ -122,6 +129,12 @@
 
 .h2Large {
   font-size: clamp(34px, 5vw, 68px);
+}
+
+/* h2 that must fit its splitGrid column without hyphen-breaking
+   ("YOUR QUESTIONS." is 10.2em in Syne 800) — keep after .h2Large */
+.h2FitCol {
+  font-size: min(clamp(34px, 5vw, 68px), max(30px, 9.6cqw));
 }
 
 .h2Mid {
@@ -323,11 +336,13 @@
 }
 
 .copperH2Small {
-  font-size: clamp(28px, 4vw, 52px);
+  /* floor fits "ARRANGERE" (10.9em) on a 320px screen */
+  font-size: clamp(24px, 4vw, 52px);
 }
 
 .copperCopy {
   margin: 0;
+  max-width: 52ch;
   font-size: clamp(15px, 1.2vw, 17px);
   line-height: 1.5;
   color: rgba(26, 16, 10, 0.78);

@@ -10,7 +10,7 @@ import sub from "../subpage.module.css";
 import BedriftForm from "./BedriftForm";
 import s from "./bedrift.module.css";
 
-const THIN = " ";
+const THIN = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
 
 export async function generateMetadata({
   params,
@@ -99,7 +99,7 @@ export default async function BedriftPage({ params }: { params: Promise<{ lang: 
                 <span className={s.pakkeNum}>02</span>
                 <span className={s.pakkeBadge}>{t(lang, "Mest populær", "Most popular")}</span>
               </div>
-              <h3 className={s.pakkeTitle}>{t(lang, "Turneringskveld", "Tournament")}</h3>
+              <h3 className={s.pakkeTitle}>{t(lang, "Turnerings\u00adkveld", "Tourna\u00adment")}</h3>
               <p className={`${s.pakkeCopy} ${s.pakkeCopyFeatured}`}>
                 {t(
                   lang,

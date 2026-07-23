@@ -19,6 +19,10 @@
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--white);
+  /* "Personvernerklæring." is longer than any line here can be — these
+     document pages keep dictionary hyphenation at every width */
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .heroLead {

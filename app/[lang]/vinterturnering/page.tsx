@@ -13,7 +13,7 @@ import VinterFaser from "./VinterFaser";
    and swap the archive copy back to the live entry copy (see git history). */
 import s from "./vinter.module.css";
 
-const NNBSP = " ";
+const NNBSP = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
 
 export async function generateMetadata({
   params,

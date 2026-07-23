@@ -6,14 +6,19 @@ import { type Lang, t } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 import s from "./gavekort.module.css";
 
-const NNBSP = " ";
+/* U+202F narrow no-break space (thousands groups) and U+00A0 no-break space
+   (before the unit) — a price can never line-break internally. Escape form on
+   purpose so an editor can't silently swap them for plain spaces. */
+const NNBSP = "\u202f";
+const NBSP = "\u00a0";
+const kr = (num: string) => `${num}${NBSP}kr`;
 
 const CARDS: { value: string; pays: string; bonus: string; featured?: boolean }[] = [
-  { value: `1${NNBSP}000 kr`, pays: "820 kr", bonus: "+180 kr" },
-  { value: `1${NNBSP}500 kr`, pays: `1${NNBSP}200 kr`, bonus: "+300 kr" },
-  { value: `3${NNBSP}000 kr`, pays: `2${NNBSP}310 kr`, bonus: "+690 kr", featured: true },
-  { value: `5${NNBSP}000 kr`, pays: `3${NNBSP}750 kr`, bonus: `+1${NNBSP}250 kr` },
-  { value: `7${NNBSP}500 kr`, pays: `5${NNBSP}250 kr`, bonus: `+2${NNBSP}250 kr` },
+  { value: kr(`1${NNBSP}000`), pays: kr("820"), bonus: `+${kr("180")}` },
+  { value: kr(`1${NNBSP}500`), pays: kr(`1${NNBSP}200`), bonus: `+${kr("300")}` },
+  { value: kr(`3${NNBSP}000`), pays: kr(`2${NNBSP}310`), bonus: `+${kr("690")}`, featured: true },
+  { value: kr(`5${NNBSP}000`), pays: kr(`3${NNBSP}750`), bonus: `+${kr(`1${NNBSP}250`)}` },
+  { value: kr(`7${NNBSP}500`), pays: kr(`5${NNBSP}250`), bonus: `+${kr(`2${NNBSP}250`)}` },
 ];
 
 export default function GavekortVelger({ lang }: { lang: Lang }) {

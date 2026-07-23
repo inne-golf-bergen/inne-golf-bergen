@@ -27,9 +27,9 @@ import sandvikenBay from "@/public/assets/photos/sandviken-bay.jpg";
 import vipLosje from "@/public/assets/photos/vip-losje.jpg";
 import simPhoto from "@/public/uploads/why_accuracy_matters_desktop-f3cbab17.webp";
 
-const NNBSP = " "; // narrow no-break space — grouping in numbers
-const THIN = " "; // thin space — before %
-const MINUS = "−";
+const NNBSP = "\u202f"; // narrow no-break space — grouping in numbers
+const THIN = "\u202f"; // NARROW NO-BREAK space — before % (U+2009 breaks!)
+const MINUS = "\u2212";
 
 const faqItems = (lang: Lang): { q: string; a: string }[] => [
   {
@@ -662,7 +662,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         <div className={`container ${s.splitGrid}`}>
           <FadeUp>
             <Eyebrow>FAQ</Eyebrow>
-            <h2 className={s.h2}>{t(lang, "Det du lurer på.", "Your questions.")}</h2>
+            <h2 className={`${s.h2} ${s.faqH2}`}>{t(lang, "Det du lurer på.", "Your questions.")}</h2>
             <p className={s.faqLead}>
               {t(lang, "Finner du ikke svaret? Skriv til", "Can’t find the answer? Write to")}{" "}
               <a data-sweep="true" href={`mailto:${SITE.email}`} className={s.faqLink}>

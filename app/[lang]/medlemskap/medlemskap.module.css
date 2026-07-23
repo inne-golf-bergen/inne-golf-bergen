@@ -1,8 +1,18 @@
+.hero {
+  /* lets the pay/get statement size itself to the section (cqw below) */
+  container-type: inline-size;
+}
+
 .heroH1 {
   margin: 26px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(46px, 9vw, 150px);
+  /* "BETAL 1 800." is 9.8em in Syne 800 — the cqw term stops it from ever
+     stacking ("BETAL" / "1 800.") on narrow screens */
+  /* cap 144: the .container tops out at 1440px while the section (the cqw
+     container) keeps growing — 150px let "BETAL 1 800." clip at ≥1728 */
+  font-size: clamp(46px, 9vw, 144px);
+  font-size: min(clamp(46px, 9vw, 144px), max(28px, 10cqw));
   line-height: 0.92;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -11,6 +21,7 @@
 
 .heroLine {
   display: block;
+  white-space: nowrap;
 }
 
 .heroAccent {

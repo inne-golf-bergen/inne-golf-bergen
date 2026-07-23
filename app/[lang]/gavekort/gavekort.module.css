@@ -74,6 +74,8 @@
 .card {
   position: relative;
   overflow: hidden;
+  /* the big price scales with the card (cqw units below), not the viewport */
+  container-type: inline-size;
   background: linear-gradient(135deg, #241e19 0%, #1a1511 100%);
   border: 1px solid rgba(214, 147, 109, 0.35);
   padding: clamp(24px, 2.6vw, 32px);
@@ -108,6 +110,7 @@
 
 .cardHead {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
@@ -126,6 +129,7 @@
 }
 
 .bonusPill {
+  white-space: nowrap;
   padding: 5px 10px;
   background: rgba(201, 130, 92, 0.16);
   border: 1px solid rgba(214, 147, 109, 0.4);
@@ -159,7 +163,11 @@
 .valueNum {
   font-family: var(--font-display);
   font-weight: 800;
+  /* never break inside a price — the number scales to its card instead.
+     First declaration is the fallback for engines without container queries. */
+  white-space: nowrap;
   font-size: clamp(38px, 4vw, 52px);
+  font-size: clamp(30px, 16cqw, 52px);
   line-height: 1;
   color: var(--white);
 }
@@ -182,6 +190,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 20px;
+  white-space: nowrap;
   color: var(--orange-300);
 }
 

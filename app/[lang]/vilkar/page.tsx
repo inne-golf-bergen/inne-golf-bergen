@@ -383,14 +383,14 @@ const SECTIONS: LegalSection[] = [
         kind: "links",
         no: [
           "Klager rettes til selger innen rimelig tid, jf. punkt 9 og 10. Partene skal forsøke å løse eventuelle tvister i minnelighet. Dersom dette ikke lykkes, kan kjøperen ta kontakt med Forbrukerrådet for mekling. Forbrukerrådet er tilgjengelig på telefon ",
-          { text: "23 400 500", href: "tel:+4723400500" },
+          { text: "23\u00a0400\u00a0500", href: "tel:+4723400500" },
           " eller ",
           { text: "www.forbrukerradet.no", href: "https://www.forbrukerradet.no" },
           ".",
         ],
         en: [
           "Complaints are to be directed to the seller within a reasonable time, cf. clauses 9 and 10. The parties shall attempt to resolve any disputes amicably. If this does not succeed, the buyer may contact the Norwegian Consumer Council (Forbrukerrådet) for mediation. The Consumer Council is available by telephone on ",
-          { text: "23 400 500", href: "tel:+4723400500" },
+          { text: "23\u00a0400\u00a0500", href: "tel:+4723400500" },
           " or at ",
           { text: "www.forbrukerradet.no", href: "https://www.forbrukerradet.no" },
           ".",

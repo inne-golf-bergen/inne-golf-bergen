@@ -43,7 +43,6 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   const [menu, setMenu] = useState<MenuId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [glass, setGlass] = useState(false);
   const hoverRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const sheetCloseRef = useRef<HTMLButtonElement>(null);
@@ -81,10 +80,8 @@ export default function SiteNav({ lang }: { lang: Lang }) {
 
   useEffect(() => {
     hoverRef.current = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-    const onScroll = () => setGlass(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    const raf = requestAnimationFrame(onScroll);
+    /* header glass-on-scroll lives in an inline script in layout.tsx so it
+       also works before hydration (anchor landings, restored scroll) */
 
     const esc = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeAllNav();
@@ -103,8 +100,6 @@ export default function SiteNav({ lang }: { lang: Lang }) {
     document.addEventListener("pointerdown", outside);
 
     return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("keydown", esc);
       window.removeEventListener("inne-open-book", openBook);
       document.removeEventListener("pointerdown", outside);
@@ -222,7 +217,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
 
   return (
     <>
-      <header id="site-nav" className={`${styles.header} ${glass ? styles.headerGlass : ""}`}>
+      <header id="site-nav" className={styles.header}>
         <div className={styles.inner}>
           <Link href={logoHref} aria-label={homeLabel} className={styles.logo}>
             <Lockup />
