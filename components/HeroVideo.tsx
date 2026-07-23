@@ -56,29 +56,31 @@ function initHeroVideo(
       },
       { once: true },
     );
-    /* Decode only while watchable. A looping hero that keeps decoding while
-       scrolled away (or in a hidden tab) competes with the rest of the page
-       for CPU/GPU and shows up as scroll jank site-wide. */
-    let inView = true;
-    let io: IntersectionObserver | undefined;
-    const sync = () => {
+    /* The loop must NEVER sit frozen: we don't pause it ourselves (an
+       explicit pause() on tab-switch left Safari showing a stuck frame for
+       seconds after return — resume latency plus a swallowed play() rejection
+       with no retry). Offscreen decode is cheap on the hardware-decode paths
+       chosen below. These kicks are resume-ONLY: if the browser itself pauses
+       playback (background tab, BFCache restore, power interruptions), we
+       restart the moment the page is watchable again — and retry once, since
+       Safari can reject a play() issued in the same tick the tab returns. */
+    const kick = () => {
       if (!v.isConnected) {
-        document.removeEventListener("visibilitychange", sync);
-        if (io) io.disconnect();
+        document.removeEventListener("visibilitychange", kick);
+        window.removeEventListener("pageshow", kick);
+        window.removeEventListener("focus", kick);
         return;
       }
-      const want = inView && !document.hidden;
-      if (want && v.paused) v.play().catch(() => {});
-      else if (!want && !v.paused) v.pause();
-    };
-    if (typeof IntersectionObserver !== "undefined") {
-      io = new IntersectionObserver((entries) => {
-        inView = entries.some((e) => e.isIntersecting);
-        sync();
+      if (document.hidden || !v.paused) return;
+      v.play().catch(() => {
+        setTimeout(() => {
+          if (v.isConnected && !document.hidden && v.paused) v.play().catch(() => {});
+        }, 300);
       });
-      io.observe(v);
-    }
-    document.addEventListener("visibilitychange", sync);
+    };
+    document.addEventListener("visibilitychange", kick);
+    window.addEventListener("pageshow", kick);
+    window.addEventListener("focus", kick);
   };
 
   /* Codec by decode hardware, not by "can play at all": a software-decoded
