@@ -105,3 +105,7 @@ All seven passes landed (see git log `5708af6..ed688e6`). Adversarial re-verific
 5. **States & a11y** — focus rings, dialog focus, hovers, forms, 404, OG meta, per-page layout fixes.
 6. **Signature moment** — the tracer arc.
 7. **Tier 3 cherry-picks + verify** — build, i18n length check, browser pass at desktop/mobile, re-run motion rules against the diff.
+
+## Forms backend status (2026-07-23)
+
+Top-10 findings #1 (forms overclaim success on a `mailto:` handoff) and #2 (fake newsletter subscription) are resolved. All six forms now POST to Web3Forms through the shared flow in `lib/forms.ts` (honeypot: `components/BotField.tsx`; key: `NEXT_PUBLIC_FORMS_KEY`). Success cards may claim receipt honestly — POLF/Vinter keep the «Slik fullfører du» framing because Vipps payment remains a real second step — and on failure the form stays on screen with a `role="alert"` notice (`components/SendFailed.tsx`) plus a prefilled `mailto:` draft, so nothing is lost in either direction.

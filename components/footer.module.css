@@ -130,6 +130,17 @@
   color: var(--orange-400);
 }
 
+.newsletterFailed {
+  font-size: 13.5px;
+  color: var(--orange-300);
+}
+
+.newsletterFailed a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .newsletterForm {
   display: flex;
 }
@@ -176,6 +187,11 @@
 
 .newsletterBtn:active {
   background: var(--orange-600);
+}
+
+.newsletterBtn:disabled {
+  opacity: 0.65;
+  cursor: default;
 }
 
 .newsletterBtn:focus-visible {

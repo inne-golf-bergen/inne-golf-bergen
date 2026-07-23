@@ -29,6 +29,7 @@ const ALLOWED = new Map([
   ["Get 2 800.", "hero h1 line; the English block is narrower than the Norwegian"],
   ["Close", "aria-label only — never rendered"],
   ["Birthday — INNE Golf Bergen", "browser-tab <title>, no layout box"],
+  ["Sending…", "transient submit-button label; buttons auto-size"],
 ]);
 
 /** NNBSP/THIN → plain space so allow-list keys can be written with spaces. */

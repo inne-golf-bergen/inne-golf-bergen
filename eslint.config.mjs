@@ -7,14 +7,15 @@ const eslintConfig = defineConfig([
   ...nextTs,
   // Override default ignores of eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
-    ".next/**",
+    // Default ignores of eslint-config-next, with ".next/**" widened to
+    // "**/.next*/**" to also cover alternate dist dirs (.next-claude used by
+    // the .claude/launch.json dev server, .next-build) at any depth:
+    "**/.next*/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Alternate NEXT_DIST_DIR outputs (.next-claude dev server,
-    // .next-build, .next-verify, …):
-    ".next-*/**",
+    // Claude Code worktrees: full checkouts with their own build output.
+    ".claude/**",
   ]),
 ]);
 

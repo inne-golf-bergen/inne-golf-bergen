@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import BotField from "@/components/BotField";
+import { useSendForm } from "@/lib/forms";
 import { type Lang, langHref, t } from "@/lib/i18n";
-import { mailtoHref, SITE } from "@/lib/site";
+import { SITE } from "@/lib/site";
 import styles from "./footer.module.css";
 
 export default function SiteFooter({ lang }: { lang: Lang }) {
-  const [subscribed, setSubscribed] = useState(false);
+  const { status, fallbackHref, send } = useSendForm("nyhetsbrev", t(lang, "Nyhetsbrev — påmelding", "Newsletter signup"));
 
   return (
     <footer id="site-footer" className={styles.footer}>
@@ -81,25 +82,23 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
               <span className={styles.newsletterLabel}>
                 {t(lang, "Få turneringsdatoer og medlemstilbud", "Tournament dates & member offers")}
               </span>
-              {subscribed ? (
+              {status === "sent" ? (
                 <span role="status" className={styles.newsletterThanks}>
-                  {t(lang, "Send e-posten som åpnet seg — så er du på lista.", "Hit send in the mail that opened — you’re in.")}
+                  {t(lang, "Takk! Du er på lista.", "Thanks! You’re in.")}
                 </span>
               ) : (
                 <form
                   className={styles.newsletterForm}
+                  aria-busy={status === "sending"}
                   onSubmit={(e) => {
                     e.preventDefault();
-                    /* no list backend — the signup travels as a prefilled email,
-                       like every other form on the site */
-                    const email = String(new FormData(e.currentTarget).get("epost") ?? "");
-                    window.location.href = mailtoHref(
-                      t(lang, "Nyhetsbrev — påmelding", "Newsletter signup"),
-                      t(lang, `Meld meg på nyhetsbrevet: ${email}`, `Newsletter signup: ${email}`),
-                    );
-                    setSubscribed(true);
+                    /* no list tool — the signup lands in the post@ inbox like
+                       every other form; the list itself is curated by hand */
+                    const f = new FormData(e.currentTarget);
+                    void send(f, [[t(lang, "E-post", "Email"), f.get("epost")]], { replyto: f.get("epost") });
                   }}
                 >
+                  <BotField />
                   <input
                     required
                     type="email"
@@ -108,10 +107,19 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
                     aria-label={t(lang, "E-postadresse", "Email address")}
                     className={styles.newsletterInput}
                   />
-                  <button type="submit" className={styles.newsletterBtn}>
-                    {t(lang, "Meld på", "Sign up")}
+                  <button type="submit" className={styles.newsletterBtn} disabled={status === "sending"}>
+                    {status === "sending" ? t(lang, "Sender…", "Sending…") : t(lang, "Meld på", "Sign up")}
                   </button>
                 </form>
+              )}
+              {status === "error" && (
+                <span role="alert" className={styles.newsletterFailed}>
+                  {t(lang, "Feilet — prøv igjen, eller", "Failed — try again, or")}{" "}
+                  <a data-sweep="true" href={fallbackHref}>
+                    {t(lang, "meld på via e-post", "sign up by email")}
+                  </a>
+                  .
+                </span>
               )}
             </div>
           </div>

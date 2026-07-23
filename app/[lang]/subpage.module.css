@@ -223,6 +223,25 @@
   color: var(--gray-400);
 }
 
+/* Failure notice (SendFailed) — copper alert tone, white link that still
+   carries the visitor's answers as a mailto: draft. */
+.sendFailed {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--orange-300);
+}
+
+.sendFailed a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sendFailed a:hover {
+  color: var(--orange-300);
+}
+
 .sentCard {
   background: var(--ink-850);
   border: 1px solid var(--orange-500);
