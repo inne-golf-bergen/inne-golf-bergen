@@ -143,7 +143,10 @@
 
 .tickerCell {
   display: flex;
-  align-items: center;
+  /* baseline, not center: the 15px display score and 11px uppercase label
+     have different line boxes, so center-aligning leaves them off a shared
+     baseline and they read as separate lines. */
+  align-items: baseline;
   gap: 10px;
 }
 
@@ -170,6 +173,7 @@
 
 .pulseDot {
   position: relative;
+  align-self: center; /* dot has no text baseline; keep it centered on its label */
   width: 7px;
   height: 7px;
   background: var(--orange-500);
