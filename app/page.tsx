@@ -136,8 +136,8 @@ export default function Home() {
           </h1>
           <HeroItem>
             <p className={s.heroLead}>
-              TrackMan iO i Åsane og Sandviken<span className={s.heroLeadBooking}>. Book på 60 sekunder</span> — fra 100
-              kr per halvtime.
+              TrackMan iO i Åsane og Sandviken<span className={s.heroLeadBooking}>. Book på 60 sekunder</span>{" "}
+              <span className={s.heroLeadPrice}>— fra 100 kr per halvtime.</span>
             </p>
           </HeroItem>
           <HeroItem className={s.heroCtas}>

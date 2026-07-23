@@ -114,6 +114,11 @@
   .heroLeadBooking {
     display: none;
   }
+
+  .heroLeadPrice {
+    display: block;
+    margin-top: 4px;
+  }
 }
 
 .heroCtas {
