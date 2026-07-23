@@ -43,6 +43,12 @@
   max-width: 640px;
 }
 
+@media (max-width: 768px) {
+  .overlay {
+    display: none;
+  }
+}
+
 .title {
   margin: 0;
   font-family: var(--font-display);
