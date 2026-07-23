@@ -44,6 +44,27 @@
   text-wrap: pretty;
 }
 
+/* Shorter hero copy on mobile */
+.mobileCopy {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktopCopy {
+    display: none;
+  }
+
+  .mobileCopy {
+    display: inline;
+  }
+
+  .heroH1 {
+    -webkit-hyphens: none;
+    hyphens: none;
+    font-size: 28px;
+  }
+}
+
 /* ============ Pakke og booking ============ */
 .bookGrid {
   display: grid;

@@ -47,14 +47,21 @@ export default function BursdagPage() {
             <Eyebrow>Bursdag</Eyebrow>
           </div>
           <h1 data-fade="true" className={`${sub.h1} ${s.heroH1}`}>
-            Bursdag de snakker om etterpå.
+            <span className={s.desktopCopy}>Bursdag de snakker om etterpå.</span>
+            <span className={s.mobileCopy}>Bursdag de husker.</span>
           </h1>
           <div data-fade="true" className={s.badgeWrap}>
-            <span className={s.badge}>450 kr per barn · alt inkludert · min. 6 barn</span>
+            <span className={s.badge}>
+              <span className={s.desktopCopy}>450 kr per barn · alt inkludert · min. 6 barn</span>
+              <span className={s.mobileCopy}>450 kr per barn · min. 6 barn</span>
+            </span>
           </div>
           <p data-fade="true" className={s.heroLead}>
-            Feir dagen med en aktiv og morsom bursdag hos oss. Golf og lek i en trygg og sosial setting — perfekt for
-            barn i alle aldre.
+            <span className={s.desktopCopy}>
+              Feir dagen med en aktiv og morsom bursdag hos oss. Golf og lek i en trygg og sosial setting — perfekt for
+              barn i alle aldre.
+            </span>
+            <span className={s.mobileCopy}>Golf og lek i trygge rammer — alt inkludert, for barn i alle aldre.</span>
           </p>
           <div data-fade="true" className={sub.heroCtaWrap}>
             <Button as="a" href="#skjema" size="lg">
