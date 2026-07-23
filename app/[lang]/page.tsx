@@ -20,6 +20,12 @@ import OpenBookButton from "@/components/OpenBookButton";
 import { asLang, type Lang, langHref, t } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 import s from "./page.module.css";
+import asaneBay from "@/public/assets/photos/asane-bay.jpg";
+import bursdagBay from "@/public/assets/photos/bursdag-bay.jpg";
+import loungeFireplace from "@/public/assets/photos/lounge-fireplace.jpg";
+import sandvikenBay from "@/public/assets/photos/sandviken-bay.jpg";
+import vipLosje from "@/public/assets/photos/vip-losje.jpg";
+import simPhoto from "@/public/uploads/why_accuracy_matters_desktop-f3cbab17.webp";
 
 const NNBSP = " "; // narrow no-break space — grouping in numbers
 const THIN = " "; // thin space — before %
@@ -126,10 +132,18 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <section id="top" className={s.hero}>
         <div aria-hidden="true" className={s.heroBg}>
           <HeroVideo
-            src="/uploads/vg3_explainer_short_optimized_v3.mp4"
-            webmSrc="/uploads/vg3_explainer_short_optimized_v3.webm"
-            mobileSrc="/uploads/vg3_explainer_short_mobile_optimized_v3.mp4"
-            mobileWebmSrc="/uploads/vg3_explainer_short_mobile_optimized_v3.webm"
+            desktop={{
+              av1: "/uploads/vg3_explainer_short_v4_av1.mp4",
+              vp9: "/uploads/vg3_explainer_short_v4_vp9.webm",
+              h264: "/uploads/vg3_explainer_short_v4_h264.mp4",
+              poster: "/uploads/hero_poster_v4.webp",
+            }}
+            mobile={{
+              av1: "/uploads/vg3_explainer_short_mobile_v4_av1.mp4",
+              vp9: "/uploads/vg3_explainer_short_mobile_v4_vp9.webm",
+              h264: "/uploads/vg3_explainer_short_mobile_v4_h264.mp4",
+              poster: "/uploads/hero_poster_mobile_v4.webp",
+            }}
             className={s.heroVideo}
           />
           <div className={s.heroGradV} />
@@ -204,9 +218,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <span id="book-asane" aria-hidden="true" className={s.centreAnchor} />
               <div className={s.centreMedia}>
                 <Image
-                  src="/assets/photos/asane-bay.jpg"
+                  src={asaneBay}
                   alt={t(lang, "Treningsbay med green i Åsane", "Practice bay and green, Åsane")}
                   fill
+                  placeholder="blur"
                   loading="eager"
                   sizes="(max-width: 767px) 100vw, (max-width: 1440px) 50vw, 660px"
                   className={s.centreImg}
@@ -227,9 +242,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <span id="book-sandviken" aria-hidden="true" className={s.centreAnchor} />
               <div className={s.centreMedia}>
                 <Image
-                  src="/assets/photos/sandviken-bay.jpg"
+                  src={sandvikenBay}
                   alt={t(lang, "Widescreen-bay med barkrakker i Sandviken", "Widescreen bay with stools in Sandviken")}
                   fill
+                  placeholder="blur"
                   loading="eager"
                   sizes="(max-width: 767px) 100vw, (max-width: 1440px) 50vw, 660px"
                   className={s.centreImgSandviken}
@@ -411,7 +427,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 gets upscaled 1.4-4×. */}
             <Image
               id="sim-photo"
-              src="/uploads/why_accuracy_matters_desktop-f3cbab17.webp"
+              src={simPhoto}
+              placeholder="blur"
               alt={t(
                 lang,
                 "TrackMan-bay hos INNE — spiller i sving foran simulatorskjermen",
@@ -479,9 +496,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <Link href={langHref(lang, "/vip-losjen")} className={s.photoCard}>
               <div className={s.photoCardMedia}>
                 <Image
-                  src="/assets/photos/vip-losje.jpg"
+                  src={vipLosje}
                   alt={t(lang, "VIP-losjen med skinnstoler og egen bay", "VIP box with leather chairs, own bay")}
                   fill
+                  placeholder="blur"
                   sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
                   className={s.photoCardImg}
                 />
@@ -505,9 +523,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <Link href={langHref(lang, "/bursdag")} className={s.photoCard}>
               <div className={s.photoCardMedia}>
                 <Image
-                  src="/assets/photos/bursdag-bay.jpg"
+                  src={bursdagBay}
                   alt={t(lang, "Bay med green og loungeområde", "Bay with green and lounge")}
                   fill
+                  placeholder="blur"
                   sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
                   className={s.photoCardImg}
                 />
@@ -532,9 +551,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <Link href={langHref(lang, "/bedrift")} className={s.photoCard}>
               <div className={s.photoCardMedia}>
                 <Image
-                  src="/assets/photos/lounge-fireplace.jpg"
+                  src={loungeFireplace}
                   alt={t(lang, "Loungen med peis", "Lounge fireplace")}
                   fill
+                  placeholder="blur"
                   sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
                   className={s.photoCardImg}
                 />

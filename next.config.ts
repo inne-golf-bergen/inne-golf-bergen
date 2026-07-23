@@ -8,6 +8,23 @@ const nextConfig: NextConfig = {
     // Next 16 clamps <Image quality> to this list (default [75]); the tall
     // mobile crops re-encode already-lossy webp sources, so allow higher.
     qualities: [75, 85, 90],
+    // AVIF first: ~20% smaller than webp at the same visual quality.
+    formats: ["image/avif", "image/webp"],
+    // Sources are effectively versioned (hashed static imports), so cached
+    // optimizer output can live long without staleness risk.
+    minimumCacheTTL: 2678400, // 31 days
+  },
+  async headers() {
+    return [
+      {
+        // Hero videos + posters carry a version suffix in the filename, so
+        // they can be cached forever; a new version means a new URL.
+        source: "/uploads/:file(.*_v\\d+.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
   },
 };
 

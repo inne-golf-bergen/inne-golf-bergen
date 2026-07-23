@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import praktiskAsaneAerial from "@/public/assets/praktisk-asane-aerial.jpg";
+import praktiskSandviken1 from "@/public/assets/praktisk-sandviken-1.png";
+import praktiskSandviken2 from "@/public/assets/praktisk-sandviken-2.png";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
 import { asLang, langAlternates, t } from "@/lib/i18n";
@@ -59,7 +62,8 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
               </div>
               <div className={s.photoMedia}>
                 <Image
-                  src="/assets/praktisk-asane-aerial.jpg"
+                  src={praktiskAsaneAerial}
+                  placeholder="blur"
                   alt={t(
                     lang,
                     "Annotert flyfoto av INNE Golf Bergen Åsane med inngang og parkering",
@@ -154,7 +158,8 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
               </div>
               <div className={`${s.photoMedia} ${s.photoMediaWide}`}>
                 <Image
-                  src="/assets/praktisk-sandviken-1.png"
+                  src={praktiskSandviken1}
+                  placeholder="blur"
                   alt={t(
                     lang,
                     "Gatefoto av inngangen til INNE Golf Bergen Sandviken",
@@ -173,7 +178,8 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
               </div>
               <div className={`${s.photoMedia} ${s.photoMediaWide}`}>
                 <Image
-                  src="/assets/praktisk-sandviken-2.png"
+                  src={praktiskSandviken2}
+                  placeholder="blur"
                   alt={t(lang, "Gatefoto av parkeringen vis-à-vis Babyland", "Street view of parking by Babyland")}
                   fill
                   sizes="(max-width: 767px) 150vw, 50vw"

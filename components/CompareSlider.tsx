@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import lofotenFoto from "@/public/assets/vg3-lofoten-foto.webp";
+import lofotenRender from "@/public/assets/vg3-lofoten-render.webp";
 import { useEffect, useRef } from "react";
 import { type Lang, t } from "@/lib/i18n";
 import styles from "./compare.module.css";
@@ -132,9 +134,10 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
           width-based srcset selection (100vw) would serve a ~750px file and
           upscale it ~2.5×. Over-declaring fetches the full-width original. */}
       <Image
-        src="/assets/vg3-lofoten-render.webp"
+        src={lofotenRender}
         alt={t(lang, "Samme hull gjengitt i Virtual Golf 3", "The same hole in Virtual Golf 3")}
         fill
+        placeholder="blur"
         sizes="(max-width: 768px) 250vw, 100vw"
         quality={90}
         draggable={false}
@@ -142,9 +145,10 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
       />
       <div ref={clipRef} id="vg3-clip" className={styles.clip}>
         <Image
-          src="/assets/vg3-lofoten-foto.webp"
+          src={lofotenFoto}
           alt={t(lang, "Dronefoto av Lofoten Links", "Lofoten Links from a drone")}
           fill
+          placeholder="blur"
           sizes="(max-width: 768px) 250vw, 100vw"
           quality={90}
           draggable={false}
