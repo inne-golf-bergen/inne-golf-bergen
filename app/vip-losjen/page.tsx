@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
+import { SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 import s from "./vip.module.css";
 
@@ -50,7 +50,7 @@ export default function VipLosjenPage() {
             <span className={`${s.heroLine} ${s.heroAccent}`}>Deres egen kveld.</span>
           </h1>
           <div data-fade="true" className={sub.heroCtaWrap}>
-            <Button as="a" href="/#book-asane" size="lg">
+            <Button as="a" href={SITE.bookAsane} size="lg">
               BOOK VIP-LOSJEN
             </Button>
           </div>
@@ -110,9 +110,9 @@ export default function VipLosjenPage() {
             <h2 className={sub.copperH2}>Deres egen kveld.</h2>
             <p className={sub.copperCopy}>Widescreen-simulator, eget sofahjørne, pokerbord og live sport i Åsane.</p>
           </div>
-          <Link href="/#book-asane" className={sub.darkCta}>
+          <a href={SITE.bookAsane} className={sub.darkCta}>
             Book VIP-losjen
-          </Link>
+          </a>
         </div>
       </section>
 
