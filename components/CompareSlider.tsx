@@ -133,16 +133,17 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
         </p>
       </div>
       <div ref={wrapRef} id="vg3-compare" className={styles.wrap}>
-      {/* 250vw on mobile: the 440px-min portrait crop is height-constrained, so
-          width-based srcset selection (100vw) would serve a ~750px file and
-          upscale it ~2.5×. Over-declaring fetches the full-width original. */}
+      {/* unoptimized: both frames ship byte-identical to TrackMan's own 1920×900
+          originals. The optimizer's webp→AVIF re-encode is a second lossy pass
+          that smooths the grass/rock texture — visibly soft on large monitors —
+          and every viewport already fetched the full-width file anyway (the
+          mobile portrait crop is height-constrained). */}
       <Image
         src={lofotenRender}
         alt={t(lang, "Samme hull gjengitt i Virtual Golf 3", "The same hole in Virtual Golf 3")}
         fill
         placeholder="blur"
-        sizes="(max-width: 768px) 250vw, 100vw"
-        quality={90}
+        unoptimized
         draggable={false}
         className={styles.img}
       />
@@ -152,8 +153,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
           alt={t(lang, "Dronefoto av Lofoten Links", "Lofoten Links from a drone")}
           fill
           placeholder="blur"
-          sizes="(max-width: 768px) 250vw, 100vw"
-          quality={90}
+          unoptimized
           draggable={false}
           className={styles.img}
         />
