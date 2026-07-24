@@ -1,6 +1,6 @@
 "use client";
 
-import { animate, motion, useInView, useMotionValue, useReducedMotion } from "framer-motion";
+import { animate, m, useInView, useMotionValue, useReducedMotion } from "framer-motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { CountUp } from "./fx";
 import { EASE_OUT } from "./tokens";
@@ -120,7 +120,7 @@ export default function MedlemTall({
             <path d={d} fill="none" stroke="var(--orange-400)" strokeWidth={2} strokeLinecap="round" opacity={0.4} />
           ) : (
             <>
-              <motion.path
+              <m.path
                 ref={pathRef}
                 d={d}
                 fill="none"
@@ -135,7 +135,7 @@ export default function MedlemTall({
                   opacity: { delay: 2.1, duration: 0.6, ease: "easeOut" },
                 }}
               />
-              <motion.circle
+              <m.circle
                 ref={dotRef}
                 r={4}
                 fill="var(--orange-300)"
