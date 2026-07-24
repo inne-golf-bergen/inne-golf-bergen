@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Schibsted_Grotesk, Syne } from "next/font/google";
 import { CursorGlow } from "@/components/motion/fx";
+import MotionProvider from "@/components/motion/lazy";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { asLang, LANGS, langAlternates, t } from "@/lib/i18n";
@@ -24,6 +25,12 @@ const schibsted = Schibsted_Grotesk({
 export function generateStaticParams() {
   return LANGS.map((lang) => ({ lang }));
 }
+
+/* Only /no and /en exist. Without this, any single-segment URL that dodges
+   the rewrites (e.g. /wp-login.php) would render on demand with that path as
+   [lang] — a soft-200 duplicate of the homepage, one function invocation per
+   bot probe. With it, unknown params 404 via the static fallback instead. */
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -77,12 +84,14 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(locationsJsonld(lang)) }}
         />
-        <SiteNav lang={lang} />
-        {children}
-        <SiteFooter lang={lang} />
-        {/* site-wide ambience — the kobber & eik "room tone". Both self-disable
-            for reduced motion; the glow additionally needs a fine pointer. */}
-        <CursorGlow />
+        <MotionProvider>
+          <SiteNav lang={lang} />
+          {children}
+          <SiteFooter lang={lang} />
+          {/* site-wide ambience — the kobber & eik "room tone". Both self-disable
+              for reduced motion; the glow additionally needs a fine pointer. */}
+          <CursorGlow />
+        </MotionProvider>
         <div id="inne-grain" aria-hidden="true" />
       </body>
     </html>

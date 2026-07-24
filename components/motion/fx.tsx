@@ -2,7 +2,7 @@
 
 import {
   animate,
-  motion,
+  m,
   useInView,
   useMotionValue,
   useReducedMotion,
@@ -41,15 +41,15 @@ export function FadeUp({
   const visible = { opacity: 1, y: 0, transition: { ...REVEAL_SPRING, delay } };
   if (mode === "mount") {
     return (
-      <motion.div className={className} initial={{ opacity: 0, y }} animate={visible}>
+      <m.div className={className} initial={{ opacity: 0, y }} animate={visible}>
         {children}
-      </motion.div>
+      </m.div>
     );
   }
   return (
-    <motion.div className={className} initial={{ opacity: 0, y }} whileInView={visible} viewport={VIEWPORT}>
+    <m.div className={className} initial={{ opacity: 0, y }} whileInView={visible} viewport={VIEWPORT}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -83,7 +83,7 @@ export function CascadeItem({
     );
   }
   return (
-    <motion.div
+    <m.div
       id={id}
       className={className}
       initial={{ opacity: 0, y: 30 }}
@@ -91,7 +91,7 @@ export function CascadeItem({
       viewport={VIEWPORT}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -101,14 +101,14 @@ export function HeroIntro({ children, className }: { children: ReactNode; classN
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       animate="visible"
       variants={{ visible: { transition: { delayChildren: 0.15, staggerChildren: 0.11 } } }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -116,7 +116,7 @@ export function HeroItem({ children, className }: { children: ReactNode; classNa
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={{
         hidden: { opacity: 0, y: 26 },
@@ -124,7 +124,7 @@ export function HeroItem({ children, className }: { children: ReactNode; classNa
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -133,7 +133,7 @@ export function HeroLine({ children, className }: { children: ReactNode; classNa
   const reduce = useReducedMotion();
   if (reduce) return <span className={className}>{children}</span>;
   return (
-    <motion.span
+    <m.span
       className={className}
       variants={{
         hidden: { y: "118%" },
@@ -141,7 +141,7 @@ export function HeroLine({ children, className }: { children: ReactNode; classNa
       }}
     >
       {children}
-    </motion.span>
+    </m.span>
   );
 }
 
@@ -165,9 +165,9 @@ export function ParallaxY({
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [`${from}%`, `${to}%`]);
   return (
-    <motion.div ref={ref} className={className} style={reduce ? undefined : { y, scale, willChange: "transform" }}>
+    <m.div ref={ref} className={className} style={reduce ? undefined : { y, scale, willChange: "transform" }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -247,7 +247,7 @@ export function Magnetic({
   };
 
   return (
-    <motion.div
+    <m.div
       className={className}
       style={{ x: sx, y: sy, display: "inline-flex" }}
       onMouseEnter={onEnter}
@@ -255,7 +255,7 @@ export function Magnetic({
       onMouseLeave={onLeave}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -286,7 +286,7 @@ export function CursorGlow() {
 
   if (reduce) return null;
   return (
-    <motion.div
+    <m.div
       id="inne-glow"
       aria-hidden="true"
       style={{ x: sx, y: sy }}

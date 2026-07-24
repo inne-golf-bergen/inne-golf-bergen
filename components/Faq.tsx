@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import s from "@/app/[lang]/page.module.css";
 import { EASE_DRAWER, ICON_SPRING } from "./motion/tokens";
@@ -37,18 +37,18 @@ export default function Faq({ items }: { items: { q: string; a: string }[] }) {
               onClick={() => toggle(i)}
             >
               <span className={s.faqQ}>{item.q}</span>
-              <motion.span
+              <m.span
                 className={s.faqX}
                 aria-hidden="true"
                 animate={{ rotate: isOpen ? 45 : 0 }}
                 transition={reduce ? { duration: 0 } : ICON_SPRING}
               >
                 +
-              </motion.span>
+              </m.span>
             </button>
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   key="answer"
                   id={`faq-a-${i}`}
                   role="region"
@@ -77,7 +77,7 @@ export default function Faq({ items }: { items: { q: string; a: string }[] }) {
                   style={{ overflow: "hidden" }}
                 >
                   <p className={s.faqA}>{item.a}</p>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
