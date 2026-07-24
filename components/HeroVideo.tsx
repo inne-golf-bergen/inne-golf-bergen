@@ -60,27 +60,68 @@ function initHeroVideo(
        explicit pause() on tab-switch left Safari showing a stuck frame for
        seconds after return — resume latency plus a swallowed play() rejection
        with no retry). Offscreen decode is cheap on the hardware-decode paths
-       chosen below. These kicks are resume-ONLY: if the browser itself pauses
-       playback (background tab, BFCache restore, power interruptions), we
-       restart the moment the page is watchable again — and retry once, since
-       Safari can reject a play() issued in the same tick the tab returns. */
+       chosen below. These kicks are resume-ONLY: when the tab becomes
+       watchable again we resume immediately, then a watchdog confirms frames
+       are actually painting — "not paused" is not enough, since Chrome and
+       Safari keep currentTime advancing in background tabs while the decoder
+       is suspended, which shows as a stuck frame for seconds after return.
+       A same-position seek re-primes the decoder. The pause listener covers
+       Safari pausing the element only after visibilitychange has fired. */
+    const rvfc =
+      "requestVideoFrameCallback" in v
+        ? (
+            v as HTMLVideoElement & {
+              requestVideoFrameCallback: (cb: () => void) => number;
+            }
+          ).requestVideoFrameCallback.bind(v)
+        : null;
+    let watching = false;
     const kick = () => {
       if (!v.isConnected) {
         document.removeEventListener("visibilitychange", kick);
         window.removeEventListener("pageshow", kick);
         window.removeEventListener("focus", kick);
+        window.removeEventListener("pointerdown", kick);
+        window.removeEventListener("keydown", kick);
+        v.removeEventListener("pause", kick);
         return;
       }
-      if (document.hidden || !v.paused) return;
-      v.play().catch(() => {
-        setTimeout(() => {
-          if (v.isConnected && !document.hidden && v.paused) v.play().catch(() => {});
-        }, 300);
-      });
+      if (document.hidden) return;
+      // Play synchronously on EVERY event — even mid-watchdog — so a
+      // pointerdown's user activation is never wasted by the guard below.
+      if (v.paused) v.play().catch(() => {});
+      if (watching) return;
+      watching = true;
+      const t0 = v.currentTime;
+      let painted = false;
+      if (rvfc) rvfc(() => (painted = true));
+      setTimeout(() => {
+        watching = false;
+        if (!v.isConnected || document.hidden) return;
+        if (v.paused) {
+          v.play().catch(() => {});
+          return;
+        }
+        if (rvfc ? !painted : v.currentTime === t0) {
+          const t = v.currentTime;
+          try {
+            v.currentTime = t;
+          } catch {}
+          v.play().catch(() => {});
+        }
+      }, 350);
     };
     document.addEventListener("visibilitychange", kick);
     window.addEventListener("pageshow", kick);
     window.addEventListener("focus", kick);
+    /* iOS Low Power Mode rejects every play() until the user touches the
+       page, and Safari overlays a play glyph on the blocked video (hidden in
+       globals.css). pointerdown/keydown carry the user activation play()
+       needs, so the loop starts on the first tap, scroll-swipe, or key. The
+       synchronous play() inside kick is what inherits the activation. */
+    window.addEventListener("pointerdown", kick, { passive: true });
+    window.addEventListener("keydown", kick, { passive: true });
+    v.addEventListener("pause", kick);
   };
 
   /* Codec by decode hardware, not by "can play at all": a software-decoded
