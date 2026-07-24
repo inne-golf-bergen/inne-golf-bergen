@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Schibsted_Grotesk, Syne } from "next/font/google";
+import InlineScript from "@/components/InlineScript";
 import { CursorGlow } from "@/components/motion/fx";
 import MotionProvider from "@/components/motion/lazy";
 import SiteFooter from "@/components/SiteFooter";
@@ -84,15 +85,13 @@ export default async function RootLayout({
   const lang = asLang((await params).lang);
   return (
     <html lang={lang} className={`${syne.variable} ${schibsted.variable}`}>
-      <body>
+      {/* suppressHydrationWarning: the scroll script below legitimately adds
+          .inne-scrolled before hydration when landing scrolled (anchors,
+          restored scroll) — React must keep the DOM's class, not warn */}
+      <body suppressHydrationWarning>
         {/* header glass must react to scroll before hydration too (anchor
             landings, restored scroll) — a class beats a React-only state */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){var f=function(){document.body.classList.toggle('inne-scrolled',window.scrollY>24)};addEventListener('scroll',f,{passive:true});f()})();",
-          }}
-        />
+        <InlineScript html="(function(){var f=function(){document.body.classList.toggle('inne-scrolled',window.scrollY>24)};addEventListener('scroll',f,{passive:true});f()})();" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(locationsJsonld(lang)) }}
