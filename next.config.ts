@@ -4,6 +4,13 @@ const nextConfig: NextConfig = {
   /* NEXT_DIST_DIR lets a second dev server run alongside the default one
      (Next locks .next/dev per dist dir). */
   distDir: process.env.NEXT_DIST_DIR || ".next",
+  experimental: {
+    /* Route types get wired through next-env.d.ts (current dist dir only)
+       instead of Next appending every dist dir's types/ glob to tsconfig
+       "include" — stale .next-* siblings would break tsc/next build once
+       the route tree changed. Slated to become the Next default. */
+    strictRouteTypes: true,
+  },
   poweredByHeader: false,
   images: {
     // Next 16 clamps <Image quality> to this list (default [75]); the tall
