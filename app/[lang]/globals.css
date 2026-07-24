@@ -661,3 +661,10 @@ select.fieldInput {
   display: none !important;
   -webkit-appearance: none;
 }
+
+/* HeroVideo choreography: transparent until frames are verifiably painting,
+   fading in over the pixel-identical poster <picture> behind it. Opacity is
+   driven inline by the component script. */
+#hero-video {
+  transition: opacity 0.4s ease;
+}
