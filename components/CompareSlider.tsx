@@ -5,6 +5,7 @@ import lofotenFoto from "@/public/assets/vg3-lofoten-foto.webp";
 import lofotenRender from "@/public/assets/vg3-lofoten-render.webp";
 import { useEffect, useRef } from "react";
 import { type Lang, t } from "@/lib/i18n";
+import Eyebrow from "./Eyebrow";
 import styles from "./compare.module.css";
 
 /**
@@ -121,12 +122,13 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
       {/* ≤768px: the in-image overlay is hidden, so the framing moves above
           the slider instead of disappearing */}
       <div className={styles.mobileHead}>
+        <Eyebrow>{t(lang, "Ekte vs. simulator", "Real vs. simulator")}</Eyebrow>
         <h2 className={styles.title}>{t(lang, "Så ekte er det.", "It’s this real.")}</h2>
         <p className={styles.copy}>
           {t(
             lang,
-            "Dra i skillelinjen — dronefoto mot Virtual Golf 3.",
-            "Drag the line — drone photo vs Virtual Golf 3.",
+            "Dra i skillelinjen — dronefoto mot Virtual Golf 3.",
+            "Drag the line — drone photo vs Virtual Golf 3.",
           )}
         </p>
       </div>

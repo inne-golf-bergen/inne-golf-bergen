@@ -58,14 +58,20 @@
 @media (max-width: 768px) {
   .mobileHead {
     display: block;
-    padding: 0 20px 24px;
+    padding: 12px 20px 28px;
   }
 
+  /* match the landing-page section rhythm: eyebrow, 20px, h2 at 34px */
   .mobileHead .title {
+    margin-top: 20px;
+    font-size: 34px;
     text-shadow: none;
   }
 
   .mobileHead .copy {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.6;
     text-shadow: none;
     color: var(--text-mid);
   }
