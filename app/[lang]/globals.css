@@ -652,3 +652,12 @@ select.fieldInput {
     transition: none !important;
   }
 }
+
+/* iOS Safari paints a play glyph over videos it blocked from autoplaying
+   (Low Power Mode). The hero is decorative background — never show it;
+   HeroVideo starts playback on the first touch instead. */
+#hero-video::-webkit-media-controls-start-playback-button,
+#hero-video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+}
