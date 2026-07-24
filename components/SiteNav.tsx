@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,7 +26,14 @@ function Lockup() {
 }
 
 export default function SiteNav({ lang }: { lang: Lang }) {
-  const pathname = usePathname();
+  /* Norwegian pages are served at unprefixed URLs, but the router state
+     carries the internal /no path the rewrite resolved to. Normalize back to
+     the public URL before deriving hrefs — otherwise the language switch
+     points into the wrong tree (/en/no/…) and the homepage anchor links
+     trigger a navigation instead of a same-page scroll. */
+  const rawPathname = usePathname();
+  const pathname =
+    rawPathname === "/no" ? "/" : rawPathname.startsWith("/no/") ? rawPathname.slice(3) : rawPathname;
   const homePath = langHref(lang, "/");
   const home = pathname === homePath ? "" : homePath;
   const logoHref = home === "" ? "#top" : homePath;
@@ -200,7 +207,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
       </button>
       <AnimatePresence>
         {menu === id && (
-          <motion.div
+          <m.div
             initial={reduce ? false : { opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4, transition: { duration: reduce ? 0 : 0.12, ease: "easeOut" } }}
@@ -209,7 +216,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             className={`${styles.dropdown} ${wide ? styles.dropdownWide : ""}`}
           >
             {items}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -348,7 +355,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
 
       <AnimatePresence>
       {mobileOpen && (
-        <motion.div
+        <m.div
           role="dialog"
           aria-modal="true"
           aria-label={t(lang, "Meny", "Menu")}
@@ -427,20 +434,20 @@ export default function SiteNav({ lang }: { lang: Lang }) {
               </Button>
             </div>
           </nav>
-        </motion.div>
+        </m.div>
       )}
       </AnimatePresence>
 
       <AnimatePresence>
       {sheetOpen && (
-        <motion.div
+        <m.div
           role="dialog"
           aria-modal="true"
           aria-label={t(lang, "Velg senter", "Pick venue")}
           className={styles.sheet}
           onKeyDown={trapTab}
         >
-          <motion.div
+          <m.div
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: reduce ? 0 : DUR.micro, ease: "easeOut" } }}
@@ -448,7 +455,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             className={styles.sheetBackdrop}
             onClick={() => setSheetOpen(false)}
           />
-          <motion.div
+          <m.div
             initial={reduce ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12, transition: { duration: reduce ? 0 : 0.18, ease: "easeOut" } }}
@@ -494,8 +501,8 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                 "Free loaner clubs for men, women and juniors.",
               )}
             </p>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
       </AnimatePresence>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import { EASE_DRAWER, ICON_SPRING } from "@/components/motion/tokens";
 import { type Lang, t } from "@/lib/i18n";
@@ -141,19 +141,19 @@ export default function VinterFaser({ lang }: { lang: Lang }) {
                 <span className={s.phaseTitle}>{phase.title}</span>
                 <span className={s.phaseMeta}>{phase.meta}</span>
               </span>
-              <motion.span
+              <m.span
                 aria-hidden="true"
                 className={s.phasePlus}
                 animate={{ rotate: isOpen ? 45 : 0 }}
                 transition={reduce ? { duration: 0 } : ICON_SPRING}
               >
                 +
-              </motion.span>
+              </m.span>
             </button>
             {/* the Faq.tsx drawer recipe — exit snappier than enter */}
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   key="detail"
                   id={`fase-a-${i}`}
                   role="region"
@@ -188,7 +188,7 @@ export default function VinterFaser({ lang }: { lang: Lang }) {
                       </div>
                     ))}
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
