@@ -5,7 +5,7 @@ import MotionProvider from "@/components/motion/lazy";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { asLang, LANGS, langAlternates, t } from "@/lib/i18n";
-import { locationsJsonld } from "@/lib/site";
+import { locationsJsonld, SITE_ORIGIN } from "@/lib/site";
 import "./globals.css";
 
 const syne = Syne({
@@ -39,7 +39,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const lang = asLang((await params).lang);
   return {
-    metadataBase: new URL("https://innegolfbergen.no"),
+    metadataBase: new URL(SITE_ORIGIN),
     title: t(lang, "INNE Golf Bergen — Golf. Hele året.", "INNE Golf Bergen — Golf. All year."),
     description: t(
       lang,
@@ -47,12 +47,25 @@ export async function generateMetadata({
       "Indoor golf in Bergen — TrackMan iO simulators in Åsane and Sandviken. Self-serve, open 24/7. Book a bay from 100 kr per 30 min.",
     ),
     alternates: langAlternates("/"),
-    /* shares into Slack/iMessage/Facebook get the strongest asset: the venue */
+    /* shares into iMessage/Messenger/WhatsApp/Slack get the branded card
+       (source + render recipe: scripts/og-cards). Versioned filename because
+       scrapers cache the URL indefinitely — bump _vN on redesign. */
     openGraph: {
       siteName: "INNE Golf Bergen",
       type: "website",
       locale: lang === "no" ? "nb_NO" : "en_US",
-      images: [{ url: "/assets/photos/bays-wide.jpg", width: 1200, height: 630 }],
+      images: [
+        {
+          url: t(lang, "/assets/og/og-card-no_v1.jpg", "/assets/og/og-card-en_v1.jpg"),
+          width: 1200,
+          height: 630,
+          alt: t(
+            lang,
+            "INNE Golf Bergen — Golf. Hele året. TrackMan iO i Åsane og Sandviken.",
+            "INNE Golf Bergen — Golf. All year. TrackMan iO in Åsane/Sandviken.",
+          ),
+        },
+      ],
     },
     twitter: { card: "summary_large_image" },
   };
