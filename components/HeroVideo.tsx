@@ -9,7 +9,7 @@ export type HeroVideoSources = {
   vp9: string;
   /** H.264 mp4 — universal fallback, plays everywhere. */
   h264: string;
-  /** Still of the first frame; paints immediately while the video buffers. */
+  /** Still of the first frame; the always-on backdrop the video fades over. */
   poster: string;
 };
 
@@ -23,11 +23,7 @@ const MOBILE_MQ = "(max-width: 768px)";
  *    scripts don't re-execute there) and as a no-op backstop otherwise.
  * Must stay fully self-contained: no references to module scope.
  */
-function initHeroVideo(
-  v: HTMLVideoElement | null,
-  desk: HeroVideoSources,
-  mob: HeroVideoSources,
-) {
+function initHeroVideo(v: HTMLVideoElement | null) {
   if (!v || v.dataset.init) return;
   v.dataset.init = "1";
   let mobile = false;
@@ -37,36 +33,34 @@ function initHeroVideo(
     v.muted = true;
     v.defaultMuted = true;
     mobile = matchMedia("(max-width: 768px)").matches;
-    v.poster = (mobile ? mob : desk).poster;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     if (conn && conn.saveData) return;
   } catch {
-    return; // no matchMedia: keep the gradient backdrop only
+    return; // no matchMedia: keep the poster backdrop only
   }
-  const s = mobile ? mob : desk;
+  const sources = JSON.parse(v.dataset[mobile ? "mob" : "desk"] as string) as {
+    av1: string;
+    vp9: string;
+    h264: string;
+  };
 
   const start = (src: string) => {
     v.src = src;
     v.load();
-    v.addEventListener(
-      "canplay",
-      () => {
-        v.play().catch(() => {});
-      },
-      { once: true },
-    );
-    /* The loop must NEVER sit frozen: we don't pause it ourselves (an
-       explicit pause() on tab-switch left Safari showing a stuck frame for
-       seconds after return — resume latency plus a swallowed play() rejection
-       with no retry). Offscreen decode is cheap on the hardware-decode paths
-       chosen below. These kicks are resume-ONLY: when the tab becomes
-       watchable again we resume immediately, then a watchdog confirms frames
-       are actually painting — "not paused" is not enough, since Chrome and
-       Safari keep currentTime advancing in background tabs while the decoder
-       is suspended, which shows as a stuck frame for seconds after return.
-       A same-position seek re-primes the decoder. The pause listener covers
-       Safari pausing the element only after visibilitychange has fired. */
+
+    /* The user must NEVER see a frozen video frame. The poster <picture>
+       behind the element is pixel-identical to frame 1, and the video is
+       transparent until frames are verifiably painting (requestVideoFrame-
+       Callback), so every stall state — first load still buffering, tab
+       hidden, decoder suspended, autoplay refused (iOS Low Power Mode) —
+       shows the clean still instead of a stuck frame or a play glyph.
+
+       On hide we deliberately pause and cover; on return we rewind to 0 and
+       play. Resuming MID-loop is what froze Safari for seconds (it must
+       re-decode from the previous keyframe up to the paused position);
+       frame 1 IS a keyframe, so from-the-top restarts instantly, and under
+       the poster the rewind is invisible. */
     const rvfc =
       "requestVideoFrameCallback" in v
         ? (
@@ -75,53 +69,79 @@ function initHeroVideo(
             }
           ).requestVideoFrameCallback.bind(v)
         : null;
-    let watching = false;
-    const kick = () => {
+    let gen = 0;
+
+    const onFrame = (cb: () => void) => {
+      if (rvfc) rvfc(cb);
+      else {
+        const h = () => {
+          v.removeEventListener("timeupdate", h);
+          cb();
+        };
+        v.addEventListener("timeupdate", h);
+      }
+    };
+
+    const fadeInOnFrame = () => {
+      const g = ++gen;
+      const show = (): void => {
+        if (g !== gen || !v.isConnected) return;
+        // A frame presented while hidden can't be trusted as "visibly
+        // moving" — re-arm and reveal on the first frame the user can see.
+        if (document.hidden) return onFrame(show);
+        v.style.opacity = "1";
+      };
+      onFrame(show);
+    };
+
+    const cover = () => {
+      gen++; // cancel any pending reveal
+      v.style.opacity = "0";
+    };
+
+    const sleep = () => {
+      cover();
+      v.pause();
+    };
+
+    const wake = () => {
       if (!v.isConnected) {
-        document.removeEventListener("visibilitychange", kick);
-        window.removeEventListener("pageshow", kick);
-        window.removeEventListener("focus", kick);
-        window.removeEventListener("pointerdown", kick);
-        window.removeEventListener("keydown", kick);
-        v.removeEventListener("pause", kick);
+        document.removeEventListener("visibilitychange", onVis);
+        window.removeEventListener("pagehide", sleep);
+        window.removeEventListener("pageshow", wake);
+        window.removeEventListener("focus", wake);
+        window.removeEventListener("pointerdown", wake);
+        window.removeEventListener("keydown", wake);
+        v.removeEventListener("pause", wake);
         return;
       }
-      if (document.hidden) return;
-      // Play synchronously on EVERY event — even mid-watchdog — so a
-      // pointerdown's user activation is never wasted by the guard below.
-      if (v.paused) v.play().catch(() => {});
-      if (watching) return;
-      watching = true;
-      const t0 = v.currentTime;
-      let painted = false;
-      if (rvfc) rvfc(() => (painted = true));
-      setTimeout(() => {
-        watching = false;
-        if (!v.isConnected || document.hidden) return;
-        if (v.paused) {
-          v.play().catch(() => {});
-          return;
-        }
-        if (rvfc ? !painted : v.currentTime === t0) {
-          const t = v.currentTime;
-          try {
-            v.currentTime = t;
-          } catch {}
-          v.play().catch(() => {});
-        }
-      }, 350);
+      if (document.hidden || !v.paused) return;
+      try {
+        if (v.currentTime > 0.05) v.currentTime = 0;
+      } catch {}
+      // Synchronous play(): from pointerdown/keydown it inherits the user
+      // activation iOS Low Power Mode requires.
+      v.play().catch(() => {});
     };
-    document.addEventListener("visibilitychange", kick);
-    window.addEventListener("pageshow", kick);
-    window.addEventListener("focus", kick);
-    /* iOS Low Power Mode rejects every play() until the user touches the
-       page, and Safari overlays a play glyph on the blocked video (hidden in
-       globals.css). pointerdown/keydown carry the user activation play()
-       needs, so the loop starts on the first tap, scroll-swipe, or key. The
-       synchronous play() inside kick is what inherits the activation. */
-    window.addEventListener("pointerdown", kick, { passive: true });
-    window.addEventListener("keydown", kick, { passive: true });
-    v.addEventListener("pause", kick);
+
+    const onVis = () => (document.hidden ? sleep() : wake());
+
+    document.addEventListener("visibilitychange", onVis);
+    window.addEventListener("pagehide", sleep);
+    window.addEventListener("pageshow", wake);
+    window.addEventListener("focus", wake);
+    window.addEventListener("pointerdown", wake, { passive: true });
+    window.addEventListener("keydown", wake, { passive: true });
+    // Browser-initiated pause while visible (memory pressure, power events):
+    // wake immediately. Our own sleep() pause is filtered by document.hidden.
+    v.addEventListener("pause", wake);
+    // Playback (re)starting is the ONLY reveal path, and starvation or a
+    // decode fault drops back to the poster — never a stalled frame.
+    v.addEventListener("playing", fadeInOnFrame);
+    v.addEventListener("waiting", cover);
+    v.addEventListener("error", cover);
+
+    v.play().catch(() => {}); // start ASAP; the poster covers the buffering
   };
 
   /* Codec by decode hardware, not by "can play at all": a software-decoded
@@ -131,10 +151,10 @@ function initHeroVideo(
   if (!mc || !mc.decodingInfo) {
     start(
       v.canPlayType('video/mp4; codecs="av01.0.08M.10"') === "probably"
-        ? s.av1
+        ? sources.av1
         : v.canPlayType('video/webm; codecs="vp9"') === "probably"
-          ? s.vp9
-          : s.h264,
+          ? sources.vp9
+          : sources.h264,
     );
     return;
   }
@@ -148,18 +168,21 @@ function initHeroVideo(
       .catch(() => null),
   ])
     .then(([av1, vp9]) => {
-      if (av1 && av1.supported && av1.powerEfficient) start(s.av1);
-      else if (vp9 && vp9.supported && vp9.powerEfficient) start(s.vp9);
-      else start(s.h264);
+      if (av1 && av1.supported && av1.powerEfficient) start(sources.av1);
+      else if (vp9 && vp9.supported && vp9.powerEfficient) start(sources.vp9);
+      else start(sources.h264);
     })
-    .catch(() => start(s.h264));
+    .catch(() => start(sources.h264));
 }
 
 /**
- * Landing hero background video. The poster (preloaded, high priority) makes
- * the hero paint instantly; playback fades in on top once buffered — the
- * poster is frame 1, so the transition is seamless. prefers-reduced-motion
- * and data-saver users keep the still poster and never fetch the video.
+ * Landing hero background video. A <picture> of the first frame renders
+ * underneath and paints instantly (preloaded, high priority); the video is
+ * transparent until frames are verifiably painting, then fades in on top —
+ * pixel-identical layers, so the handoff is invisible. Any playback
+ * interruption drops back to the poster, never to a frozen frame.
+ * prefers-reduced-motion and data-saver users keep the still and never
+ * fetch the video.
  */
 export default function HeroVideo({
   desktop,
@@ -173,12 +196,10 @@ export default function HeroVideo({
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    initHeroVideo(ref.current, desktop, mobile);
+    initHeroVideo(ref.current);
   }, [desktop, mobile]);
 
-  const script = `(${initHeroVideo.toString()})(document.getElementById("hero-video"),${JSON.stringify(
-    desktop,
-  )},${JSON.stringify(mobile)})`;
+  const script = `(${initHeroVideo.toString()})(document.getElementById("hero-video"))`;
 
   return (
     <>
@@ -196,12 +217,19 @@ export default function HeroVideo({
         media="(min-width: 769px)"
         fetchPriority="high"
       />
-      {/* The inline script sets muted/poster/src before hydration; those
-          attribute "mismatches" are expected. */}
+      <picture>
+        <source media={MOBILE_MQ} srcSet={mobile.poster} />
+        <img className={className} src={desktop.poster} alt="" />
+      </picture>
+      {/* The inline script sets muted/src before hydration; those attribute
+          "mismatches" are expected. */}
       <video
         ref={ref}
         id="hero-video"
         className={className}
+        style={{ opacity: 0 }}
+        data-desk={JSON.stringify({ av1: desktop.av1, vp9: desktop.vp9, h264: desktop.h264 })}
+        data-mob={JSON.stringify({ av1: mobile.av1, vp9: mobile.vp9, h264: mobile.h264 })}
         preload="auto"
         autoPlay
         loop
