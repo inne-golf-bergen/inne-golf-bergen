@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { SITE_ORIGIN } from "@/lib/site";
 
-const BASE = "https://innegolfbergen.no";
+const BASE = SITE_ORIGIN;
 
 /** Every public page, by its unprefixed (Norwegian) path. */
 const PATHS = [

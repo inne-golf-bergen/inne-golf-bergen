@@ -70,6 +70,13 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
+      {
+        // OG share cards are versioned the same way (see scripts/og-cards).
+        source: "/assets/og/:file(.*_v\\d+.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
     ];
   },
 };

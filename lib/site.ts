@@ -1,5 +1,18 @@
 import { type Lang, t } from "./i18n";
 
+/**
+ * Origin for absolute URLs in metadata, sitemap and robots. innegolfbergen.no
+ * still points at the old site, so hardcoding it breaks share previews — the
+ * scrapers (iMessage, Messenger, WhatsApp, Slack) would fetch og:image from a
+ * host that 404s it. On Vercel this env var is the project's production host:
+ * the .vercel.app domain today, and it flips to innegolfbergen.no
+ * automatically the day the domain moves over. Fallback covers local `next
+ * build` outside Vercel.
+ */
+export const SITE_ORIGIN = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "https://innegolfbergen.no";
+
 export const SITE = {
   name: "INNE Golf Bergen",
   legalName: "IN GOLF BERGEN DA",

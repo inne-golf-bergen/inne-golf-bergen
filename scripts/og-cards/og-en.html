@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Syne:wght@700;800&display=block" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    background: #0d0a08;
+    font-family: "Schibsted Grotesk", sans-serif;
+  }
+  .photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 36%;
+  }
+  /* left scrim: text zone */
+  .scrim-left {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg,
+      rgba(13,10,8,0.95) 0%,
+      rgba(13,10,8,0.84) 30%,
+      rgba(13,10,8,0.52) 58%,
+      rgba(13,10,8,0.10) 84%,
+      rgba(13,10,8,0.20) 100%);
+  }
+  /* tame the pendant lamps top-left so the logo reads */
+  .scrim-corner {
+    position: absolute; inset: 0;
+    background: linear-gradient(152deg, rgba(13,10,8,0.88) 0%, rgba(13,10,8,0) 46%);
+  }
+  /* bottom zone: messaging apps overlay their title bar here */
+  .scrim-bottom {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(13,10,8,0.66) 0%, rgba(13,10,8,0) 26%);
+  }
+  .content {
+    position: absolute;
+    inset: 0;
+    padding: 56px 64px;
+  }
+  .logo {
+    display: block;
+    height: 60px;
+    width: auto;
+  }
+  .headline {
+    position: absolute;
+    left: 64px;
+    top: 214px;
+    font-family: "Syne", sans-serif;
+    font-weight: 800;
+    font-size: 102px;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: #f4ede6;
+    text-shadow: 0 2px 28px rgba(13, 10, 8, 0.5);
+  }
+  .headline .accent { color: #d6936d; }
+  .meta {
+    position: absolute;
+    left: 66px;
+    top: 452px;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 0.16em;
+    color: rgba(244, 237, 230, 0.85);
+    white-space: nowrap;
+  }
+  .meta .dot { color: #c9825c; padding: 0 0.55em; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="photo" src="../../public/assets/photos/bays-wide.jpg" alt="">
+    <div class="scrim-left"></div>
+    <div class="scrim-corner"></div>
+    <div class="scrim-bottom"></div>
+    <div class="content">
+      <img class="logo" src="../../public/assets/logo-lockup-white.png" alt="">
+      <div class="headline">Golf.<br><span class="accent">All&nbsp;year.</span></div>
+      <div class="meta">TRACKMAN iO<span class="dot">·</span>ÅSANE &amp; SANDVIKEN<span class="dot">·</span>OPEN 24/7</div>
+    </div>
+  </div>
+</body>
+</html>
