@@ -20,7 +20,7 @@
 }
 
 .heroH1 {
-  font-size: clamp(42px, 8vw, 132px);
+  font-size: clamp(71px, 12.8vw, 211px);
   line-height: 0.92;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .omH2 {
-  font-size: clamp(32px, 4.4vw, 60px);
+  font-size: clamp(46px, 6.4vw, 87px);
 }
 
 .omLead {
@@ -63,7 +63,8 @@
   padding: clamp(20px, 2.4vw, 28px);
   border: 1px solid var(--line-14);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   min-height: 150px;
   /* the word sizes itself to its box (cqw on .passerText) */
   container-type: inline-size;
@@ -97,13 +98,13 @@
 .passerText {
   font-family: var(--font-display);
   font-weight: 800;
-  /* one line, always inside the box: "KUNDEKVELD" is 11.9em in Syne 800,
-     so 8.2cqw of the cell keeps ~3 % headroom at any cell width */
+  /* one line, always inside the box: "KUNDEKVELD" is 4.12em in Bebas Neue,
+     so 17cqw of the cell keeps ~10 % headroom at any cell width */
   white-space: nowrap;
-  font-size: clamp(18px, 1.9vw, 28px);
-  font-size: min(clamp(18px, 1.9vw, 28px), max(15px, 8.2cqw));
+  font-size: clamp(23px, 2.4vw, 36px);
+  font-size: min(clamp(23px, 2.4vw, 36px), max(19px, 17cqw));
   line-height: 1.02;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--white);
 }

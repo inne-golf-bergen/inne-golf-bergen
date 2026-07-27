@@ -2,9 +2,9 @@
   margin: 26px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(44px, 8vw, 130px);
+  font-size: clamp(74px, 12.8vw, 208px);
   line-height: 0.92;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.015em;
   text-transform: uppercase;
   color: var(--white);
 }
@@ -166,8 +166,8 @@
   /* never break inside a price — the number scales to its card instead.
      First declaration is the fallback for engines without container queries. */
   white-space: nowrap;
-  font-size: clamp(38px, 4vw, 52px);
-  font-size: clamp(30px, 16cqw, 52px);
+  font-size: clamp(46px, 4.8vw, 63px);
+  font-size: clamp(36px, 27cqw, 63px);
   line-height: 1;
   color: var(--white);
 }
@@ -189,7 +189,7 @@
 .payValue {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 24px;
   white-space: nowrap;
   color: var(--orange-300);
 }
@@ -272,8 +272,8 @@
 .footNote {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(16px, 1.6vw, 22px);
-  letter-spacing: -0.01em;
+  font-size: clamp(19px, 1.9vw, 26px);
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--orange-300);
 }

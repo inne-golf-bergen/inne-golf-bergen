@@ -20,10 +20,10 @@
 }
 
 .heroH1 {
-  /* "TURNERINGEN." is 12.9em in Syne 800 — the cqw term (container:
+  /* "VINTERTURNERINGEN." is 6.8em in Bebas Neue — the cqw term (container:
      heroContent) keeps it un-hyphenated on one line at ultra-wide */
-  font-size: clamp(38px, 6.4vw, 116px);
-  font-size: min(clamp(38px, 6.4vw, 116px), max(38px, 7.6cqw));
+  font-size: clamp(65px, 10.2vw, 186px);
+  font-size: min(clamp(65px, 10.2vw, 186px), max(58px, 12cqw));
   line-height: 0.9;
 }
 
@@ -46,9 +46,9 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(30px, 4.4vw, 58px);
+  font-size: clamp(44px, 6.4vw, 84px);
   line-height: 0.96;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #1a100a;
 }
@@ -91,7 +91,7 @@
 .prizePlace {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(40px, 4vw, 60px);
+  font-size: clamp(48px, 4.8vw, 72px);
   line-height: 1;
   color: #1a100a;
 }
@@ -99,7 +99,7 @@
 .prizeAmount {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(24px, 2.4vw, 32px);
+  font-size: clamp(30px, 3vw, 40px);
   line-height: 1;
   color: #1a100a;
 }
@@ -197,7 +197,7 @@
 .phaseTitle {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(20px, 2.4vw, 30px);
+  font-size: clamp(25px, 3vw, 38px);
   line-height: 1;
   text-transform: uppercase;
   color: var(--white);
@@ -216,7 +216,7 @@
   flex: none;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 22px;
+  font-size: 26px;
   color: var(--orange-500);
   /* rotation is spring-driven (ICON_SPRING) in VinterFaser.tsx */
 }

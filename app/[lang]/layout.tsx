@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Schibsted_Grotesk, Syne } from "next/font/google";
+import { Bebas_Neue, Schibsted_Grotesk, Syne } from "next/font/google";
 import InlineScript from "@/components/InlineScript";
 import { CursorGlow } from "@/components/motion/fx";
 import MotionProvider from "@/components/motion/lazy";
@@ -9,10 +9,19 @@ import { asLang, LANGS, langAlternates, t } from "@/lib/i18n";
 import { locationsJsonld, SITE_ORIGIN } from "@/lib/site";
 import "./globals.css";
 
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+/* UI face — buttons and the INNE wordmark. Bebas is the display face for
+   headlines; Syne carries the chrome, where its wider caps read better small. */
 const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["700", "800"],
   display: "swap",
 });
 
@@ -84,7 +93,7 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode; params: Promise<{ lang: string }> }>) {
   const lang = asLang((await params).lang);
   return (
-    <html lang={lang} className={`${syne.variable} ${schibsted.variable}`}>
+    <html lang={lang} className={`${bebasNeue.variable} ${syne.variable} ${schibsted.variable}`}>
       {/* suppressHydrationWarning: the scroll script below legitimately adds
           .inne-scrolled before hydration when landing scrolled (anchors,
           restored scroll) — React must keep the DOM's class, not warn */}

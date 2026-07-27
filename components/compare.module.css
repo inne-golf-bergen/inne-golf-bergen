@@ -61,10 +61,10 @@
     padding: 12px 20px 28px;
   }
 
-  /* match the landing-page section rhythm: eyebrow, 20px, h2 at 34px */
+  /* match the landing-page section rhythm: eyebrow, 20px, h2 at its 49px floor */
   .mobileHead .title {
     margin-top: 20px;
-    font-size: 34px;
+    font-size: 49px;
     text-shadow: none;
   }
 
@@ -81,9 +81,9 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(30px, 3.6vw, 52px);
+  font-size: clamp(41px, 4.9vw, 70px);
   line-height: 0.98;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--white);
   text-shadow: 0 2px 30px rgba(13, 10, 8, 0.8);

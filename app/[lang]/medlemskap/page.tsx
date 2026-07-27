@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import simBayHero from "@/public/uploads/why_accuracy_matters_desktop-f3cbab17.webp";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import OpenBookButton from "@/components/OpenBookButton";
@@ -57,8 +59,22 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
   return (
     <main>
       {/* ============ Hero ============ */}
-      <section className={`${sub.bg900} ${sub.textHero} ${s.hero}`}>
-        <div className="container">
+      <section className={`${sub.hero} ${s.hero}`}>
+        <div aria-hidden="true" className={sub.heroBg}>
+          <Image
+            src={simBayHero}
+            alt=""
+            fill
+            preload
+            placeholder="blur"
+            sizes="(max-width: 768px) 300vw, 100vw"
+            quality={85}
+            className={`${sub.heroImg} ${s.heroImg}`}
+          />
+          <div className={s.gradV} />
+          <div className={s.gradH} />
+        </div>
+        <div className={sub.heroContent}>
           <div data-fade="true">
             <Eyebrow>{t(lang, <>Priser &amp; medlemskap</>, <>Prices &amp; membership</>)}</Eyebrow>
           </div>

@@ -156,7 +156,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           <h1 className={s.heroH1}>
             <span className={s.lineMask}>
               <HeroLine className={s.lineIn}>Golf.</HeroLine>
-            </span>
+            </span>{" "}
             <span className={s.lineMask}>
               <HeroLine className={s.lineIn}>{t(lang, "Hele året.", "All year.")}</HeroLine>
             </span>

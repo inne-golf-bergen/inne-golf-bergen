@@ -15,7 +15,7 @@
 
 .heroH1 {
   max-width: 16ch;
-  font-size: clamp(40px, 7vw, 110px);
+  font-size: clamp(68px, 11.2vw, 176px);
   line-height: 0.94;
 }
 
@@ -61,9 +61,10 @@
   .heroH1 {
     -webkit-hyphens: none;
     hyphens: none;
-    /* EN "REMEMBER." is 10.4em — fit it rather than hard-cut on tiny phones */
-    font-size: 28px;
-    font-size: min(28px, max(18px, 8.2cqw));
+    /* EN "REMEMBER." is ~3.9em in Bebas Neue (10.4em in Syne, which set the
+       old 28px/8.2cqw pair) — fit it rather than hard-cut on tiny phones */
+    font-size: 48px;
+    font-size: min(48px, max(34px, 17cqw));
   }
 }
 
@@ -85,9 +86,9 @@
   margin: 18px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(26px, 3vw, 40px);
+  font-size: clamp(35px, 4vw, 54px);
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--white);
 }

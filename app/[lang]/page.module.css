@@ -53,14 +53,16 @@
   margin: 22px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  /* "Hele året." is a nowrap line ≈ 9.4× the font-size. Two caps keep it inside
-     the hero: calc(10vw - 4px) fits the gutter on narrow screens (bites below
-     ~470px); the 140px cap keeps it within the 1440-wide content box on large
-     screens (above ~140px it overflows the box and the mask clips the period). */
-  font-size: min(clamp(44px, 8.5vw, 140px), calc(10vw - 4px));
+  /* "Hele året." is a nowrap line ≈ 3.42× the font-size in Bebas Neue (it was
+     9.4× in Syne, which is why this used to need a calc(10vw) gutter guard).
+     Above 768px the two lines join ("GOLF. HELE ÅRET." is 5.24em, the longer
+     of the two languages) — trimmed ~12% from the joined-line size (was
+     72/13.6vw/220) so the one-line desktop headline reads big but not heavy;
+     still nowhere near either the 320px gutter or the desktop content box. */
+  font-size: clamp(64px, 12vw, 196px);
   line-height: 0.95;
-  /* display sizes want tighter optical tracking than the -0.01/-0.02 body scale */
-  letter-spacing: -0.028em;
+  /* Bebas Neue sits very tight by default — open it back up at display sizes */
+  letter-spacing: 0.012em;
   text-transform: uppercase;
   color: var(--white);
   text-shadow:
@@ -76,6 +78,16 @@
      Matching negative margins keep the headline's position unchanged. */
   padding: 0.22em 0.06em 0.1em;
   margin: -0.22em -0.06em -0.1em;
+}
+
+/* "Golf." and "Hele året." join onto one line above the mobile breakpoint
+   (matches the .desktopCopy/.mobileCopy split used on the bedrift page) —
+   inline-block keeps each line's own reveal mask, sitting side by side. */
+@media (min-width: 769px) {
+  .lineMask {
+    display: inline-block;
+    vertical-align: top;
+  }
 }
 
 .lineIn {
@@ -223,9 +235,9 @@
   margin: 20px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(34px, 5vw, 68px);
+  font-size: clamp(49px, 7.2vw, 99px);
   line-height: 0.98;
-  letter-spacing: -0.015em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--white);
 }
@@ -244,7 +256,7 @@
 
 /* "YOUR QUESTIONS." (10.2em) must not out-grow its column and hyphen-break */
 .faqH2 {
-  font-size: min(clamp(34px, 5vw, 68px), max(30px, 9.6cqw));
+  font-size: min(clamp(49px, 7.2vw, 99px), max(44px, 16cqw));
 }
 
 /* ================= Sentre ================= */
@@ -315,7 +327,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(26px, 2.6vw, 34px);
+  font-size: clamp(33px, 3.3vw, 43px);
   text-transform: uppercase;
   color: var(--white);
 }
@@ -362,9 +374,9 @@
 
 /* ================= Priser ================= */
 .priserH2 {
-  font-size: clamp(44px, 6.5vw, 96px);
+  font-size: clamp(64px, 9.4vw, 139px);
   line-height: 0.95;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.018em;
 }
 
 .priserLead {
@@ -416,7 +428,7 @@
 .priceValue {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 22px;
+  font-size: 26px;
   color: var(--white);
   white-space: nowrap;
 }
@@ -468,19 +480,36 @@
   margin: 26px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(42px, 7.6vw, 128px);
+  /* one unbroken line at every width: "BETAL 1 800. FÅ 2 800." is 7.089em in
+     Bebas at this tracking (NO is the longer of the two languages), so the
+     10vw term stays ~20 % clear of the content box and the 36px floor keeps
+     ~9 % clear at 320px, where the gutter is only 20px a side. */
+  font-size: clamp(36px, 10vw, 170px);
   line-height: 0.98;
-  letter-spacing: -0.025em;
+  letter-spacing: 0.015em;
   text-transform: uppercase;
   color: var(--white);
   /* the count-up rewrites this text every frame; the global h2
      text-wrap: balance would re-run line balancing on each rewrite.
-     Both lines are single-line blocks — balancing buys nothing here. */
+     nowrap makes the whole statement one line, so balancing buys nothing. */
   text-wrap: wrap;
+  white-space: nowrap;
+}
+
+/* 10vw left ~20-23% of the box empty from 360-768px (320px is the one width
+   that's already tight, at ~91% fill, so it sets the ceiling). 11.4vw closes
+   most of that gap — ~92% fill through the common phone range — while the
+   77px cap holds flat from 678px up to the 768px boundary, landing exactly
+   on the 10vw value the desktop rule produces at 769px, so there's no jump
+   at the handoff. */
+@media (max-width: 768px) {
+  .medlemTall {
+    font-size: clamp(30px, 11.4vw, 77px);
+  }
 }
 
 .medlemLine {
-  display: block;
+  display: inline;
 }
 
 .medlemAccent {
@@ -549,9 +578,9 @@
   margin: 16px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(30px, 3.5vw, 52px);
+  font-size: clamp(41px, 4.7vw, 70px);
   line-height: 0.98;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--white);
   white-space: nowrap;
@@ -646,10 +675,10 @@
   margin: 20px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(36px, 5.4vw, 76px);
+  font-size: clamp(52px, 7.8vw, 110px);
   line-height: 0.98;
-  /* keeps the bigger-equals-tighter progression (h2 -0.015 → heroH1 -0.028) */
-  letter-spacing: -0.02em;
+  /* keeps the bigger-equals-less-tracking progression (h2 0.02 → heroH1 0.012) */
+  letter-spacing: 0.018em;
   text-transform: uppercase;
   color: var(--white);
   text-shadow: 0 2px 34px rgba(13, 10, 8, 0.8);
@@ -778,7 +807,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 21px;
+  font-size: 26px;
   text-transform: uppercase;
 }
 
@@ -839,8 +868,8 @@
   font-weight: 800;
   /* "TURNERINGEN" (12.6em) must fit after the zero-width break in
      "Vinter​turneringen" — two clean lines, no mid-word cut */
-  font-size: clamp(22px, 2vw, 28px);
-  font-size: min(clamp(22px, 2vw, 28px), max(19px, 7.7cqw));
+  font-size: clamp(27px, 2.5vw, 35px);
+  font-size: min(clamp(27px, 2.5vw, 35px), max(24px, 12.5cqw));
   line-height: 1.02;
   min-height: 2.04em;
   text-transform: uppercase;
@@ -879,9 +908,9 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(32px, 4.6vw, 60px);
+  font-size: clamp(46px, 6.7vw, 87px);
   line-height: 0.98;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #1a100a;
 }
@@ -968,10 +997,16 @@
   box-shadow: var(--focus-ring);
 }
 
+/* fixed 16px never grew past mobile, so on a wide desktop column (up to
+   680px) it read tiny next to the 99px h2 beside it. 1.7vw starts scaling
+   past ~941px viewport (below that this clamp still equals the old flat
+   16px, so mobile/tablet are unchanged); "Trenger jeg eget utstyr?" is the
+   longest question at 9.32em, so 9cqw of this splitGrid column keeps ~10%
+   headroom at any column width — matches .faqH2's guard just above it. */
 .faqQ {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 16px;
+  font-size: min(clamp(16px, 1.7vw, 25px), 9cqw);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--white);
@@ -986,7 +1021,7 @@
 
 .faqX {
   color: var(--orange-500);
-  font-size: 20px;
+  font-size: clamp(20px, 1.6vw, 24px);
   line-height: 1;
   flex-shrink: 0;
 }

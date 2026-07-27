@@ -36,10 +36,11 @@
 }
 
 .logoName {
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 800;
-  font-size: 17px;
-  letter-spacing: 0.14em;
+  font-size: 19px;
+  /* matches the nav wordmark — see nav.module.css .logoName */
+  letter-spacing: 0.06em;
   color: var(--white);
 }
 
@@ -172,10 +173,10 @@
   color: var(--text-on-accent);
   border: 0;
   border-radius: 0 2px 2px 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   cursor: pointer;
   transition: background var(--dur-micro) var(--ease-out);

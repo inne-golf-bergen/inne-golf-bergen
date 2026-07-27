@@ -54,10 +54,12 @@
 }
 
 .logoName {
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 800;
-  font-size: 17px;
-  letter-spacing: 0.14em;
+  font-size: 19px;
+  /* 0.14em was opening up condensed Bebas caps; Syne is already wide, and the
+     wordmark has to stay within the sub-line's width to keep the lockup square */
+  letter-spacing: 0.06em;
   color: var(--white);
 }
 
@@ -303,7 +305,7 @@
 }
 
 .mobileMenuBar .logoName {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .mobileMenuBar .logoSub {
@@ -399,9 +401,9 @@
   margin: 12px 0 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(30px, 4.6vw, 46px);
+  font-size: clamp(39px, 6vw, 60px);
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--white);
 }

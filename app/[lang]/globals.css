@@ -53,7 +53,10 @@
   --line-18: rgba(244, 237, 230, 0.18);
 
   /* typography (font files land via next/font on <body>) */
-  --font-display: var(--font-syne), system-ui, sans-serif;
+  --font-display: var(--font-bebas), system-ui, sans-serif;
+  /* buttons + the INNE wordmark — Syne's wider caps hold up at chrome sizes
+     where Bebas's condensed ones get cramped. Only loaded at 700/800. */
+  --font-ui: var(--font-syne), system-ui, sans-serif;
   --font-body: var(--font-schibsted), "Helvetica Neue", Arial, sans-serif;
 
   /* motion — one curve, four speeds (TS mirror: components/motion/tokens.ts)
@@ -194,10 +197,12 @@ summary:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: var(--font-display);
-  font-weight: 600;
+  font-family: var(--font-ui);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  /* Syne is ~2.7x wider per glyph than Bebas, so the 0.08em that opened up
+     the condensed face would push labels past their buttons here */
+  letter-spacing: 0.04em;
   border-radius: 2px;
   border: 1px solid transparent;
   cursor: pointer;
@@ -227,19 +232,19 @@ summary:focus-visible {
 .btn--sm {
   height: 36px;
   padding: 0 16px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .btn--md {
   height: 44px;
   padding: 0 24px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .btn--lg {
   height: 52px;
   padding: 0 32px;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .btn--primary {
@@ -274,6 +279,18 @@ summary:focus-visible {
 
 .btn--full {
   width: 100%;
+}
+
+/* Syne's caps are ~1.7x wider than Bebas's, so the longest nowrap labels
+   ("BLI MEDLEM (1 KR)" inside a padded ladder card, "NESTE SESONG: 2026/27"
+   in the hero) outgrow their box on the narrowest phones. Trim the metrics
+   there rather than shrinking the label everywhere. */
+@media (max-width: 380px) {
+  .btn--md,
+  .btn--lg {
+    padding: 0 18px;
+    font-size: 15px;
+  }
 }
 
 /* ============================================================
@@ -445,10 +462,10 @@ select.fieldInput {
   color: var(--text-on-accent);
   border: 0;
   border-radius: 2px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.08em;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   cursor: pointer;
   transition:
