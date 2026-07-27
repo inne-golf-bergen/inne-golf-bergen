@@ -70,6 +70,19 @@
     0 8px 40px rgba(0, 0, 0, 0.35);
 }
 
+/* Phones keep the two-line stack but size it to the screen instead of to a
+   fixed floor: at the old 64px "HELE ÅRET." filled barely two thirds of the
+   width and left a wide ragged margin. The wrapped line is 3.42em, so 23.5vw
+   holds ~90 % fill right across the phone range (the 70px floor is a safety
+   net below 320px). The 100px cap engages at 426px and tapers the tablet
+   widths into the desktop rule — 12vw is 92px at 769px, so the glyphs barely
+   change size across the breakpoint, only the wrap does. */
+@media (max-width: 768px) {
+  .heroH1 {
+    font-size: clamp(70px, 23.5vw, 100px);
+  }
+}
+
 .lineMask {
   display: block;
   overflow: hidden;
@@ -80,8 +93,7 @@
   margin: -0.22em -0.06em -0.1em;
 }
 
-/* "Golf." and "Hele året." join onto one line above the mobile breakpoint
-   (matches the .desktopCopy/.mobileCopy split used on the bedrift page) —
+/* "Golf." and "Hele året." join onto one line above the mobile breakpoint —
    inline-block keeps each line's own reveal mask, sitting side by side. */
 @media (min-width: 769px) {
   .lineMask {
