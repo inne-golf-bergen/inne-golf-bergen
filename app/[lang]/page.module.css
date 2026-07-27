@@ -821,12 +821,12 @@
   flex: 1;
 }
 
+/* body font at 13px — matches the booking sheet and footer action links */
 .cardCta {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--label-size-m);
+  font-weight: 600;
+  font-size: 13px;
   letter-spacing: var(--label-track-m);
-  color: var(--orange-500);
+  color: var(--orange-400);
   text-transform: uppercase;
 }
 

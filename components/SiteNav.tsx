@@ -481,7 +481,10 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                   <span className={styles.sheetCardName}>Åsane</span>
                 </div>
                 <span className={styles.sheetCardFoot}>
-                  Book Åsane <span aria-hidden="true">→</span>
+                  Book Åsane{" "}
+                  <span aria-hidden="true" className={styles.sheetCardArrow}>
+                    →
+                  </span>
                 </span>
               </a>
               <a href={SITE.bookSandviken} onClick={closeAllNav} className={styles.sheetCard}>
@@ -490,7 +493,10 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                   <span className={styles.sheetCardName}>Sandviken</span>
                 </div>
                 <span className={styles.sheetCardFoot}>
-                  Book Sandviken <span aria-hidden="true">→</span>
+                  Book Sandviken{" "}
+                  <span aria-hidden="true" className={styles.sheetCardArrow}>
+                    →
+                  </span>
                 </span>
               </a>
             </div>

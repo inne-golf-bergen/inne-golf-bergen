@@ -375,7 +375,9 @@
 .sheetPanel {
   position: relative;
   width: min(880px, 100%);
-  max-height: calc(100vh - 32px);
+  /* svh, not vh: on mobile 100vh is the chrome-hidden height, so the panel
+     could run under the browser bar instead of scrolling inside itself */
+  max-height: calc(100svh - 32px);
   overflow: auto;
   background: var(--ink-850);
   border: 1px solid var(--line-14);
@@ -419,8 +421,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 44px;
-  min-height: 200px;
+  /* 44/200 left a hollow band between the venue name and its CTA; this keeps
+     the cards generous without the stretched, half-empty middle */
+  gap: 30px;
+  min-height: 176px;
   padding: clamp(22px, 3vw, 32px);
   background: var(--ink-900);
   border: 1px solid var(--line-14);
@@ -459,27 +463,42 @@
   text-transform: uppercase;
 }
 
+/* the card's actual call to action. It was 12px Bebas pushed apart by
+   space-between, which left the arrow stranded at the far edge and made the
+   one thing you click read like a footnote. Body font so it stays legible at
+   this size, and the arrow sits with its label as one target. */
 .sheetCardFoot {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   border-top: 1px solid var(--line-12);
   padding-top: 16px;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--label-size-m);
+  font-weight: 600;
+  font-size: 14px;
   letter-spacing: var(--label-track-m);
-  color: var(--orange-500);
+  color: var(--orange-400);
   text-transform: uppercase;
 }
 
-/* quiet footnote — must not compete with the venue cards above it */
+.sheetCardArrow {
+  display: inline-block;
+  transition: transform var(--dur-enter) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sheetCard:hover .sheetCardArrow {
+    transform: translateX(5px);
+  }
+}
+
+/* quiet footnote — must not compete with the venue cards above it. Centred
+   under the grid so it reads as a note on both cards, not on the left one. */
 .sheetNote {
-  margin: 20px 0 0;
+  margin: 22px 0 0;
   font-size: 13px;
   color: var(--text-mid);
   font-weight: 500;
+  text-align: center;
 }
 
 /* ============ Mobile sticky book bar ============ */

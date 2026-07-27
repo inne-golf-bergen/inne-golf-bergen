@@ -87,12 +87,14 @@
   color: var(--text-mid);
 }
 
+/* body font at 13px — the same action-link treatment as the booking sheet's
+   card CTA. Condensed Bebas at --label-size-m read smaller than the address
+   text beside it, which is the wrong weighting for the column's one link. */
 .bookLink {
   align-self: flex-start;
-  font-size: var(--label-size-m);
+  font-size: 13px;
   letter-spacing: var(--label-track-m);
-  font-weight: 400;
-  font-family: var(--font-display);
+  font-weight: 600;
   color: var(--orange-400);
   text-transform: uppercase;
 }
