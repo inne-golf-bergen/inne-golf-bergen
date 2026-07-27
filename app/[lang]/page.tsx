@@ -170,14 +170,17 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               </span>
             </p>
           </HeroItem>
+          {/* straight to Alba — these used to jump to the centre cards further
+              down, which made booking a two-click detour past the same choice
+              the visitor had already made here */}
           <HeroItem className={s.heroCtas}>
             <Magnetic className={s.ctaSlot}>
-              <Button as="a" href="#book-asane" size="lg" fullWidth>
+              <Button as="a" href={SITE.bookAsane} size="lg" fullWidth>
                 BOOK ÅSANE
               </Button>
             </Magnetic>
             <Magnetic className={s.ctaSlot}>
-              <Button as="a" href="#book-sandviken" size="lg" fullWidth>
+              <Button as="a" href={SITE.bookSandviken} size="lg" fullWidth>
                 BOOK SANDVIKEN
               </Button>
             </Magnetic>
