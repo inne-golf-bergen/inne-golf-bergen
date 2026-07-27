@@ -45,7 +45,7 @@
 .premierH2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(44px, 6.4vw, 84px);
   line-height: 0.96;
   letter-spacing: 0.03em;
@@ -90,7 +90,7 @@
 
 .prizePlace {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(48px, 4.8vw, 72px);
   line-height: 1;
   color: #1a100a;
@@ -98,7 +98,7 @@
 
 .prizeAmount {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(30px, 3vw, 40px);
   line-height: 1;
   color: #1a100a;
@@ -181,7 +181,7 @@
 .phaseNum {
   flex: none;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 14px;
   color: var(--orange-500);
 }
@@ -196,7 +196,7 @@
 
 .phaseTitle {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(25px, 3vw, 38px);
   line-height: 1;
   text-transform: uppercase;
@@ -215,7 +215,7 @@
 .phasePlus {
   flex: none;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 26px;
   color: var(--orange-500);
   /* rotation is spring-driven (ICON_SPRING) in VinterFaser.tsx */

@@ -95,6 +95,13 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Bebas Neue ships one weight (400). Asking it for 700/800 made the browser
+     fake the bold by thickening outlines, which at display sizes read as a
+     doubled, smeared headline and closed up the counters of Ø, Æ and G. Never
+     let a missing weight be synthesised — render the real face instead.
+     Safe globally: Schibsted only ever asks for 600 and Syne for 700/800,
+     both of which are really loaded, and nothing on the site is italic. */
+  font-synthesis-weight: none;
 }
 
 body {

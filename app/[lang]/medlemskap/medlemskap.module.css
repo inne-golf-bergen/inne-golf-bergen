@@ -38,7 +38,7 @@
 .heroH1 {
   margin: 26px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* "BETAL 1 800." is 4.04em in Bebas Neue — the cqw term stops it from ever
      stacking ("BETAL" / "1 800.") on narrow screens. 20cqw sits ~10 % under
      the 22.4cqw where it would touch the content box edge. */
@@ -91,7 +91,7 @@
 .priserH2 {
   margin: 20px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(58px, 8vw, 116px);
   line-height: 0.95;
   letter-spacing: 0.025em;
@@ -151,7 +151,7 @@
 
 .priceValue {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 26px;
   color: var(--white);
   white-space: nowrap;
@@ -235,7 +235,7 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: 17px;
   margin-top: clamp(24px, 3vw, 34px);
 }
@@ -287,8 +287,9 @@
   padding: 5px 11px;
   background: var(--orange-500);
   color: var(--text-on-accent);
-  font-family: var(--font-display);
-  font-weight: 700;
+  /* body font — matches .pakkeBadge; see the note there on why Bebas breaks
+     up at this size */
+  font-weight: 600;
   font-size: var(--label-size-s);
   letter-spacing: var(--label-track-s);
   text-transform: uppercase;
@@ -297,7 +298,7 @@
 .stepTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(28px, 3vw, 38px);
   text-transform: uppercase;
   color: var(--white);
@@ -310,7 +311,7 @@
 
 .stepPrice {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(28px, 3vw, 38px);
   color: var(--white);
   white-space: nowrap;
@@ -326,7 +327,7 @@
 
 .stepBenefitPct {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(30px, 3.2vw, 42px);
   color: var(--orange-400);
 }
@@ -421,7 +422,7 @@
 
 .valueCellNum {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(32px, 3.7vw, 47px);
   color: var(--white);
 }
@@ -456,7 +457,7 @@
 
 .partnerName {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.04em;
   text-transform: uppercase;

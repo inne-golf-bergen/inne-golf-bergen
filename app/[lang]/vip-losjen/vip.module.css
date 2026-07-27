@@ -97,7 +97,7 @@
 
 .passerText {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* one line, always inside the box: "KUNDEKVELD" is 4.12em in Bebas Neue,
      so 17cqw of the cell keeps ~10 % headroom at any cell width */
   white-space: nowrap;

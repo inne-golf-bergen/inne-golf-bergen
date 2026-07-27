@@ -29,7 +29,7 @@
   background: var(--orange-500);
   color: var(--text-on-accent);
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(12px, 1.2vw, 14px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -85,7 +85,7 @@
 .pakkeH2 {
   margin: 18px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(35px, 4vw, 54px);
   line-height: 1;
   letter-spacing: 0.03em;

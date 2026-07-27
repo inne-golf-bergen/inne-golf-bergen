@@ -91,7 +91,7 @@
   align-self: flex-start;
   font-size: var(--label-size-m);
   letter-spacing: var(--label-track-m);
-  font-weight: 700;
+  font-weight: 400;
   font-family: var(--font-display);
   color: var(--orange-400);
   text-transform: uppercase;

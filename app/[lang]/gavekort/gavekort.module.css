@@ -1,7 +1,7 @@
 .heroH1 {
   margin: 26px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(74px, 12.8vw, 208px);
   line-height: 0.92;
   letter-spacing: 0.015em;
@@ -44,7 +44,7 @@
   border: 0;
   cursor: pointer;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: var(--label-size-m);
   letter-spacing: var(--label-track-m);
   text-transform: uppercase;
@@ -162,7 +162,7 @@
 
 .valueNum {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* never break inside a price — the number scales to its card instead.
      First declaration is the fallback for engines without container queries. */
   white-space: nowrap;
@@ -188,7 +188,7 @@
 
 .payValue {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 24px;
   white-space: nowrap;
   color: var(--orange-300);
@@ -204,7 +204,7 @@
   color: var(--text-on-accent);
   border-radius: 2px;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -271,7 +271,7 @@
 
 .footNote {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(19px, 1.9vw, 26px);
   letter-spacing: 0.03em;
   text-transform: uppercase;

@@ -1,7 +1,7 @@
 .heroH1 {
   margin: 26px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(58px, 9vw, 144px);
   line-height: 0.94;
   letter-spacing: 0.018em;
@@ -99,7 +99,7 @@
 .centreH2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(38px, 4.6vw, 62px);
   line-height: 0.98;
   letter-spacing: 0.03em;
@@ -204,7 +204,7 @@
 
 .kontaktLink {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(20px, 1.9vw, 25px);
   color: var(--white);
   text-decoration: none;
@@ -223,7 +223,7 @@
 
 .kontaktOpen {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(20px, 1.9vw, 25px);
   color: var(--orange-300);
   text-transform: uppercase;

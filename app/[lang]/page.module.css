@@ -52,7 +52,7 @@
 .heroH1 {
   margin: 22px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* "Hele året." is a nowrap line ≈ 3.42× the font-size in Bebas Neue (it was
      9.4× in Syne, which is why this used to need a calc(10vw) gutter guard).
      Above 768px the two lines join ("GOLF. HELE ÅRET." is 5.24em, the longer
@@ -170,7 +170,7 @@
 
 .tickerScore {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 15px;
   color: var(--white);
 }
@@ -234,7 +234,7 @@
 .h2 {
   margin: 20px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(49px, 7.2vw, 99px);
   line-height: 0.98;
   letter-spacing: 0.02em;
@@ -326,7 +326,7 @@
 .centreName {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(33px, 3.3vw, 43px);
   text-transform: uppercase;
   color: var(--white);
@@ -427,7 +427,7 @@
 
 .priceValue {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 26px;
   color: var(--white);
   white-space: nowrap;
@@ -479,7 +479,7 @@
 .medlemTall {
   margin: 26px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* one unbroken line at every width: "BETAL 1 800. FÅ 2 800." is 7.089em in
      Bebas at this tracking (NO is the longer of the two languages), so the
      10vw term stays ~20 % clear of the content box and the 36px floor keeps
@@ -567,7 +567,7 @@
 
 .stepNum {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 14px;
   letter-spacing: 0.14em;
   color: var(--orange-500);
@@ -577,7 +577,7 @@
 .stepTitle {
   margin: 16px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(41px, 4.7vw, 70px);
   line-height: 0.98;
   letter-spacing: 0.03em;
@@ -674,7 +674,7 @@
 .simH2 {
   margin: 20px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(52px, 7.8vw, 110px);
   line-height: 0.98;
   /* keeps the bigger-equals-less-tracking progression (h2 0.02 → heroH1 0.012) */
@@ -788,8 +788,9 @@
   padding: 7px 13px;
   background: var(--orange-500);
   color: var(--text-on-accent);
-  font-family: var(--font-display);
-  font-weight: 700;
+  /* body font — matches the other micro-badges; Bebas's condensed stems
+     break up at --label-size-s */
+  font-weight: 600;
   font-size: var(--label-size-s);
   letter-spacing: var(--label-track-s);
   text-transform: uppercase;
@@ -806,7 +807,7 @@
 .photoCardTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 26px;
   text-transform: uppercase;
 }
@@ -822,7 +823,7 @@
 
 .cardCta {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: var(--label-size-m);
   letter-spacing: var(--label-track-m);
   color: var(--orange-500);
@@ -865,7 +866,7 @@
 .lineCardTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* "TURNERINGEN" (12.6em) must fit after the zero-width break in
      "Vinter​turneringen" — two clean lines, no mid-word cut */
   font-size: clamp(27px, 2.5vw, 35px);
@@ -907,7 +908,7 @@
 .gavekortH2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(46px, 6.7vw, 87px);
   line-height: 0.98;
   letter-spacing: 0.03em;
@@ -932,7 +933,7 @@
   color: var(--white);
   border-radius: 2px;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1005,7 +1006,7 @@
    headroom at any column width — matches .faqH2's guard just above it. */
 .faqQ {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: min(clamp(16px, 1.7vw, 25px), 9cqw);
   letter-spacing: 0.04em;
   text-transform: uppercase;

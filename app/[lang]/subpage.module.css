@@ -68,7 +68,7 @@
 .h1 {
   margin: 22px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   letter-spacing: 0.018em;
   text-transform: uppercase;
   color: var(--white);
@@ -118,7 +118,7 @@
 .h2 {
   margin: 20px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(46px, 6.7vw, 93px);
   line-height: 0.98;
   /* matches the landing h2 tracking */
@@ -176,7 +176,7 @@
 
 .infoCardValue {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(28px, 3vw, 38px);
   line-height: 1.05;
   color: var(--white);
@@ -280,7 +280,7 @@
 .sentTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(24px, 2.6vw, 34px);
   line-height: 1;
   text-transform: uppercase;
@@ -328,7 +328,7 @@
 .copperH2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* the longest of these is medlemskap's "BETAL 1 800. FÅ 2 800." at 7.419em,
      which the 46px floor broke onto two lines below ~430px. The calc term is
      the width the gutter actually leaves (20px a side down there); above
@@ -364,7 +364,7 @@
   color: var(--white);
   border-radius: 2px;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -419,7 +419,7 @@
 
 .faqQ {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -482,7 +482,7 @@
 
 .specValue {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 22px;
   color: var(--white);
 }

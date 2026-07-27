@@ -83,7 +83,7 @@
 
 .pakkeNum {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 13px;
   letter-spacing: 0.14em;
   color: var(--orange-500);
@@ -104,8 +104,10 @@
   padding: 5px 11px;
   background: var(--orange-500);
   color: var(--text-on-accent);
-  font-family: var(--font-display);
-  font-weight: 700;
+  /* body font, like every other micro-label on the site: Bebas is a condensed
+     display face whose stems fall under a pixel at --label-size-s, so "MEST
+     POPULÆR" broke up (the Æ worst) whenever the page was scaled down */
+  font-weight: 600;
   font-size: var(--label-size-s);
   letter-spacing: var(--label-track-s);
   text-transform: uppercase;
@@ -114,7 +116,7 @@
 .pakkeTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   /* "TURNERINGS-" (11.7em with its soft hyphen) must fit the card line */
   font-size: clamp(30px, 3vw, 40px);
   font-size: min(clamp(30px, 3vw, 40px), max(24px, 17cqw));
@@ -140,7 +142,7 @@
 .skreddersyr {
   margin: 32px 0 0;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(22px, 2.4vw, 32px);
   line-height: 1.3;
   letter-spacing: 0.03em;

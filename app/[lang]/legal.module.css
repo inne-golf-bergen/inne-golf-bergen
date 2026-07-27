@@ -13,7 +13,7 @@
 .h1 {
   margin: 24px 0 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(61px, 8.8vw, 134px);
   line-height: 0.94;
   letter-spacing: 0.018em;
@@ -110,7 +110,7 @@
 
 .sectionNum {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 14px;
   color: var(--orange-500);
 }
@@ -118,7 +118,7 @@
 .sectionH2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(29px, 3.1vw, 42px);
   line-height: 1.05;
   letter-spacing: 0.03em;
@@ -145,7 +145,7 @@
 
 .slotTitle {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(18px, 2vw, 24px);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -183,7 +183,7 @@
 .subHead {
   margin: 10px 0 -2px;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -240,7 +240,7 @@
 
 .orgName {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
   color: var(--white);
 }
