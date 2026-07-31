@@ -251,9 +251,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   placeholder="blur"
                   loading="eager"
                   sizes="(max-width: 767px) 100vw, (max-width: 1440px) 50vw, 660px"
-                  className={s.centreImgSandviken}
+                  className={s.centreImg}
                 />
-                <span aria-hidden="true" className={s.centreVignette} />
               </div>
               <div className={s.centreBody}>
                 <div className={s.centreTitleWrap}>
