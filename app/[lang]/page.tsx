@@ -36,7 +36,7 @@ const faqItems = (lang: Lang): { q: string; a: string }[] => [
     q: t(lang, "Hva koster det å spille?", "What does it cost?"),
     a: t(
       lang,
-      `100–200 kr per 30 minutter per bay, avhengig av tidspunkt og senter. Prisen gjelder hele bayen — dere kan være opptil seks.`,
+      `100–200 kr per 30 minutter per golfsim, avhengig av tidspunkt og senter. Prisen gjelder hele golfsimen — dere kan være opptil seks.`,
       `100–200 kr per 30 minutes per bay, depending on time and venue. The price covers the whole bay — up to six of you.`,
     ),
   },
@@ -50,7 +50,7 @@ const faqItems = (lang: Lang): { q: string; a: string }[] => [
   },
   {
     q: t(lang, "Hvor mange kan vi være?", "How many can we bring?"),
-    a: t(lang, "Opptil seks personer per bay.", "Up to six people per bay."),
+    a: t(lang, "Opptil seks personer per golfsim.", "Up to six people per bay."),
   },
   {
     q: t(lang, "Når har dere åpent?", "When are you open?"),
@@ -222,7 +222,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <div className={s.centreMedia}>
                 <Image
                   src={asaneBay}
-                  alt={t(lang, "Treningsbay med green i Åsane", "Practice bay and green, Åsane")}
+                  alt={t(lang, "Golfsim og treningsgreen i Åsane", "Practice bay and green, Åsane")}
                   fill
                   placeholder="blur"
                   loading="eager"
@@ -246,7 +246,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <div className={s.centreMedia}>
                 <Image
                   src={sandvikenBay}
-                  alt={t(lang, "Widescreen-bay med barkrakker i Sandviken", "Widescreen bay with stools in Sandviken")}
+                  alt={t(lang, "Widescreen-golfsim med barkrakker i Sandviken", "Widescreen bay with stools in Sandviken")}
                   fill
                   placeholder="blur"
                   loading="eager"
@@ -279,7 +279,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <p className={s.priserLead}>
               {t(
                 lang,
-                "Per bay, per halvtime — ikke per person. Del bayen med opptil seks, så koster kvelden mindre enn en kinobillett.",
+                "Per golfsim, per halvtime — ikke per person. Del golfsimen med opptil seks, så koster kvelden mindre enn en kinobillett.",
                 "Per bay, per 30 min — not per person. Share the bay with up to six and the night costs less than a movie ticket.",
               )}
             </p>
@@ -292,7 +292,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           <FadeUp delay={0.1} className={s.priceList}>
             <div className={s.priceRow}>
               <span className={s.priceLabelWrap}>
-                <span className={s.priceLabel}>Bay · 30 min</span>
+                <span className={s.priceLabel}>{t(lang, "Golfsim · 30 min", "Bay · 30 min")}</span>
                 <span className={s.priceLabelSub}>
                   {t(lang, "avhengig av tidspunkt og senter", "depends on time and venue")}
                 </span>
@@ -300,7 +300,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <span className={s.priceValue}>100–200 kr</span>
             </div>
             <div className={s.priceRow}>
-              <span className={s.priceLabel}>Bay · 60 min</span>
+              <span className={s.priceLabel}>{t(lang, "Golfsim · 60 min", "Bay · 60 min")}</span>
               <span className={s.priceValue}>200–400 kr</span>
             </div>
             <div className={s.priceRow}>
@@ -405,7 +405,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 t(lang, "Spill.", "Play."),
                 t(
                   lang,
-                  "Bayen står klar med gratis lånekøller. Trykk i gang TrackMan og slå ut.",
+                  "Golfsimen står klar med gratis lånekøller. Trykk i gang TrackMan og slå ut.",
                   "The bay is ready with free loaner clubs. Fire up TrackMan and hit away.",
                 ),
               ],
@@ -434,8 +434,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               placeholder="blur"
               alt={t(
                 lang,
-                "TrackMan-bay hos INNE — spiller i sving foran simulatorskjermen",
-                "TrackMan bay at INNE — player mid-swing at the simulator screen",
+                "TrackMan-golfsim hos INNE — spiller i sving foran skjermen",
+                "TrackMan bay at INNE — player mid-swing at the screen",
               )}
               fill
               sizes="(max-width: 768px) 300vw, 150vw"
@@ -500,7 +500,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <div className={s.photoCardMedia}>
                 <Image
                   src={vipLosje}
-                  alt={t(lang, "VIP-losjen med skinnstoler og egen bay", "VIP box with leather chairs, own bay")}
+                  alt={t(lang, "VIP-losjen med skinnstoler og egen golfsim", "VIP box with leather chairs, own bay")}
                   fill
                   placeholder="blur"
                   sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
@@ -512,7 +512,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 <p className={s.photoCardCopy}>
                   {t(
                     lang,
-                    "Egen losje i Åsane for 6–8. Skinnstoler, egen bay og plass til mat og drikke.",
+                    "Egen losje i Åsane for 6–8. Skinnstoler, egen golfsim og plass til mat og drikke.",
                     "Own box in Åsane for 6–8. Leather chairs, own bay, space for food and drinks.",
                   )}
                 </p>
@@ -527,7 +527,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <div className={s.photoCardMedia}>
                 <Image
                   src={bursdagBay}
-                  alt={t(lang, "Bay med green og loungeområde", "Bay with green and lounge")}
+                  alt={t(lang, "Golfsim med green og loungeområde", "Bay with green and lounge")}
                   fill
                   placeholder="blur"
                   sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"

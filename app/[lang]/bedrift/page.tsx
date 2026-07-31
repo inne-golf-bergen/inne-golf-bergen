@@ -115,7 +115,7 @@ export default async function BedriftPage({ params }: { params: Promise<{ lang: 
               <p className={s.pakkeCopy}>
                 {t(
                   lang,
-                  "Sim 3-losjen for dere selv — privat for 6–8 personer, egen bay og storskjerm.",
+                  "Sim 3-losjen for dere selv — privat for 6–8 personer, egen golfsim og storskjerm.",
                   "The Sim 3 box to yourselves — private for 6–8, own bay and big screen.",
                 )}
               </p>

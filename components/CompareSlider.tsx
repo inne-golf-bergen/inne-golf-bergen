@@ -164,7 +164,7 @@ export default function CompareSlider({ lang }: { lang: Lang }) {
           <p className={styles.copy}>
             {t(
               lang,
-              "TrackMans nyeste grafikkmotor, som du spiller på i alle våre bayer.",
+              "TrackMans nyeste grafikkmotor, som du spiller på i alle våre golfsimer.",
               "TrackMan’s latest graphics engine, on every bay in both venues.",
             )}
           </p>

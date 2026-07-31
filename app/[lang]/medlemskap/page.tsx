@@ -105,7 +105,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
             <p className={s.priserLead}>
               {t(
                 lang,
-                "Per bay, per halvtime — ikke per person. Del bayen med opptil seks, så koster kvelden mindre enn en kinobillett.",
+                "Per golfsim, per halvtime — ikke per person. Del golfsimen med opptil seks, så koster kvelden mindre enn en kinobillett.",
                 "Per bay, per 30 min — not per person. Share the bay with up to six and the night costs less than a movie ticket.",
               )}
             </p>
@@ -116,7 +116,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
           <div data-st="true" className={s.priceList}>
             <div className={s.priceRow}>
               <span className={s.priceLabelWrap}>
-                <span className={s.priceLabel}>Bay · 30 min</span>
+                <span className={s.priceLabel}>{t(lang, "Golfsim · 30 min", "Bay · 30 min")}</span>
                 <span className={s.priceLabelSub}>
                   {t(lang, "avhengig av tidspunkt og senter", "depends on time and venue")}
                 </span>
@@ -124,7 +124,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
               <span className={s.priceValue}>100–200 kr</span>
             </div>
             <div className={s.priceRow}>
-              <span className={s.priceLabel}>Bay · 60 min</span>
+              <span className={s.priceLabel}>{t(lang, "Golfsim · 60 min", "Bay · 60 min")}</span>
               <span className={s.priceValue}>200–400 kr</span>
             </div>
             <div className={s.priceRow}>

@@ -28,10 +28,10 @@ export async function generateMetadata({
 
 const specs = (lang: Lang): [string, string][] => [
   [t(lang, "Kapasitet", "Capacity"), t(lang, "6–8 personer", "6–8 people")],
-  ["Simulator", "16:9 widescreen"],
+  ["Simulator", t(lang, "Egen 16:9-widescreen", "Own 16:9 widescreen")],
   [t(lang, "Skjerm", "Screen"), t(lang, "Live sport", "Live sport")],
   [t(lang, "Spill", "Games"), t(lang, "Pokerbord", "Poker")],
-  ["Bay", t(lang, "Egen bay", "Own bay")],
+  [t(lang, "Utstyr", "Gear"), t(lang, "Gratis lånekøller", "Free loaner clubs")],
 ];
 
 /* facts the spec list above does NOT already state — never a repeat of it */

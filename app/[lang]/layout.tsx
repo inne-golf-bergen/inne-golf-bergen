@@ -53,7 +53,7 @@ export async function generateMetadata({
     title: t(lang, "INNE Golf Bergen — Golf. Hele året.", "INNE Golf Bergen — Golf. All year."),
     description: t(
       lang,
-      "Innendørs golf i Bergen — TrackMan iO-simulatorer i Åsane og Sandviken. Selvbetjent og åpent hele døgnet. Book bay fra 100 kr per halvtime.",
+      "Innendørs golf i Bergen — TrackMan iO-simulatorer i Åsane og Sandviken. Selvbetjent og åpent hele døgnet. Book fra 100 kr per halvtime.",
       "Indoor golf in Bergen — TrackMan iO simulators in Åsane and Sandviken. Self-serve, open 24/7. Book a bay from 100 kr per 30 min.",
     ),
     alternates: langAlternates("/"),
