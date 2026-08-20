@@ -1,6 +1,6 @@
 {
   "sim": {
-    "halvtimeMin": 100,
+    "halvtimeMin": 101,
     "halvtimeMax": 200,
     "timeMin": 200,
     "timeMax": 400
@@ -13,11 +13,31 @@
   },
   "gavekort": {
     "cards": [
-      { "value": 1000, "pays": 820, "featured": false },
-      { "value": 1500, "pays": 1200, "featured": false },
-      { "value": 3000, "pays": 2310, "featured": true },
-      { "value": 5000, "pays": 3750, "featured": false },
-      { "value": 7500, "pays": 5250, "featured": false }
+      {
+        "value": 1000,
+        "pays": 820,
+        "featured": false
+      },
+      {
+        "value": 1500,
+        "pays": 1200,
+        "featured": false
+      },
+      {
+        "value": 3000,
+        "pays": 2310,
+        "featured": true
+      },
+      {
+        "value": 5000,
+        "pays": 3750,
+        "featured": false
+      },
+      {
+        "value": 7500,
+        "pays": 5250,
+        "featured": false
+      }
     ]
   },
   "bursdag": {
