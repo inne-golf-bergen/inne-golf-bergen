@@ -1,6 +1,6 @@
 {
   "sim": {
-    "halvtimeMin": 101,
+    "halvtimeMin": 100,
     "halvtimeMax": 200,
     "timeMin": 200,
     "timeMax": 400
