@@ -80,8 +80,13 @@ Verdt å vite:
 - **Merge-konflikt** mellom `preview` og `main` (sjelden — eieren rører bare
   `content/`, du rører bare kode) stopper publiseringen og sender deg en
   e-post fra GitHub Actions. Eieren ser bare at siden ikke oppdateres.
-- **Innlogging**: «Sign in with GitHub» krever `sveltia-cms-auth` på en gratis
-  Cloudflare Worker:
+- **Innlogging**: «Sign in with GitHub» går via `sveltia-cms-auth` på en gratis
+  Cloudflare Worker — **satt opp og i drift** på
+  `https://sveltia-cms-auth.siva-2fd.workers.dev` (Cloudflare-konto
+  siva@noteless.com). `GITHUB_CLIENT_ID` og `ALLOWED_DOMAINS` ligger som vanlige
+  variabler i `wrangler.toml`; `GITHUB_CLIENT_SECRET` er satt som secret.
+  Merk: workeren oversetter `*` i ALLOWED_DOMAINS til `.+` (**minst** ett tegn),
+  så produksjonsverten må stå eksplisitt i lista. Oppsettet var:
   1. `git clone https://github.com/sveltia/sveltia-cms-auth && cd sveltia-cms-auth && npx wrangler deploy`
   2. GitHub-org → Settings → Developer settings → OAuth Apps → New:
      callback `https://<worker>.workers.dev/callback`

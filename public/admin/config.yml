@@ -16,9 +16,10 @@ backend:
   # redaktøren skrur på "Publiser endringene nå" flyttes alt over til main
   # (se .github/workflows/publiser.yml).
   branch: preview
-  # Innlogging med GitHub-knappen krever sveltia-cms-auth på Cloudflare Workers
-  # (se content/README.md). Frem til den er satt opp: bruk "Sign in with Token".
-  # base_url: https://sveltia-cms-auth.<konto>.workers.dev
+  # OAuth-mellomledd for «Sign in with GitHub» — sveltia-cms-auth kjører på en
+  # gratis Cloudflare Worker (se content/README.md). Workeren har GITHUB_CLIENT_ID
+  # og ALLOWED_DOMAINS som vanlige variabler og GITHUB_CLIENT_SECRET som secret.
+  base_url: https://sveltia-cms-auth.siva-2fd.workers.dev
 
 site_url: https://innegolfbergen.no
 
