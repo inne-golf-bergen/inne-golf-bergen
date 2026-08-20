@@ -17,8 +17,8 @@ import {
 } from "@/components/motion/fx";
 import MedlemTall from "@/components/motion/MedlemTall";
 import OpenBookButton from "@/components/OpenBookButton";
-import { polfMaksPott, VINTER } from "@/lib/content";
 import { fmt, krRange } from "@/lib/format";
+import { faqRader, FORSIDEN, skjerKort, tekst } from "@/lib/forsiden";
 import { asLang, type Lang, langHref, t } from "@/lib/i18n";
 import { gavekortMaksBonusPct, gavekortMinPris, medlemPrMnd, PRISER } from "@/lib/prices";
 import { SITE } from "@/lib/site";
@@ -45,64 +45,14 @@ const RANGE30 = krRange(PRISER.sim.halvtimeMin, PRISER.sim.halvtimeMax); // 100�
 const RANGE60 = krRange(PRISER.sim.timeMin, PRISER.sim.timeMax); // 200–400 kr
 const BARN = String(PRISER.bursdag.prisPerBarn); // 450
 const MINB = String(PRISER.bursdag.minBarn); // 6
-const VPRIS = fmt(VINTER.prisPerSpiller); // 500
-const VPOTT = fmt(VINTER.premiepott); // 20 000
-const PMAKS = fmt(polfMaksPott); // 63 000
-const VTGJ = fmt(PRISER.vtg.junior); // 3 000
-const VTGV = fmt(PRISER.vtg.voksen); // 3 500
 const GMIN = String(gavekortMinPris); // 820
 const GMAX = String(gavekortMaksBonusPct); // 43
 
-const faqItems = (lang: Lang): { q: string; a: string }[] => [
-  {
-    q: t(lang, "Hva koster det å spille?", "What does it cost?"),
-    a: t(
-      lang,
-      `${RANGE30} per 30 minutter per golfsim, avhengig av tidspunkt og senter. Prisen gjelder hele golfsimen — dere kan være opptil seks.`,
-      `${RANGE30} per 30 minutes per bay, depending on time and venue. The price covers the whole bay — up to six of you.`,
-    ),
-  },
-  {
-    q: t(lang, "Trenger jeg eget utstyr?", "Do I need my own gear?"),
-    a: t(
-      lang,
-      "Nei. Gratis lånekøller og tees ligger klare i begge sentre — høyre og venstre, herre, dame og junior.",
-      "No. Free loaner clubs and tees at both venues — right and left, men’s, women’s and junior.",
-    ),
-  },
-  {
-    q: t(lang, "Hvor mange kan vi være?", "How many can we bring?"),
-    a: t(lang, "Opptil seks personer per golfsim.", "Up to six people per bay."),
-  },
-  {
-    q: t(lang, "Når har dere åpent?", "When are you open?"),
-    a: t(lang, "Hele døgnet, hele uka. Du får adgang etter booking.", "24/7, all week. You get access after booking."),
-  },
-  {
-    q: t(lang, "Kan nybegynnere spille?", "Can beginners play?"),
-    a: t(
-      lang,
-      "Ja. Nybegynnere er velkomne, og utstyr i alle størrelser er inkludert.",
-      "Yes. Beginners are welcome, and gear in every size is included.",
-    ),
-  },
-  {
-    q: t(lang, "Er det parkering?", "Is there parking?"),
-    a: t(
-      lang,
-      "Gratis parkering ved begge sentre. Åsane har egne plasser; i Sandviken parkerer du gratis rett utenfor, hele døgnet.",
-      "Free parking at both venues. Åsane has its own spots; in Sandviken you park free right outside, 24/7.",
-    ),
-  },
-  {
-    q: t(lang, "Hva får jeg som medlem?", "What do members get?"),
-    a: t(
-      lang,
-      `Årsmedlemskap koster ${AARS} kr og gir et verdikort på ${VERDI} kr til fri booking, pluss ${MINUS}${RABATT}${THIN}% på alle timer.`,
-      `Annual membership is ${AARS} kr and gives a ${VERDI} kr voucher for free booking, plus ${MINUS}${RABATT}${THIN}% on all hours.`,
-    ),
-  },
-];
+/* FAQ text lives in content/forsiden.json so the owner can add, edit and
+   reorder questions in /admin; {{price}} tokens in the answers resolve
+   against content/priser.json, so a price is never duplicated here. */
+const faqItems = (lang: Lang): { q: string; a: string }[] =>
+  faqRader.map((rad) => ({ q: tekst(lang, rad.sporsmal), a: tekst(lang, rad.svar) }));
 
 const faqJsonld = (lang: Lang) => ({
   "@context": "https://schema.org",
@@ -145,10 +95,15 @@ function CentreRows({ rows }: { rows: [string, string][] }) {
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const lang = asLang((await params).lang);
+  /* Hiding the FAQ must also drop its structured data — Google penalises
+     FAQ markup describing questions that aren't on the page. */
+  const visFaq = FORSIDEN.seksjoner.visFaq && faqRader.length > 0;
 
   return (
     <main>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonld(lang)) }} />
+      {visFaq && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonld(lang)) }} />
+      )}
 
       {/* ============ Hero ============ */}
       <section id="top" className={s.hero}>
@@ -509,6 +464,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       </section>
 
       {/* ============ Ta med gjengen ============ */}
+      {FORSIDEN.seksjoner.visSelskap && (
       <section id="selskap" className={`${s.section} ${s.bg950}`}>
         <div className="container">
           <FadeUp>
@@ -601,68 +557,38 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           </Cascade>
         </div>
       </section>
+      )}
 
       {/* ============ Det skjer på INNE ============ */}
+      {FORSIDEN.seksjoner.visSkjer && skjerKort.length > 0 && (
       <section id="skjer" className={`${s.section} ${s.bg900}`}>
         <div className="container">
           <FadeUp>
             <Eyebrow>{t(lang, <>Turneringer &amp; kurs</>, <>Compete &amp; learn</>)}</Eyebrow>
             <h2 className={s.h2}>{t(lang, "Det skjer på INNE.", "Happening at INNE.")}</h2>
           </FadeUp>
-          <Cascade className={s.cardGrid}>
-            <CascadeItem className={s.cardCell}>
-            <Link href={langHref(lang, "/vinterturnering")} className={s.lineCard}>
-              <span className={s.stepNum}>{t(lang, "Lagturnering", "Team cup")}</span>
-              <h3 className={s.lineCardTitle}>{t(lang, "Vinter​turneringen", "The Winter Cup")}</h3>
-              <p className={s.lineCardCopy}>
-                {t(
-                  lang,
-                  `2-spillerlag · ${VPRIS} kr per spiller · premiepott ${VPOTT} kr + Cutter & Buck-jakker`,
-                  `2-player teams · ${VPRIS} kr each · ${VPOTT} kr pot + Cutter & Buck jackets`,
-                )}
-              </p>
-              <span className={s.cardCta}>
-                {t(lang, "Les mer", "Details")} <span className={s.cardCtaArrow}>→</span>
-              </span>
-            </Link>
-            </CascadeItem>
-            <CascadeItem index={1} className={s.cardCell}>
-            <Link href={langHref(lang, "/polf")} className={s.lineCard}>
-              <span className={s.stepNum}>{t(lang, "Golf + poker", "Golf + poker")}</span>
-              <h3 className={s.lineCardTitle}>POLF</h3>
-              <p className={s.lineCardCopy}>
-                {t(
-                  lang,
-                  `Golf + poker · premiepott inntil ${PMAKS} kr · 18 år`,
-                  `Golf + poker · pot up to ${PMAKS} kr · 18+`,
-                )}
-              </p>
-              <span className={s.cardCta}>
-                {t(lang, "Les mer", "Details")} <span className={s.cardCtaArrow}>→</span>
-              </span>
-            </Link>
-            </CascadeItem>
-            <CascadeItem index={2} className={s.cardCell}>
-            <Link href={langHref(lang, "/veien-til-golf")} className={s.lineCard}>
-              <span className={s.stepNum}>{t(lang, "Nybegynnerkurs", "Intro course")}</span>
-              <h3 className={s.lineCardTitle}>Veien til Golf</h3>
-              <p className={s.lineCardCopy}>
-                {t(
-                  lang,
-                  `Nybegynnerkurs med nasjonal spillerett · Junior ${VTGJ} kr · Voksen ${VTGV} kr`,
-                  `Beginner course with playing rights · Junior ${VTGJ} kr · Adult ${VTGV} kr`,
-                )}
-              </p>
-              <span className={s.cardCta}>
-                {t(lang, "Les mer", "Details")} <span className={s.cardCtaArrow}>→</span>
-              </span>
-            </Link>
-            </CascadeItem>
+          {/* auto-fit grid: three cards fill the row, one or two stay card-
+              width instead of stretching across the container (.cardGridFew) */}
+          <Cascade className={`${s.cardGrid} ${skjerKort.length < 3 ? s.cardGridFew : ""}`}>
+            {skjerKort.map((kort, i) => (
+              <CascadeItem key={kort.lenke} index={i} className={s.cardCell}>
+                <Link href={langHref(lang, kort.lenke)} className={s.lineCard}>
+                  <span className={s.stepNum}>{tekst(lang, kort.merkelapp)}</span>
+                  <h3 className={s.lineCardTitle}>{tekst(lang, kort.tittel)}</h3>
+                  <p className={s.lineCardCopy}>{tekst(lang, kort.tekst)}</p>
+                  <span className={s.cardCta}>
+                    {t(lang, "Les mer", "Details")} <span className={s.cardCtaArrow}>→</span>
+                  </span>
+                </Link>
+              </CascadeItem>
+            ))}
           </Cascade>
         </div>
       </section>
+      )}
 
       {/* ============ Gavekort ============ */}
+      {FORSIDEN.seksjoner.visGavekort && (
       <section id="gavekort" className={s.gavekort}>
         <FadeUp className={`container ${s.gavekortInner}`}>
           <div className={s.gavekortText}>
@@ -680,8 +606,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           </Link>
         </FadeUp>
       </section>
+      )}
 
       {/* ============ FAQ ============ */}
+      {visFaq && (
       <section id="faq" className={`${s.section} ${s.bg900}`}>
         <div className={`container ${s.splitGrid}`}>
           <FadeUp>
@@ -700,6 +628,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           </FadeUp>
         </div>
       </section>
+      )}
 
     </main>
   );

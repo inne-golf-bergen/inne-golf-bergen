@@ -733,6 +733,16 @@
   margin-top: clamp(36px, 6vh, 56px);
 }
 
+/* The owner can switch front-page cards off in /admin. One or two left must
+   not stretch the full container — cap the column so a short row still reads
+   as cards rather than banners. Left-aligned, not centred: every heading in
+   these sections is flush left, and centring the remainder would break that
+   grid the moment a card is switched off. */
+.cardGridFew {
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 380px));
+  justify-content: start;
+}
+
 /* reveal-animation cell — lets the card inside stretch to equal height */
 .cardCell {
   display: flex;

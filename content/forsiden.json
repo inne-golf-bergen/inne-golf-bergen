@@ -1,0 +1,130 @@
+{
+  "seksjoner": {
+    "visSelskap": true,
+    "visSkjer": true,
+    "visGavekort": true,
+    "visFaq": true
+  },
+  "skjer": [
+    {
+      "vis": true,
+      "lenke": "/vinterturnering",
+      "merkelapp": {
+        "no": "Lagturnering",
+        "en": "Team cup"
+      },
+      "tittel": {
+        "no": "Vinter​turneringen",
+        "en": "The Winter Cup"
+      },
+      "tekst": {
+        "no": "2-spillerlag · {{vinterPris}} per spiller · premiepott {{vinterPott}} + Cutter & Buck-jakker",
+        "en": "2-player teams · {{vinterPris}} each · {{vinterPott}} pot + Cutter & Buck jackets"
+      }
+    },
+    {
+      "vis": true,
+      "lenke": "/polf",
+      "merkelapp": {
+        "no": "Golf + poker",
+        "en": "Golf + poker"
+      },
+      "tittel": {
+        "no": "POLF",
+        "en": "POLF"
+      },
+      "tekst": {
+        "no": "Golf + poker · premiepott inntil {{polfMaks}} · 18 år",
+        "en": "Golf + poker · pot up to {{polfMaks}} · 18+"
+      }
+    },
+    {
+      "vis": true,
+      "lenke": "/veien-til-golf",
+      "merkelapp": {
+        "no": "Nybegynnerkurs",
+        "en": "Intro course"
+      },
+      "tittel": {
+        "no": "Veien til Golf",
+        "en": "Veien til Golf"
+      },
+      "tekst": {
+        "no": "Nybegynnerkurs med nasjonal spillerett · Junior {{vtgJunior}} · Voksen {{vtgVoksen}}",
+        "en": "Beginner course with playing rights · Junior {{vtgJunior}} · Adult {{vtgVoksen}}"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "sporsmal": {
+        "no": "Hva koster det å spille?",
+        "en": "What does it cost?"
+      },
+      "svar": {
+        "no": "{{pris30}} per 30 minutter per golfsim, avhengig av tidspunkt og senter. Prisen gjelder hele golfsimen — dere kan være opptil seks.",
+        "en": "{{pris30}} per 30 minutes per bay, depending on time and venue. The price covers the whole bay — up to six of you."
+      }
+    },
+    {
+      "sporsmal": {
+        "no": "Trenger jeg eget utstyr?",
+        "en": "Do I need my own gear?"
+      },
+      "svar": {
+        "no": "Nei. Gratis lånekøller og tees ligger klare i begge sentre — høyre og venstre, herre, dame og junior.",
+        "en": "No. Free loaner clubs and tees at both venues — right and left, men’s, women’s and junior."
+      }
+    },
+    {
+      "sporsmal": {
+        "no": "Hvor mange kan vi være?",
+        "en": "How many can we bring?"
+      },
+      "svar": {
+        "no": "Opptil seks personer per golfsim.",
+        "en": "Up to six people per bay."
+      }
+    },
+    {
+      "sporsmal": {
+        "no": "Når har dere åpent?",
+        "en": "When are you open?"
+      },
+      "svar": {
+        "no": "Hele døgnet, hele uka. Du får adgang etter booking.",
+        "en": "24/7, all week. You get access after booking."
+      }
+    },
+    {
+      "sporsmal": {
+        "no": "Kan nybegynnere spille?",
+        "en": "Can beginners play?"
+      },
+      "svar": {
+        "no": "Ja. Nybegynnere er velkomne, og utstyr i alle størrelser er inkludert.",
+        "en": "Yes. Beginners are welcome, and gear in every size is included."
+      }
+    },
+    {
+      "sporsmal": {
+        "no": "Er det parkering?",
+        "en": "Is there parking?"
+      },
+      "svar": {
+        "no": "Gratis parkering ved begge sentre. Åsane har egne plasser; i Sandviken parkerer du gratis rett utenfor, hele døgnet.",
+        "en": "Free parking at both venues. Åsane has its own spots; in Sandviken you park free right outside, 24/7."
+      }
+    },
+    {
+      "sporsmal": {
+        "no": "Hva får jeg som medlem?",
+        "en": "What do members get?"
+      },
+      "svar": {
+        "no": "Årsmedlemskap koster {{medlemAar}} og gir et verdikort på {{medlemVerdikort}} til fri booking, pluss {{medlemRabatt}} på alle timer.",
+        "en": "Annual membership is {{medlemAar}} and gives a {{medlemVerdikort}} voucher for free booking, plus {{medlemRabatt}} on all hours."
+      }
+    }
+  ]
+}

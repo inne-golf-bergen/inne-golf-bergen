@@ -65,6 +65,100 @@ collections:
             required: false
             hint: Fylles ut automatisk. Du trenger ikke endre denne.
 
+  # --------------------------------------------------------------- Forsiden
+  - name: forsiden
+    label: Forsiden
+    files:
+      - name: innhold
+        label: Forsiden — seksjoner, kort og FAQ
+        file: content/forsiden.json
+        description: >-
+          Styrer hva som vises på forsiden. Priser skrives ikke inn her —
+          bruk kodene under, så henter siden alltid riktig pris.
+        fields:
+          - name: seksjoner
+            label: Hvilke seksjoner vises
+            widget: object
+            hint: >-
+              Skru av en seksjon når den ikke er aktuell, f.eks. utenom
+              turneringssesongen. Resten av forsiden lukker seg pent igjen.
+            fields:
+              - { name: visSelskap, label: "Vis «Ta med gjengen»", widget: boolean, default: true }
+              - { name: visSkjer, label: "Vis «Det skjer på INNE»", widget: boolean, default: true }
+              - { name: visGavekort, label: "Vis verdikort-stripen", widget: boolean, default: true }
+              - { name: visFaq, label: "Vis «Det du lurer på» (FAQ)", widget: boolean, default: true }
+
+          - name: skjer
+            label: "Kortene under «Det skjer på INNE»"
+            widget: list
+            max: 3
+            collapsed: false
+            summary: "{{fields.tittel.no}}"
+            hint: >-
+              Maks tre kort. Skrur du av ett, midtstiller de andre seg selv —
+              forsiden ser riktig ut uansett hvor mange som står igjen.
+            fields:
+              - { name: vis, label: Vis dette kortet, widget: boolean, default: true }
+              - name: lenke
+                label: Kortet lenker til
+                widget: select
+                default: /vinterturnering
+                options:
+                  - { label: Vinterturneringen, value: /vinterturnering }
+                  - { label: POLF, value: /polf }
+                  - { label: Veien til Golf, value: /veien-til-golf }
+                  - { label: Alle turneringer, value: /turneringer }
+                  - { label: Medlemskap, value: /medlemskap }
+                  - { label: Bursdag, value: /bursdag }
+                  - { label: VIP-losjen, value: /vip-losjen }
+                  - { label: Verdikort, value: /gavekort }
+              - name: merkelapp
+                label: Liten tekst øverst
+                widget: object
+                fields:
+                  - { name: "no", label: Norsk, widget: string }
+                  - { name: en, label: Engelsk, widget: string, required: false }
+              - name: tittel
+                label: Overskrift
+                widget: object
+                hint: Hold den kort — lange navn krymper for å få plass.
+                fields:
+                  - { name: "no", label: Norsk, widget: string }
+                  - { name: en, label: Engelsk, widget: string, required: false }
+              - name: tekst
+                label: Beskrivelse
+                widget: object
+                fields:
+                  - { name: "no", label: Norsk, widget: text }
+                  - { name: en, label: Engelsk, widget: text, required: false }
+
+          - name: faq
+            label: "Spørsmål og svar («Det du lurer på»)"
+            widget: list
+            collapsed: false
+            summary: "{{fields.sporsmal.no}}"
+            hint: >-
+              Dra i håndtaket for å endre rekkefølge. Disse svarene brukes også
+              av Google, så skriv dem som hele setninger.
+            fields:
+              - name: sporsmal
+                label: "Spørsmål"
+                widget: object
+                fields:
+                  - { name: "no", label: Norsk, widget: string }
+                  - { name: en, label: Engelsk, widget: string, required: false }
+              - name: svar
+                label: Svar
+                widget: object
+                hint: >-
+                  Priskoder du kan bruke: {{pris30}} {{prisTime}} {{medlemAar}}
+                  {{medlemVerdikort}} {{medlemRabatt}} {{gavekortFra}}
+                  {{gavekortBonus}} {{vinterPris}} {{vinterPott}} {{polfMaks}}
+                  {{vtgJunior}} {{vtgVoksen}} — de blir til riktig pris av seg selv.
+                fields:
+                  - { name: "no", label: Norsk, widget: text }
+                  - { name: en, label: Engelsk, widget: text, required: false }
+
   # ---------------------------------------------------------------- Aktuelt
   - name: aktuelt
     label: Aktuelt

@@ -8,6 +8,11 @@
  * JSX arguments (t(lang, <>…</>, <>…</>)) can't be measured here — keep those
  * pairs short-or-equal by hand.
  *
+ * Owner-edited copy in content/*.json is checked too: every {no, en} pair is
+ * measured with {{price}} tokens stripped, since a token renders identically
+ * in both locales. Without this the guard would silently stop covering any
+ * text the CMS moves out of the source.
+ *
  * Price tokens: t() template pairs interpolate ${TOKEN} consts fed from
  * content/ JSON (see lib/prices). Unknown ${…} text counts literally, so a
  * token must be character-identical in the NO and EN strings — or at least
@@ -110,7 +115,39 @@ for (const file of files) {
   }
 }
 
+/* ---- owner-edited copy in content/*.json --------------------------------
+   Walks any object with a `no` string key and an optional `en` sibling. */
+const stripTokens = (s) => s.replace(/\{\{\w+\}\}/g, "");
+let jsonChecked = 0;
+
+function walkJson(node, file, path = "") {
+  if (Array.isArray(node)) {
+    node.forEach((item, i) => walkJson(item, file, `${path}[${i}]`));
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+
+  if (typeof node.no === "string" && typeof node.en === "string" && node.en.trim()) {
+    jsonChecked++;
+    const no = stripTokens(node.no);
+    const en = stripTokens(node.en);
+    if (en.length > no.length && !ALLOWED.has(normalize(en))) {
+      violations.push({ file: `${file} ${path}`, no: node.no, en: node.en });
+    }
+  }
+  for (const [key, value] of Object.entries(node)) {
+    if (key !== "no" && key !== "en") walkJson(value, file, path ? `${path}.${key}` : key);
+  }
+}
+
+for (const name of readdirSync("content")) {
+  if (!name.endsWith(".json")) continue;
+  const file = join("content", name);
+  walkJson(JSON.parse(readFileSync(file, "utf8")), file);
+}
+
 console.log(`Checked ${checked} t() string pairs (${allowedHits} on the allow-list).`);
+console.log(`Checked ${jsonChecked} {no, en} pairs in content/*.json.`);
 if (violations.length) {
   console.error(`\n${violations.length} English string(s) LONGER than Norwegian:\n`);
   for (const v of violations) {
