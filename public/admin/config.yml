@@ -23,6 +23,11 @@ backend:
 
 site_url: https://innegolfbergen.no
 
+# «Vis nettsted»-knappen i panelet skal peke på forhåndsvisningen, ikke på den
+# live siden: det er der redaktøren ser sine egne ulagrede endringer før hun
+# publiserer. Uten denne ville knappen vist den gamle, publiserte versjonen.
+display_url: https://inne-golf-bergen-git-preview-noteless1.vercel.app
+
 media_folder: public/media
 public_folder: /media
 
