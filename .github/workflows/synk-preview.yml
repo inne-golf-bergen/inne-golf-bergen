@@ -1,0 +1,39 @@
+# Keeps the preview branch current with main.
+#
+# The owner edits content on `preview`; developers push code to `main`. Without
+# this, the preview site would show new content on top of stale code. Runs on
+# every push to main and merges it into preview (creating preview the first
+# time). Merge, never reset — a reset would throw away unpublished content.
+name: Synk preview
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: synk-preview
+  cancel-in-progress: false
+
+jobs:
+  synk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Merge main inn i preview
+        run: |
+          git config user.name "INNE publisering"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin preview >/dev/null 2>&1; then
+            git checkout preview
+            git merge --no-edit main
+          else
+            # First run: bootstrap the branch the CMS writes to.
+            git checkout -b preview
+          fi
+          git push origin preview

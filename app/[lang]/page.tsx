@@ -17,7 +17,10 @@ import {
 } from "@/components/motion/fx";
 import MedlemTall from "@/components/motion/MedlemTall";
 import OpenBookButton from "@/components/OpenBookButton";
+import { polfMaksPott, VINTER } from "@/lib/content";
+import { fmt, krRange } from "@/lib/format";
 import { asLang, type Lang, langHref, t } from "@/lib/i18n";
+import { gavekortMaksBonusPct, gavekortMinPris, medlemPrMnd, PRISER } from "@/lib/prices";
 import { SITE } from "@/lib/site";
 import s from "./page.module.css";
 import asaneBay from "@/public/assets/photos/asane-bay.jpg";
@@ -27,25 +30,44 @@ import sandvikenBay from "@/public/assets/photos/sandviken-bay.jpg";
 import vipLosje from "@/public/assets/photos/vip-losje.jpg";
 import simPhoto from "@/public/uploads/why_accuracy_matters_desktop-f3cbab17.webp";
 
-const NNBSP = "\u202f"; // narrow no-break space — grouping in numbers
 const THIN = "\u202f"; // NARROW NO-BREAK space — before % (U+2009 breaks!)
 const MINUS = "\u2212";
+
+/* Prices from content/ JSON (owner-edited in /admin). Inside t() template
+   pairs the tokens are kept character-identical in the NO and EN strings so
+   scripts/check-i18n-lengths.mjs compares fairly. */
+const AARS = fmt(PRISER.medlemskap.aarspris); // 1 800
+const VERDI = fmt(PRISER.medlemskap.verdikort); // 2 800
+const MND = fmt(medlemPrMnd); // 150
+const RABATT = String(PRISER.medlemskap.rabattProsent); // 20
+const HALV_MIN = fmt(PRISER.sim.halvtimeMin); // 100
+const RANGE30 = krRange(PRISER.sim.halvtimeMin, PRISER.sim.halvtimeMax); // 100–200 kr
+const RANGE60 = krRange(PRISER.sim.timeMin, PRISER.sim.timeMax); // 200–400 kr
+const BARN = String(PRISER.bursdag.prisPerBarn); // 450
+const MINB = String(PRISER.bursdag.minBarn); // 6
+const VPRIS = fmt(VINTER.prisPerSpiller); // 500
+const VPOTT = fmt(VINTER.premiepott); // 20 000
+const PMAKS = fmt(polfMaksPott); // 63 000
+const VTGJ = fmt(PRISER.vtg.junior); // 3 000
+const VTGV = fmt(PRISER.vtg.voksen); // 3 500
+const GMIN = String(gavekortMinPris); // 820
+const GMAX = String(gavekortMaksBonusPct); // 43
 
 const faqItems = (lang: Lang): { q: string; a: string }[] => [
   {
     q: t(lang, "Hva koster det å spille?", "What does it cost?"),
     a: t(
       lang,
-      `100–200 kr per 30 minutter per golfsim, avhengig av tidspunkt og senter. Prisen gjelder hele golfsimen — dere kan være opptil seks.`,
-      `100–200 kr per 30 minutes per bay, depending on time and venue. The price covers the whole bay — up to six of you.`,
+      `${RANGE30} per 30 minutter per golfsim, avhengig av tidspunkt og senter. Prisen gjelder hele golfsimen — dere kan være opptil seks.`,
+      `${RANGE30} per 30 minutes per bay, depending on time and venue. The price covers the whole bay — up to six of you.`,
     ),
   },
   {
     q: t(lang, "Trenger jeg eget utstyr?", "Do I need my own gear?"),
     a: t(
       lang,
-      "Nei. Gratis lånekøller, baller og tees ligger klare i begge sentre — herre, dame og junior.",
-      "No. Free loaner clubs, balls and tees at both venues — men’s, women’s and junior.",
+      "Nei. Gratis lånekøller og tees ligger klare i begge sentre — høyre og venstre, herre, dame og junior.",
+      "No. Free loaner clubs and tees at both venues — right and left, men’s, women’s and junior.",
     ),
   },
   {
@@ -76,8 +98,8 @@ const faqItems = (lang: Lang): { q: string; a: string }[] => [
     q: t(lang, "Hva får jeg som medlem?", "What do members get?"),
     a: t(
       lang,
-      `Årsmedlemskap koster 1${NNBSP}800 kr og gir et verdikort på 2${NNBSP}800 kr til fri booking, pluss ${MINUS}20${THIN}% på alle timer.`,
-      `Annual membership is 1${NNBSP}800 kr and gives a 2${NNBSP}800 kr voucher for free booking, plus ${MINUS}20${THIN}% on all hours.`,
+      `Årsmedlemskap koster ${AARS} kr og gir et verdikort på ${VERDI} kr til fri booking, pluss ${MINUS}${RABATT}${THIN}% på alle timer.`,
+      `Annual membership is ${AARS} kr and gives a ${VERDI} kr voucher for free booking, plus ${MINUS}${RABATT}${THIN}% on all hours.`,
     ),
   },
 ];
@@ -166,7 +188,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               {t(lang, "TrackMan iO i Åsane og Sandviken", "TrackMan iO in Åsane & Sandviken")}
               <span className={s.heroLeadBooking}>{t(lang, ". Book på 60 sekunder", ". Book in 60 seconds")}</span>{" "}
               <span className={s.heroLeadPrice}>
-                {t(lang, "— fra 100 kr per halvtime.", "— from 100 kr per 30 min.")}
+                {t(lang, `— fra ${HALV_MIN} kr per halvtime.`, `— from ${HALV_MIN} kr per 30 min.`)}
               </span>
             </p>
           </HeroItem>
@@ -274,7 +296,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         <div className={`container ${s.splitGrid}`}>
           <FadeUp>
             <Eyebrow>{t(lang, "Priser", "Prices")}</Eyebrow>
-            <h2 className={`${s.h2} ${s.priserH2}`}>{t(lang, "Fra 100 kr.", "From 100 kr.")}</h2>
+            <h2 className={`${s.h2} ${s.priserH2}`}>{t(lang, `Fra ${HALV_MIN} kr.`, `From ${HALV_MIN} kr.`)}</h2>
             <p className={s.priserLead}>
               {t(
                 lang,
@@ -296,18 +318,18 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   {t(lang, "avhengig av tidspunkt og senter", "depends on time and venue")}
                 </span>
               </span>
-              <span className={s.priceValue}>100–200 kr</span>
+              <span className={s.priceValue}>{RANGE30}</span>
             </div>
             <div className={s.priceRow}>
               <span className={s.priceLabel}>{t(lang, "Golfsim · 60 min", "Bay · 60 min")}</span>
-              <span className={s.priceValue}>200–400 kr</span>
+              <span className={s.priceValue}>{RANGE60}</span>
             </div>
             <div className={s.priceRow}>
               <Link data-sweep="true" href={langHref(lang, "/medlemskap")} className={s.priceLinkLabel}>
                 {t(lang, "Medlem", "Member")}
               </Link>
               <span className={`${s.priceValue} ${s.priceValueAccent}`}>
-                {t(lang, `${MINUS}20${THIN}% på alt`, `${MINUS}20${THIN}% off`)}
+                {t(lang, `${MINUS}${RABATT}${THIN}% på alt`, `${MINUS}${RABATT}${THIN}% off`)}
               </span>
             </div>
             <div className={s.priceIncluded}>
@@ -315,8 +337,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <span className={s.priceIncludedItem}>
                 {t(
                   lang,
-                  "Gratis lånekøller, baller og tees — herre, dame og junior",
-                  "Free loaner clubs, balls, tees — men’s, women’s, junior",
+                  "Gratis lånekøller og tees — høyre og venstre, herre, dame og junior",
+                  "Free loaner clubs and tees — right and left, men’s, women’s, junior",
                 )}
               </span>
             </div>
@@ -344,8 +366,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <p className={s.medlemLead}>
               {t(
                 lang,
-                `Årsmedlemskap 1${NNBSP}800 kr/år — 150 kr i måneden. Du får et verdikort på 2${NNBSP}800 kr til fri booking, og ${MINUS}20${THIN}% på alle timer.`,
-                `Annual membership 1${NNBSP}800 kr/yr — 150 kr a month. You get a 2${NNBSP}800 kr voucher for free booking, and ${MINUS}20${THIN}% on all hours.`,
+                `Årsmedlemskap ${AARS} kr/år — ${MND} kr i måneden. Du får et verdikort på ${VERDI} kr til fri booking, og ${MINUS}${RABATT}${THIN}% på alle timer.`,
+                `Annual membership ${AARS} kr/yr — ${MND} kr a month. You get a ${VERDI} kr voucher for free booking, and ${MINUS}${RABATT}${THIN}% on all hours.`,
               )}
             </p>
           </FadeUp>
@@ -359,8 +381,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </p>
           </FadeUp>
           <FadeUp className={s.chipRow}>
-            <span className={s.chip}>{t(lang, `2${NNBSP}800 kr i verdikort`, `2${NNBSP}800 kr voucher`)}</span>
-            <span className={s.chip}>{`${MINUS}20${THIN}% ${t(lang, "på alle timer", "on all hours")}`}</span>
+            <span className={s.chip}>{t(lang, `${VERDI} kr i verdikort`, `${VERDI} kr voucher`)}</span>
+            <span className={s.chip}>{`${MINUS}${RABATT}${THIN}% ${t(lang, "på alle timer", "on all hours")}`}</span>
             <span className={s.chip}>{t(lang, "Partnerfordeler", "Partner perks")}</span>
           </FadeUp>
           <FadeUp className={s.medlemCtaWrap}>
@@ -532,15 +554,15 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   sizes="(max-width: 659px) 100vw, (max-width: 1023px) 50vw, 33vw"
                   className={s.photoCardImg}
                 />
-                <span className={s.photoCardBadge}>{t(lang, "450 kr per barn", "450 kr per kid")}</span>
+                <span className={s.photoCardBadge}>{t(lang, `${BARN} kr per barn`, `${BARN} kr per kid`)}</span>
               </div>
               <div className={s.photoCardBody}>
                 <h3 className={s.photoCardTitle}>{t(lang, "Bursdag", "Birthday")}</h3>
                 <p className={s.photoCardCopy}>
                   {t(
                     lang,
-                    "2 timer simulatorgolf med vert, alt utstyr, pizza og brus. Minimum 6 barn — alle kan slå.",
-                    "2 hours of simulator golf with host, gear, pizza and soda. Min. 6 kids — all can play.",
+                    `2 timer simulatorgolf med vert, alt utstyr, pizza og brus. Minimum ${MINB} barn — alle kan slå.`,
+                    `2 hours of simulator golf with host, gear, pizza and soda. Min. ${MINB} kids — all can play.`,
                   )}
                 </p>
                 <span className={s.cardCta}>
@@ -595,8 +617,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <p className={s.lineCardCopy}>
                 {t(
                   lang,
-                  `2-spillerlag · 500 kr per spiller · premiepott 20${NNBSP}000 kr + Cutter & Buck-jakker`,
-                  `2-player teams · 500 kr each · 20${NNBSP}000 kr pot + Cutter & Buck jackets`,
+                  `2-spillerlag · ${VPRIS} kr per spiller · premiepott ${VPOTT} kr + Cutter & Buck-jakker`,
+                  `2-player teams · ${VPRIS} kr each · ${VPOTT} kr pot + Cutter & Buck jackets`,
                 )}
               </p>
               <span className={s.cardCta}>
@@ -611,8 +633,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <p className={s.lineCardCopy}>
                 {t(
                   lang,
-                  `Golf + poker · premiepott inntil 63${NNBSP}000 kr · 18 år`,
-                  `Golf + poker · pot up to 63${NNBSP}000 kr · 18+`,
+                  `Golf + poker · premiepott inntil ${PMAKS} kr · 18 år`,
+                  `Golf + poker · pot up to ${PMAKS} kr · 18+`,
                 )}
               </p>
               <span className={s.cardCta}>
@@ -627,8 +649,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <p className={s.lineCardCopy}>
                 {t(
                   lang,
-                  `Nybegynnerkurs med nasjonal spillerett · Junior 3${NNBSP}000 kr · Voksen 3${NNBSP}500 kr`,
-                  `Beginner course with playing rights · Junior 3${NNBSP}000 kr · Adult 3${NNBSP}500 kr`,
+                  `Nybegynnerkurs med nasjonal spillerett · Junior ${VTGJ} kr · Voksen ${VTGV} kr`,
+                  `Beginner course with playing rights · Junior ${VTGJ} kr · Adult ${VTGV} kr`,
                 )}
               </p>
               <span className={s.cardCta}>
@@ -648,8 +670,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <p className={s.gavekortCopy}>
               {t(
                 lang,
-                `Verdikort fra 820 kr — opptil 43${THIN}% ekstra verdi å spille for. Gjelder i begge sentre.`,
-                `Vouchers from 820 kr — up to 43${THIN}% extra value to play for. Valid at both venues.`,
+                `Verdikort fra ${GMIN} kr — opptil ${GMAX}${THIN}% ekstra verdi å spille for. Gjelder i begge sentre.`,
+                `Vouchers from ${GMIN} kr — up to ${GMAX}${THIN}% extra value to play for. Valid at both venues.`,
               )}
             </p>
           </div>

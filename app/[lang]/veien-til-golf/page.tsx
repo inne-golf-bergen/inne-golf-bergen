@@ -4,11 +4,17 @@ import veienTilGolfHero from "@/public/assets/photos/veien-til-golf-hero.jpg";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
+import { kr } from "@/lib/format";
 import { asLang, type Lang, langAlternates, t } from "@/lib/i18n";
+import { PRISER } from "@/lib/prices";
 import { SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 import VtgForm from "./VtgForm";
 import s from "./vtg.module.css";
+
+/* Course prices from content/priser.json; the club-member discount token is
+   kept identical in the NO/EN t() pairs for scripts/check-i18n-lengths.mjs. */
+const RABATT = String(PRISER.medlemskap.rabattProsent); // 20
 
 export async function generateMetadata({
   params,
@@ -128,7 +134,7 @@ export default async function VeienTilGolfPage({ params }: { params: Promise<{ l
             ))}
           </div>
           <p data-st="true" className={s.stegFoot}>
-            {t(lang, "Gratis lånekøller ved undervisning.", "Free loaner clubs during lessons.")}
+            {t(lang, "Gratis lånekøller ved undervisning — høyre og venstre.", "Free loaner clubs during lessons — right and left.")}
           </p>
         </div>
       </section>
@@ -147,18 +153,18 @@ export default async function VeienTilGolfPage({ params }: { params: Promise<{ l
                 <span className={s.kursAge}>{t(lang, "T.o.m. 23 år", "Up to age 23")}</span>
               </div>
               <div className={s.kursPriceRow}>
-                <span className={s.kursPrice}>{"3\u202f000\u00a0kr"}</span>
+                <span className={s.kursPrice}>{kr(PRISER.vtg.junior)}</span>
                 <span className={s.kursPriceNote}>{t(lang, "totalpris", "all-in")}</span>
               </div>
               <div className={s.kursDeposit}>
                 <span className={s.kursDepositLabel}>{t(lang, "Ved påmelding", "At sign-up")}</span>
-                <span className={s.kursDepositValue}>{"2\u202f000\u00a0kr"}</span>
+                <span className={s.kursDepositValue}>{kr(PRISER.vtg.depositum)}</span>
               </div>
               <p className={s.kursNote}>
                 {t(
                   lang,
-                  "Inkluderer gratis innmelding i Åsane Golf Forening — som gir 20\u202f% på simulatorspill hos oss.",
-                  "Includes free entry to Åsane Golf Forening — giving 20\u202f% off simulator play with us.",
+                  `Inkluderer gratis innmelding i Åsane Golf Forening — som gir ${RABATT}\u202f% på simulatorspill hos oss.`,
+                  `Includes free entry to Åsane Golf Forening — giving ${RABATT}\u202f% off simulator play with us.`,
                 )}
               </p>
             </div>
@@ -168,18 +174,18 @@ export default async function VeienTilGolfPage({ params }: { params: Promise<{ l
                 <span className={s.kursAge}>{t(lang, "Fra 24 år", "Age 24+")}</span>
               </div>
               <div className={s.kursPriceRow}>
-                <span className={s.kursPrice}>{"3\u202f500\u00a0kr"}</span>
+                <span className={s.kursPrice}>{kr(PRISER.vtg.voksen)}</span>
                 <span className={s.kursPriceNote}>{t(lang, "totalpris", "all-in")}</span>
               </div>
               <div className={s.kursDeposit}>
                 <span className={s.kursDepositLabel}>{t(lang, "Ved påmelding", "At sign-up")}</span>
-                <span className={s.kursDepositValue}>{"2\u202f000\u00a0kr"}</span>
+                <span className={s.kursDepositValue}>{kr(PRISER.vtg.depositum)}</span>
               </div>
               <p className={s.kursNote}>
                 {t(
                   lang,
-                  "Inkluderer gratis innmelding i Åsane Golf Forening — som gir 20\u202f% på simulatorspill hos oss.",
-                  "Includes free entry to Åsane Golf Forening — giving 20\u202f% off simulator play with us.",
+                  `Inkluderer gratis innmelding i Åsane Golf Forening — som gir ${RABATT}\u202f% på simulatorspill hos oss.`,
+                  `Includes free entry to Åsane Golf Forening — giving ${RABATT}\u202f% off simulator play with us.`,
                 )}
               </p>
             </div>
@@ -204,8 +210,8 @@ export default async function VeienTilGolfPage({ params }: { params: Promise<{ l
                   "Questions, or want an April/May course? Call/text Kjetil.",
                 )}
               </span>
-              <a href="tel:+4791330248" className={s.kontaktPhone}>
-                {"913\u00a030\u00a0248"}
+              <a href={`tel:${SITE.phoneHrefs[0]}`} className={s.kontaktPhone}>
+                {SITE.phones[0]}
               </a>
               <a href={`mailto:${SITE.email}`} className={s.kontaktMail}>
                 {SITE.email}

@@ -1,0 +1,187 @@
+/* Turneringer — index with the two flagship cards + CMS entries, and the
+   generic tournament detail template. */
+
+/* ---------- index hero ---------- */
+.heroH1 {
+  margin: 26px 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(64px, 11vw, 172px);
+  line-height: 0.92;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.heroLead {
+  margin: 24px 0 0;
+  max-width: 52ch;
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.6;
+  color: var(--text-strong);
+  text-wrap: pretty;
+}
+
+/* ---------- status chip (cards + detail hero) ---------- */
+.statusChip {
+  align-self: flex-start;
+  padding: 5px 10px;
+  border: 1px solid var(--line-14);
+  border-radius: 999px;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-mid);
+  white-space: nowrap;
+}
+
+.statusChipLive {
+  border-color: var(--orange-600);
+  color: var(--orange-300);
+  background: var(--orange-subtle);
+}
+
+/* ---------- featured (flagship) cards ---------- */
+.featGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.featCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-10);
+  border-radius: 14px;
+  background: var(--ink-900);
+  overflow: hidden;
+  text-decoration: none;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.featCard:hover {
+  border-color: var(--line-16);
+  transform: translateY(-2px);
+}
+
+.featMedia {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--ink-850);
+}
+
+.featImg {
+  object-fit: cover;
+}
+
+.featBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  padding: clamp(18px, 2.2vw, 26px);
+}
+
+.featTitle {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-strong);
+}
+
+.featMeta {
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.featCopy {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-mid);
+}
+
+.featCta {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--orange-400);
+}
+
+/* ---------- detail page ---------- */
+.detNarrow {
+  max-width: 820px;
+}
+
+.detH1 {
+  margin: 24px 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(44px, 6.4vw, 96px);
+  line-height: 0.96;
+  letter-spacing: 0.018em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-wrap: balance;
+}
+
+.detLead {
+  margin: 20px 0 0;
+  max-width: 58ch;
+  font-size: clamp(15px, 1.25vw, 17px);
+  line-height: 1.65;
+  color: var(--text-mid);
+  text-wrap: pretty;
+}
+
+.detChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.detMedia {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ink-850);
+  margin: 0 0 clamp(24px, 3.5vh, 36px);
+}
+
+.premierBlock {
+  margin: clamp(28px, 4vh, 40px) 0 0;
+  max-width: 720px;
+}
+
+.premierLabel {
+  display: block;
+  margin-bottom: 12px;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.ctaWrap {
+  margin-top: clamp(28px, 4vh, 40px);
+}
+
+.fallbackNote {
+  margin: 0 0 24px;
+  padding: 10px 14px;
+  border-left: 2px solid var(--line-16);
+  font-size: 13.5px;
+  color: var(--text-dim);
+}

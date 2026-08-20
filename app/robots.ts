@@ -8,7 +8,9 @@ import { SITE_ORIGIN } from "@/lib/site";
  */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // /admin (the Sveltia CMS shell in public/admin) is noindexed at the page
+    // and header level too; this keeps crawlers from bothering with it at all.
+    rules: { userAgent: "*", allow: "/", disallow: "/admin" },
     sitemap: `${SITE_ORIGIN}/sitemap.xml`,
   };
 }

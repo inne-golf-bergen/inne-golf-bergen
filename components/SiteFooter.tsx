@@ -135,6 +135,14 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
             <Link data-sweep="true" href={langHref(lang, "/personvern")} className={styles.legalLink}>
               {t(lang, "Personvern", "Privacy")}
             </Link>
+            <span aria-hidden="true" className={styles.legalDivider} />
+            {/* Plain <a>, not <Link>: /admin is a static file outside the app
+                router, so client navigation would 404. Reads fine in both
+                languages; access control is GitHub permissions, not the link. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a data-sweep="true" href="/admin" rel="nofollow" className={styles.legalLink}>
+              Admin
+            </a>
           </span>
         </div>
       </div>

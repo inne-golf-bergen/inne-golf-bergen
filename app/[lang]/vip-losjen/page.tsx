@@ -31,7 +31,7 @@ const specs = (lang: Lang): [string, string][] => [
   ["Simulator", t(lang, "Egen 16:9-widescreen", "Own 16:9 widescreen")],
   [t(lang, "Skjerm", "Screen"), t(lang, "Live sport", "Live sport")],
   [t(lang, "Spill", "Games"), t(lang, "Pokerbord", "Poker")],
-  [t(lang, "Utstyr", "Gear"), t(lang, "Gratis lånekøller", "Free loaner clubs")],
+  [t(lang, "Utstyr", "Gear"), t(lang, "Gratis lånekøller, høyre og venstre", "Free loaner clubs, right and left")],
 ];
 
 /* facts the spec list above does NOT already state — never a repeat of it */

@@ -3,14 +3,25 @@
 import BotField from "@/components/BotField";
 import SendFailed from "@/components/SendFailed";
 import SentCard from "@/components/SentCard";
+import { fmt } from "@/lib/format";
 import { useSendForm } from "@/lib/forms";
 import { type Lang, t } from "@/lib/i18n";
 import sub from "../subpage.module.css";
 
-const NNBSP = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
-
-export default function VinterForm({ lang }: { lang: Lang }) {
+/* Fee and Vipps number come from content/turnering-vinter.json via the page,
+   so the owner's edits in /admin reach the form copy too. */
+export default function VinterForm({
+  lang,
+  prisPerSpiller,
+  vipps,
+}: {
+  lang: Lang;
+  prisPerSpiller: number;
+  vipps: string;
+}) {
   const { status, fallbackHref, send } = useSendForm("vinter", t(lang, "Påmelding Vinterturneringen", "Winter Cup entry"));
+  const VPRIS = fmt(prisPerSpiller); // 500
+  const LAG = fmt(prisPerSpiller * 2); // 1 000
 
   if (status === "sent") {
     return (
@@ -18,9 +29,9 @@ export default function VinterForm({ lang }: { lang: Lang }) {
         <p className={sub.sentBody}>
           {t(lang, "Påmeldingen er sendt. Betal deltakeravgiften på", "Your entry is sent. Pay")}{" "}
           <strong className={sub.accent}>
-            {t(lang, `500 kr per spiller (1${NNBSP}000 kr for laget)`, `500 kr per player (1${NNBSP}000 kr per team)`)}
+            {t(lang, `${VPRIS} kr per spiller (${LAG} kr for laget)`, `${VPRIS} kr per player (${LAG} kr per team)`)}
           </strong>{" "}
-          {t(lang, "til Vipps", "via Vipps")} <strong className={sub.accent}>#946014</strong>
+          {t(lang, "til Vipps", "via Vipps")} <strong className={sub.accent}>#{vipps}</strong>
           {t(
             lang,
             " — laget er påmeldt når betalingen er inne.",
@@ -58,8 +69,8 @@ export default function VinterForm({ lang }: { lang: Lang }) {
             intro: t(lang, "Påmelding Vinterturneringen", "Winter Cup entry"),
             outro: t(
               lang,
-              "Deltakeravgift 500 kr per spiller til Vipps #946014.",
-              "Entry fee 500 kr per player via Vipps #946014.",
+              `Deltakeravgift ${VPRIS} kr per spiller til Vipps #${vipps}.`,
+              `Entry fee ${VPRIS} kr per player via Vipps #${vipps}.`,
             ),
           },
         );

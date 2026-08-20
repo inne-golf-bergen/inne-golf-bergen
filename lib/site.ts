@@ -1,4 +1,7 @@
+import kontakt from "@/content/kontakt.json";
+import { krRange, phoneDisplay, phoneHref } from "./format";
 import { type Lang, t } from "./i18n";
+import { PRISER } from "./prices";
 
 /**
  * Origin for absolute URLs in metadata, sitemap and robots. innegolfbergen.no
@@ -13,20 +16,24 @@ export const SITE_ORIGIN = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : "https://innegolfbergen.no";
 
+/* Contact details and booking links come from content/kontakt.json (edited by
+   the owner in /admin); legal identity and addresses stay hardcoded - changing
+   those is a developer-level event. Phones are stored as bare 8-digit strings
+   so the owner cannot break the NBSP typography. */
 export const SITE = {
   name: "INNE Golf Bergen",
   legalName: "IN GOLF BERGEN DA",
   orgNr: "933\u00a0998\u00a0584", // NBSP joins — the number never line-breaks
-  email: "post@innegolfbergen.no",
-  instagram: "https://instagram.com/innegolfbergen",
-  facebook: "https://www.facebook.com/profile.php?id=61564888844128",
-  phones: ["913\u00a030\u00a0248", "404\u00a073\u00a0935", "995\u00a038\u00a0913"],
-  phoneHrefs: ["+4791330248", "+4740473935", "+4799538913"],
-  bookAsane: "https://albaplay.com/en/venue/ingolf-bergen",
-  bookSandviken: "https://albaplay.com/en/venue/inne-golf-bergen-avd-sandviken",
-  membership: "https://albaplay.com/en/venue/ingolf-bergen/offers/membership",
-  gavekortBase: "https://albaplay.com/en/venue/ingolf-bergen/offers/vouchers",
-  gavekortSandviken: "https://albaplay.com/en/venue/inne-golf-bergen-avd-sandviken/offers/vouchers",
+  email: kontakt.email,
+  instagram: kontakt.instagram,
+  facebook: kontakt.facebook,
+  phones: kontakt.phones.map(phoneDisplay),
+  phoneHrefs: kontakt.phones.map(phoneHref),
+  bookAsane: kontakt.bookAsane,
+  bookSandviken: kontakt.bookSandviken,
+  membership: kontakt.membership,
+  gavekortBase: kontakt.gavekortBase,
+  gavekortSandviken: kontakt.gavekortSandviken,
 } as const;
 
 /** Builds a mailto: link to post@ with a prefilled subject and body. */
@@ -62,7 +69,7 @@ const location = (
   image,
   url: "https://innegolfbergen.no/",
   email: SITE.email,
-  priceRange: "100–400 kr",
+  priceRange: krRange(PRISER.sim.halvtimeMin, PRISER.sim.timeMax),
   currenciesAccepted: "NOK",
   paymentAccepted: t(lang, "Kort, Vipps", "Card, Vipps"),
   address: {

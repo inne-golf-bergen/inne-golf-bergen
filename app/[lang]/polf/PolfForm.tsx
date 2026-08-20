@@ -3,27 +3,43 @@
 import BotField from "@/components/BotField";
 import SendFailed from "@/components/SendFailed";
 import SentCard from "@/components/SentCard";
+import { fmt } from "@/lib/format";
 import { useSendForm } from "@/lib/forms";
 import { type Lang, t } from "@/lib/i18n";
 import sub from "../subpage.module.css";
 
-export default function PolfForm({ lang }: { lang: Lang }) {
+/* Fee, Vipps number and event dates come from content/turnering-polf.json via
+   the page, so the owner's edits in /admin reach the form copy too. */
+export default function PolfForm({
+  lang,
+  avgift,
+  vipps,
+  golfvindu,
+  pokerkveld,
+}: {
+  lang: Lang;
+  avgift: number;
+  vipps: string;
+  golfvindu: string;
+  pokerkveld: string;
+}) {
   const { status, fallbackHref, send } = useSendForm("polf", t(lang, "Påmelding POLF", "POLF entry"));
+  const AVG = fmt(avgift); // 600
 
   if (status === "sent") {
     return (
       <SentCard kicker={t(lang, "Nesten i mål", "Almost there")} title={t(lang, "Slik fullfører du", "How to finish")}>
         <p className={sub.sentBody}>
           {t(lang, "Påmeldingen er sendt. Betal avgiften på", "Your entry is sent. Pay the")}{" "}
-          <strong className={sub.accent}>600 kr</strong> {t(lang, "til Vipps", "via Vipps")}{" "}
-          <strong className={sub.accent}>#963257</strong>
+          <strong className={sub.accent}>{`${AVG} kr`}</strong> {t(lang, "til Vipps", "via Vipps")}{" "}
+          <strong className={sub.accent}>#{vipps}</strong>
           {t(lang, " — du er registrert når betalingen er inne.", " — you’re in once the payment lands.")}
         </p>
         <p className={sub.sentSub}>
           {t(
             lang,
-            "Spill den obligatoriske golfrunden i turneringsmodul på ditt senter innen 4. des, så samler du sjetonger til pokerbordet 5. des kl. 19:00. Spørsmål? post@innegolfbergen.no.",
-            "Play the mandatory round in tournament mode at your venue by 4 Dec to earn chips for the poker table on 5 Dec at 19:00. Questions? post@innegolfbergen.no.",
+            `Spill den obligatoriske golfrunden i turneringsmodul på ditt senter (${golfvindu}), så samler du sjetonger til pokerkvelden (${pokerkveld}). Spørsmål? post@innegolfbergen.no.`,
+            `Play the mandatory round in tournament mode at your venue (${golfvindu}) to earn chips for poker night (${pokerkveld}). Questions? post@innegolfbergen.no.`,
           )}
         </p>
       </SentCard>
@@ -48,7 +64,7 @@ export default function PolfForm({ lang }: { lang: Lang }) {
           {
             replyto: f.get("epost"),
             intro: t(lang, "Påmelding POLF", "POLF entry"),
-            outro: t(lang, "Avgift 600 kr til Vipps #963257.", "600 kr fee via Vipps #963257."),
+            outro: t(lang, `Avgift ${AVG} kr til Vipps #${vipps}.`, `${AVG} kr fee via Vipps #${vipps}.`),
           },
         );
       }}

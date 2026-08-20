@@ -296,6 +296,14 @@ export default function SiteNav({ lang }: { lang: Lang }) {
               <>
                 <Link
                   data-sweep-in="true"
+                  href={langHref(lang, "/turneringer")}
+                  className={styles.dropdownItem}
+                  onClick={closeAllNav}
+                >
+                  {t(lang, "Alle turneringer", "All tournaments")}
+                </Link>
+                <Link
+                  data-sweep-in="true"
                   href={langHref(lang, "/vinterturnering")}
                   className={styles.dropdownItem}
                   onClick={closeAllNav}
@@ -320,6 +328,10 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                 </Link>
               </>,
             )}
+
+            <Link data-sweep="true" href={langHref(lang, "/aktuelt")} className={styles.topLink}>
+              {t(lang, "Aktuelt", "News")}
+            </Link>
 
             <Link data-sweep="true" href={langHref(lang, "/gavekort")} className={styles.topLink}>
               {t(lang, "Verdikort", "Vouchers")}
@@ -415,6 +427,9 @@ export default function SiteNav({ lang }: { lang: Lang }) {
               {t(lang, "Bedrift", "Company")}
             </Link>
             <span className={styles.mobileGroup}>{t(lang, "Turneringer", "Tournaments")}</span>
+            <Link href={langHref(lang, "/turneringer")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "Alle turneringer", "All tournaments")}
+            </Link>
             <Link href={langHref(lang, "/vinterturnering")} onClick={closeAllNav} className={styles.mobileLink}>
               {t(lang, "Vinterturnering", "Winter Cup")}
             </Link>
@@ -427,6 +442,10 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             <span className={styles.mobileGroup}>{t(lang, "Verdikort", "Vouchers")}</span>
             <Link href={langHref(lang, "/gavekort")} onClick={closeAllNav} className={styles.mobileLink}>
               {t(lang, "Kjøp verdikort", "Buy vouchers")}
+            </Link>
+            <span className={styles.mobileGroup}>{t(lang, "Aktuelt", "News")}</span>
+            <Link href={langHref(lang, "/aktuelt")} onClick={closeAllNav} className={styles.mobileLink}>
+              {t(lang, "Siste nytt", "News")}
             </Link>
             <div className={styles.mobileCta}>
               <Button size="lg" fullWidth onClick={openSheet}>
@@ -503,8 +522,8 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             <p className={styles.sheetNote}>
               {t(
                 lang,
-                "Gratis lånekøller til herrer, damer og juniorer.",
-                "Free loaner clubs for men, women and juniors.",
+                "Gratis lånekøller, høyre og venstre — herre, dame og junior.",
+                "Free loaner clubs, right and left — men, women and juniors.",
               )}
             </p>
           </m.div>

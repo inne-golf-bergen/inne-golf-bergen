@@ -4,15 +4,25 @@ import simDataLounge from "@/public/assets/photos/sim-data-lounge.jpg";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
+import { POLF, polfMaksPott } from "@/lib/content";
+import { fmt, fmtSp } from "@/lib/format";
 import { asLang, type Lang, langAlternates, langHref, t } from "@/lib/i18n";
 import { mailtoSubject } from "@/lib/site";
 import sub from "../subpage.module.css";
-/* Round one (autumn 2025) is settled — entry is closed. When the next POLF is
-   dated: restore `import PolfForm from "./PolfForm"` and the form column below,
-   and swap the archive copy back to the live entry copy (see git history). */
+import PolfForm from "./PolfForm";
 import s from "./polf.module.css";
 
 const NNBSP = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
+
+/* Round state (status, dates, fees, pot) lives in content/turnering-polf.json,
+   edited by the owner in /admin — the #pameld section below switches on status.
+   Chip-earning rules and the poker structure stay in code: changing the game
+   format is a developer-level event. */
+const ENTRY = fmt(POLF.entry); // 200
+const BOUNTY = fmt(POLF.bounty); // 200
+const AVG = fmt(POLF.avgift); // 600
+const PMAKS = fmt(polfMaksPott); // 63 000
+const PMAKS_SP = fmtSp(polfMaksPott); // plain-space flavour for meta
 
 export async function generateMetadata({
   params,
@@ -24,8 +34,8 @@ export async function generateMetadata({
     title: t(lang, "POLF — Golf møter poker · INNE Golf Bergen", "POLF — Golf meets poker · INNE Golf Bergen"),
     description: t(
       lang,
-      "POLF hos INNE Golf Bergen — golf møter poker. Spill golfrunden fra ditt eget senter, samle sjetonger og avgjør det rundt pokerbordet. Premiepott inntil 63 000 kr. 18 år.",
-      "POLF at INNE Golf Bergen — golf meets poker. Play the round at your own venue, earn chips and settle it at the poker table. Prize pot up to 63 000 kr. 18+.",
+      `POLF hos INNE Golf Bergen — golf møter poker. Spill golfrunden fra ditt eget senter, samle sjetonger og avgjør det rundt pokerbordet. Premiepott inntil ${PMAKS_SP} kr. 18 år.`,
+      `POLF at INNE Golf Bergen — golf meets poker. Play the round at your own venue, earn chips and settle it at the poker table. Prize pot up to ${PMAKS_SP} kr. 18+.`,
     ),
     alternates: langAlternates("/polf"),
   };
@@ -51,7 +61,7 @@ const uteRules = (lang: Lang): Rule[] => [
 ];
 
 const pokerRows = (lang: Lang): Rule[] => [
-  { label: "Entry", value: "200 kr + 200 kr bounty" },
+  { label: "Entry", value: `${ENTRY} kr + ${BOUNTY} kr bounty` },
   {
     label: "Rebuy",
     value: t(
@@ -72,24 +82,13 @@ const pokerRows = (lang: Lang): Rule[] => [
   { label: t(lang, "Vinner", "Winner"), value: t(lang, "Pengepremie + pokal", "Cash prize + trophy"), accent: true },
 ];
 
-const pottCells = (lang: Lang): { label: string; num: string; note: string; accent?: boolean }[] => [
-  {
-    label: t(lang, "30 spillere", "30 players"),
-    num: `21${NNBSP}000 kr`,
-    note: t(lang, "Utbetaling 1.–4. plass", "Payouts 1st–4th"),
-  },
-  {
-    label: t(lang, "60 spillere", "60 players"),
-    num: `42${NNBSP}000 kr`,
-    note: t(lang, "Utbetaling 1.–8. plass", "Payouts 1st–8th"),
-  },
-  {
-    label: t(lang, "90 spillere", "90 players"),
-    num: `63${NNBSP}000 kr`,
-    note: t(lang, "Utbetaling 1.–12. plass", "Payouts 1st–12th"),
-    accent: true,
-  },
-];
+const pottCells = (lang: Lang): { label: string; num: string; note: string; accent?: boolean }[] =>
+  POLF.pottTrinn.map((trinn, i) => ({
+    label: t(lang, `${trinn.spillere} spillere`, `${trinn.spillere} players`),
+    num: `${fmt(trinn.belop)} kr`,
+    note: t(lang, trinn.utbetaling.no, trinn.utbetaling.en),
+    accent: i === POLF.pottTrinn.length - 1,
+  }));
 
 export default async function PolfPage({ params }: { params: Promise<{ lang: string }> }) {
   const lang = asLang((await params).lang);
@@ -125,7 +124,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
           </h1>
           <div data-fade="true" className={sub.chips}>
             <span className={sub.chipGhost}>
-              {t(lang, `Premiepott inntil 63${NNBSP}000 kr`, `Prize pot up to 63${NNBSP}000 kr`)}
+              {t(lang, `Premiepott inntil ${PMAKS} kr`, `Prize pot up to ${PMAKS} kr`)}
             </span>
             <span className={sub.chipGhost}>{t(lang, "18 års aldersgrense", "18+ age limit")}</span>
             <span className={sub.chipGhost}>
@@ -134,7 +133,11 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
           </div>
           <div data-fade="true" className={sub.heroCtaWrap}>
             <Button as="a" href="#pameld" size="lg">
-              {t(lang, "NESTE RUNDE", "NEXT ROUND")}
+              {POLF.status === "pamelding"
+                ? t(lang, "MELD DEG PÅ", "SIGN UP")
+                : POLF.status === "pagaende"
+                  ? t(lang, "RUNDEN ER I GANG", "ROUND UNDERWAY")
+                  : t(lang, "NESTE RUNDE", "NEXT ROUND")}
             </Button>
           </div>
         </div>
@@ -203,7 +206,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
       <section className={`${sub.bg900} ${sub.section}`}>
         <div className="container">
           <div data-st="true">
-            <Eyebrow>{t(lang, "Første runde · 2025", "Round one · 2025")}</Eyebrow>
+            <Eyebrow>{t(lang, POLF.rundeLabel.no, POLF.rundeLabel.en)}</Eyebrow>
             <h2 className={`${sub.h2} ${sub.h2Mid}`}>
               {t(lang, "Bergens første POLF-arrangement.", "Bergen’s first POLF event.")}
             </h2>
@@ -212,7 +215,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
             <div data-st="true" className={s.eventCard}>
               <span className={s.eventKicker}>{t(lang, "Del 1", "Act 1")}</span>
               <h3 className={s.eventTitle}>{t(lang, "Golf\u00adrunden", "Golf round")}</h3>
-              <span className={s.eventDate}>{t(lang, "22. okt – 4. des", "22 Oct – 4 Dec")}</span>
+              <span className={s.eventDate}>{t(lang, POLF.golfvinduTekst.no, POLF.golfvinduTekst.en)}</span>
               <ul className={s.eventList}>
                 {[
                   t(lang, "Obligatorisk runde innen oppgitt tidspunkt.", "Mandatory round within the set window."),
@@ -254,7 +257,7 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
               <span className={s.eventKicker}>{t(lang, "Del 2", "Act 2")}</span>
               <h3 className={s.eventTitle}>{t(lang, "Poker\u00adturnering", "Poker night")}</h3>
               <span className={s.eventDate}>
-                {t(lang, "Fredag 5. des · kl. 19:00 · hos INNE Golf Bergen", "Friday 5 Dec · 19:00 · at INNE Golf Bergen")}
+                {t(lang, POLF.pokerkveldTekst.no, POLF.pokerkveldTekst.en)}
               </span>
               <p className={s.eventCopy}>
                 {t(
@@ -289,42 +292,91 @@ export default async function PolfPage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* ============ Neste runde (første runde er ferdigspilt) ============ */}
+      {/* ============ Påmelding / rundestatus (content/turnering-polf.json) ============ */}
       <section id="pameld" className={`${sub.bg950} ${sub.section}`} style={{ scrollMarginTop: 80 }}>
         <div className={`container ${sub.splitGrid}`}>
-          <div data-st="true">
-            <Eyebrow>{t(lang, "Neste runde", "Next round")}</Eyebrow>
-            <h2 className={sub.h2}>{t(lang, "Tør du satse?", "Dare to bet?")}</h2>
-            <div className={sub.infoCard}>
-              <span className={sub.infoCardKicker}>Status</span>
-              <span className={sub.infoCardValue}>{t(lang, "Ferdigspilt", "Wrapped")}</span>
-              <span className={sub.infoCardText}>
-                {t(
-                  lang,
-                  "Første runde er avgjort. Neste POLF annonseres her og på Facebook-siden vår.",
-                  "Round one is settled. The next POLF drops here and on our Facebook page.",
+          {POLF.status === "pamelding" ? (
+            <>
+              <div data-st="true">
+                <Eyebrow>{t(lang, "Meld deg på", "Sign up")}</Eyebrow>
+                <h2 className={sub.h2}>{t(lang, "Tør du satse?", "Dare to bet?")}</h2>
+                <div className={sub.infoCard}>
+                  <span className={sub.infoCardKicker}>{t(lang, "Avgift", "Fee")}</span>
+                  <span className={sub.infoCardValue}>{`${AVG} kr`}</span>
+                  <span className={sub.infoCardText}>
+                    {t(lang, "Betales til Vipps", "Pay via Vipps")}{" "}
+                    <strong className={sub.accent}>#{POLF.vipps}</strong>
+                    {t(lang, ". Når avgiften er betalt, er du registrert.", ". Once the fee is paid, you’re in.")}
+                  </span>
+                </div>
+              </div>
+              <div data-st="true">
+                <PolfForm
+                  lang={lang}
+                  avgift={POLF.avgift}
+                  vipps={POLF.vipps}
+                  golfvindu={t(lang, POLF.golfvinduTekst.no, POLF.golfvinduTekst.en)}
+                  pokerkveld={t(lang, POLF.pokerkveldTekst.no, POLF.pokerkveldTekst.en)}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div data-st="true">
+                {POLF.status === "pagaende" ? (
+                  <>
+                    <Eyebrow>{t(lang, "Runden er i gang", "Round underway")}</Eyebrow>
+                    <h2 className={sub.h2}>{t(lang, "Følg med videre.", "Follow along.")}</h2>
+                    <div className={sub.infoCard}>
+                      <span className={sub.infoCardKicker}>Status</span>
+                      <span className={sub.infoCardValue}>{t(lang, "Runden spilles", "Round underway")}</span>
+                      <span className={sub.infoCardText}>
+                        {t(
+                          lang,
+                          "Golfrunden er i gang. Pokerkvelden og resultater annonseres her og på Facebook-siden vår.",
+                          "The golf round is underway. Poker night and results drop here and on our Facebook page.",
+                        )}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Eyebrow>{t(lang, "Neste runde", "Next round")}</Eyebrow>
+                    <h2 className={sub.h2}>{t(lang, "Tør du satse?", "Dare to bet?")}</h2>
+                    <div className={sub.infoCard}>
+                      <span className={sub.infoCardKicker}>Status</span>
+                      <span className={sub.infoCardValue}>{t(lang, "Ferdigspilt", "Wrapped")}</span>
+                      <span className={sub.infoCardText}>
+                        {t(
+                          lang,
+                          "Første runde er avgjort. Neste POLF annonseres her og på Facebook-siden vår.",
+                          "Round one is settled. The next POLF drops here and on our Facebook page.",
+                        )}
+                      </span>
+                    </div>
+                  </>
                 )}
-              </span>
-            </div>
-          </div>
-          <div data-st="true">
-            <div className={sub.infoCard}>
-              <span className={sub.infoCardKicker}>{t(lang, "Bli varslet", "Be notified")}</span>
-              <span className={sub.infoCardValue}>{t(lang, "Stå først i køen", "First in line")}</span>
-              <span className={sub.infoCardText}>
-                {t(
-                  lang,
-                  "Send oss en e-post, så får du beskjed når neste POLF er klar.",
-                  "Email us and we’ll tell you the moment the next POLF is set.",
-                )}
-              </span>
-            </div>
-            <div className={sub.heroCtaWrap}>
-              <Button as="a" href={mailtoSubject(t(lang, "Varsle meg — neste POLF", "Notify me — next POLF"))} size="lg">
-                {t(lang, "VARSLE MEG", "NOTIFY ME")}
-              </Button>
-            </div>
-          </div>
+              </div>
+              <div data-st="true">
+                <div className={sub.infoCard}>
+                  <span className={sub.infoCardKicker}>{t(lang, "Bli varslet", "Be notified")}</span>
+                  <span className={sub.infoCardValue}>{t(lang, "Stå først i køen", "First in line")}</span>
+                  <span className={sub.infoCardText}>
+                    {t(
+                      lang,
+                      "Send oss en e-post, så får du beskjed når neste POLF er klar.",
+                      "Email us and we’ll tell you the moment the next POLF is set.",
+                    )}
+                  </span>
+                </div>
+                <div className={sub.heroCtaWrap}>
+                  <Button as="a" href={mailtoSubject(t(lang, "Varsle meg — neste POLF", "Notify me — next POLF"))} size="lg">
+                    {t(lang, "VARSLE MEG", "NOTIFY ME")}
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

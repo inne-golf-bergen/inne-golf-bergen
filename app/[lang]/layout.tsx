@@ -5,9 +5,15 @@ import { CursorGlow } from "@/components/motion/fx";
 import MotionProvider from "@/components/motion/lazy";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import { fmtSp } from "@/lib/format";
 import { asLang, LANGS, langAlternates, t } from "@/lib/i18n";
+import { PRISER } from "@/lib/prices";
 import { locationsJsonld, SITE_ORIGIN } from "@/lib/site";
 import "./globals.css";
+
+/* From content/priser.json — identical token in the NO/EN pair keeps
+   scripts/check-i18n-lengths.mjs fair. */
+const HALV_MIN = fmtSp(PRISER.sim.halvtimeMin); // 100
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
@@ -53,8 +59,8 @@ export async function generateMetadata({
     title: t(lang, "INNE Golf Bergen — Golf. Hele året.", "INNE Golf Bergen — Golf. All year."),
     description: t(
       lang,
-      "Innendørs golf i Bergen — TrackMan iO-simulatorer i Åsane og Sandviken. Selvbetjent og åpent hele døgnet. Book fra 100 kr per halvtime.",
-      "Indoor golf in Bergen — TrackMan iO simulators in Åsane and Sandviken. Self-serve, open 24/7. Book a bay from 100 kr per 30 min.",
+      `Innendørs golf i Bergen — TrackMan iO-simulatorer i Åsane og Sandviken. Selvbetjent og åpent hele døgnet. Book fra ${HALV_MIN} kr per halvtime.`,
+      `Indoor golf in Bergen — TrackMan iO simulators in Åsane and Sandviken. Self-serve, open 24/7. Book a bay from ${HALV_MIN} kr per 30 min.`,
     ),
     alternates: langAlternates("/"),
     /* shares into iMessage/Messenger/WhatsApp/Slack get the branded card

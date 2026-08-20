@@ -1,0 +1,88 @@
+/* Typography for owner-authored markdown (aktuelt + turneringer), rendered to
+   HTML at build time in lib/content.ts. Mirrors the legal-page body voice. */
+.prose {
+  max-width: 720px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-mid);
+}
+
+.prose p {
+  margin: 0 0 16px;
+  text-wrap: pretty;
+}
+
+.prose h2 {
+  margin: 34px 0 12px;
+  font-family: var(--font-ui);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text-strong);
+}
+
+.prose h3 {
+  margin: 26px 0 10px;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.prose ul,
+.prose ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.prose li {
+  margin: 6px 0;
+}
+
+.prose li::marker {
+  color: var(--orange-500);
+}
+
+.prose a {
+  color: var(--orange-400);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+.prose a:hover {
+  color: var(--orange-300);
+}
+
+.prose strong {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.prose blockquote {
+  margin: 20px 0;
+  padding: 4px 0 4px 18px;
+  border-left: 2px solid var(--orange-500);
+  color: var(--text-strong);
+}
+
+.prose hr {
+  margin: 28px 0;
+  border: 0;
+  border-top: 1px solid var(--line-10);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}

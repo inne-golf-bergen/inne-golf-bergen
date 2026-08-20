@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
 import { asLang, langAlternates, t } from "@/lib/i18n";
+import { gavekortMaksBonusPct, gavekortMinPris } from "@/lib/prices";
 import sub from "../subpage.module.css";
 import GavekortVelger from "./GavekortVelger";
 import s from "./gavekort.module.css";
 
 /* U+202F narrow no-break space — keeps "43 %" together; escape form on purpose */
 const THIN = "\u202f";
+
+/* Derived in lib/prices from content/priser.json — identical tokens in the
+   NO/EN t() pairs keep scripts/check-i18n-lengths.mjs fair. */
+const GMIN = String(gavekortMinPris); // 820
+const GMAX = String(gavekortMaksBonusPct); // 43
 
 export async function generateMetadata({
   params,
@@ -19,8 +25,8 @@ export async function generateMetadata({
     title: t(lang, "Verdikort — INNE Golf Bergen", "Vouchers — INNE Golf Bergen"),
     description: t(
       lang,
-      "Verdikort fra 820 kr med opptil 43 % ekstra verdi — spar på golf hele året. Gjelder i begge sentre.",
-      "Vouchers from 820 kr with up to 43 % extra value — save on golf all year. Valid at both venues.",
+      `Verdikort fra ${GMIN} kr med opptil ${GMAX} % ekstra verdi — spar på golf hele året. Gjelder i begge sentre.`,
+      `Vouchers from ${GMIN} kr with up to ${GMAX} % extra value — save on golf all year. Valid at both venues.`,
     ),
     alternates: langAlternates("/gavekort"),
   };
@@ -42,8 +48,8 @@ export default async function GavekortPage({ params }: { params: Promise<{ lang:
           <p data-fade="true" className={s.heroLead}>
             {t(
               lang,
-              `Fyll opp én gang og få opptil 43${THIN}% ekstra verdi å spille for — gjelder i begge sentre.`,
-              `Top up once and get up to 43${THIN}% extra value to play for — valid at both venues.`,
+              `Fyll opp én gang og få opptil ${GMAX}${THIN}% ekstra verdi å spille for — gjelder i begge sentre.`,
+              `Top up once and get up to ${GMAX}${THIN}% extra value to play for — valid at both venues.`,
             )}
           </p>
         </div>

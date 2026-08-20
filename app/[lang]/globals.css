@@ -311,7 +311,9 @@ summary:focus-visible {
   display: none;
 }
 
-@media (max-width: 1099px) {
+/* 1149, not 1099: with the Aktuelt top link the desktop nav needs ~1130px
+   before it stops overflowing the viewport — the burger covers the gap. */
+@media (max-width: 1149px) {
   .nav-d {
     display: none !important;
   }

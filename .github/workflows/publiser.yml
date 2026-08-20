@@ -1,0 +1,61 @@
+# The owner's "publish" button.
+#
+# All CMS edits land on the `preview` branch, which Vercel deploys to the
+# preview URL. Nothing reaches innegolfbergen.no until the owner turns on
+# "Publiser endringene nå" in /admin — that flips a flag in
+# content/publisering.json, and this workflow merges preview into main.
+#
+# Pushes made with GITHUB_TOKEN do not trigger further workflow runs, so the
+# flag reset below cannot loop. Vercel still deploys, because its GitHub App
+# listens to push webhooks rather than to Actions.
+name: Publiser
+
+on:
+  push:
+    branches: [preview]
+
+# Two saves in quick succession must not race each other into main.
+concurrency:
+  group: publiser
+  cancel-in-progress: false
+
+jobs:
+  publiser:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview
+          fetch-depth: 0
+
+      - name: Les publiseringsflagget
+        id: flagg
+        run: |
+          if [ "$(jq -r '.publiser' content/publisering.json)" = "true" ]; then
+            echo "publiser=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "publiser=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Reset first, so main never receives a commit with the flag still on.
+      - name: Nullstill flagget og stemple tidspunkt
+        if: steps.flagg.outputs.publiser == 'true'
+        run: |
+          git config user.name "INNE publisering"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          jq --arg now "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+             '.publiser = false | .sistPublisert = $now' \
+             content/publisering.json > publisering.tmp
+          mv publisering.tmp content/publisering.json
+          git add content/publisering.json
+          git commit -m "Publisert til nettsiden [skip ci]"
+          git push origin preview
+
+      - name: Flytt endringene til main
+        if: steps.flagg.outputs.publiser == 'true'
+        run: |
+          git checkout main
+          git merge --no-edit preview
+          git push origin main

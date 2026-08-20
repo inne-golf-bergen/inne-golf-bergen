@@ -485,6 +485,9 @@
   font-weight: 400;
   font-size: 22px;
   color: var(--white);
+  /* Values that wrap (long ones on narrow screens) must keep the flush-right
+     edge the single-line rows above them set. */
+  text-align: right;
 }
 
 /* ============ Copper-outline chip (12px variant) ============ */

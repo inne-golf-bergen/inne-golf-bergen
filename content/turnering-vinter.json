@@ -1,0 +1,26 @@
+{
+  "sesong": { "no": "2025/2026", "en": "2025/26" },
+  "nesteSesong": "2026/27",
+  "status": "ferdigspilt",
+  "datoTekst": { "no": "15. nov – 30. apr", "en": "15 Nov – 30 Apr" },
+  "prisPerSpiller": 500,
+  "vipps": "946014",
+  "premiepott": 20000,
+  "jakkeNote": {
+    "no": "+ 2 Cutter & Buck-jakker (verdi 5 000 kr)",
+    "en": "+ 2 Cutter & Buck jackets worth 5 000 kr"
+  },
+  "premier": [
+    {
+      "plass": "1.",
+      "belop": 10000,
+      "note": {
+        "no": "2 INNE Golf Bergen-jakker fra Cutter & Buck (verdi 5 000 kr) + 2 drikkeflasker",
+        "en": "2 INNE Golf Bergen jackets from Cutter & Buck (worth 5 000 kr) + 2 bottles"
+      }
+    },
+    { "plass": "2.", "belop": 5000, "note": { "no": "+ 2 drikkeflasker", "en": "+ 2 bottles" } },
+    { "plass": "3.", "belop": 3000, "note": { "no": "+ 2 drikkeflasker", "en": "+ 2 bottles" } },
+    { "plass": "4.", "belop": 2000, "note": { "no": "+ 2 drikkeflasker", "en": "+ 2 bottles" } }
+  ]
+}

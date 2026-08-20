@@ -41,7 +41,14 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return {
-      beforeFiles: [],
+      beforeFiles: [
+        // The admin (Sveltia CMS) lives as static files in public/admin/.
+        // Next serves public/ files by exact path only, so bare /admin would
+        // fall through to the afterFiles rewrite (→ /no/admin → 404).
+        // beforeFiles runs ahead of the filesystem phase; the rewritten path
+        // then serves public/admin/index.html from it. Still zero functions.
+        { source: "/admin", destination: "/admin/index.html" },
+      ],
       // After real files/pages miss: unprefixed URLs are Norwegian. The regex
       // keeps /en/* (and any stray /no/*) out so English URLs stay in their
       // own tree — segment-exact, so /english-course still rewrites.
@@ -62,6 +69,12 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        // Belt and braces on top of the meta robots tag in the admin shell
+        // and the robots.txt disallow — the CMS never belongs in an index.
+        source: "/admin/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       {
         // Hero videos + posters carry a version suffix in the filename, so
         // they can be cached forever; a new version means a new URL.

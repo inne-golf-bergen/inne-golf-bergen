@@ -5,14 +5,30 @@ import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import OpenBookButton from "@/components/OpenBookButton";
 import SiteFx from "@/components/SiteFx";
+import { fmt, fmtSp, krRange } from "@/lib/format";
 import { asLang, type Lang, langAlternates, t } from "@/lib/i18n";
+import { medlemPrMnd, medlemTimerBillig, medlemTimerOrdinaer, PRISER } from "@/lib/prices";
 import { SITE } from "@/lib/site";
 import sub from "../subpage.module.css";
 import s from "./medlemskap.module.css";
 
-const NNBSP = "\u202f"; // narrow NO-BREAK space — was a plain space, which line-breaks
 const THIN = "\u202f";
 const MINUS = "\u2212";
+
+/* Prices from content/priser.json (owner-edited in /admin). Inside t()
+   template pairs the tokens are kept character-identical in the NO and EN
+   strings so scripts/check-i18n-lengths.mjs compares fairly. */
+const AARS = fmt(PRISER.medlemskap.aarspris); // 1 800
+const VERDI = fmt(PRISER.medlemskap.verdikort); // 2 800
+const AARS_SP = fmtSp(PRISER.medlemskap.aarspris); // plain-space flavour for meta
+const VERDI_SP = fmtSp(PRISER.medlemskap.verdikort);
+const MND = fmt(medlemPrMnd); // 150
+const RABATT = String(PRISER.medlemskap.rabattProsent); // 20
+const KLUBB = String(PRISER.medlemskap.klubbPris); // 1
+const HALV_MIN = fmt(PRISER.sim.halvtimeMin); // 100
+const TIMER_ORD = String(medlemTimerOrdinaer); // 7
+const TIMER_NO = medlemTimerBillig.toLocaleString("nb-NO"); // 17,5
+const TIMER_EN = medlemTimerBillig.toLocaleString("en-GB"); // 17.5
 
 export async function generateMetadata({
   params,
@@ -24,8 +40,8 @@ export async function generateMetadata({
     title: t(lang, "Priser & medlemskap — INNE Golf Bergen", "Prices & membership — INNE Golf Bergen"),
     description: t(
       lang,
-      "Årsmedlemskap 1 800 kr/år — verdikort på 2 800 kr til fri booking, 20 % på alle simulatortimer og partnerfordeler i Bergen.",
-      "Annual membership 1 800 kr/yr — a 2 800 kr voucher, 20 % off all simulator hours and partner perks in Bergen.",
+      `Årsmedlemskap ${AARS_SP} kr/år — verdikort på ${VERDI_SP} kr til fri booking, ${RABATT} % på alle simulatortimer og partnerfordeler i Bergen.`,
+      `Annual membership ${AARS_SP} kr/yr — a ${VERDI_SP} kr voucher, ${RABATT} % off all simulator hours and partner perks in Bergen.`,
     ),
     alternates: langAlternates("/medlemskap"),
   };
@@ -79,13 +95,13 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
             <Eyebrow>{t(lang, <>Priser &amp; medlemskap</>, <>Prices &amp; membership</>)}</Eyebrow>
           </div>
           <h1 data-fade="true" className={s.heroH1}>
-            <span className={s.heroLine}>{t(lang, `Betal 1${NNBSP}800.`, `Pay 1${NNBSP}800.`)}</span>
-            <span className={`${s.heroLine} ${s.heroAccent}`}>{t(lang, `Få 2${NNBSP}800.`, `Get 2${NNBSP}800.`)}</span>
+            <span className={s.heroLine}>{t(lang, `Betal ${AARS}.`, `Pay ${AARS}.`)}</span>
+            <span className={`${s.heroLine} ${s.heroAccent}`}>{t(lang, `Få ${VERDI}.`, `Get ${VERDI}.`)}</span>
           </h1>
           <p data-fade="true" className={s.heroLead}>
-            {t(lang, `Årsmedlemskap 1${NNBSP}800 kr per år`, `Annual membership 1${NNBSP}800 kr/yr`)}{" "}
+            {t(lang, `Årsmedlemskap ${AARS} kr per år`, `Annual membership ${AARS} kr/yr`)}{" "}
             <span className={s.heroLeadPrice}>
-              {t(lang, `— det er 150 kr i måneden.`, `— that’s 150 kr a month.`)}
+              {t(lang, `— det er ${MND} kr i måneden.`, `— that’s ${MND} kr a month.`)}
             </span>
           </p>
           <div data-fade="true" className={s.heroCtaWrap}>
@@ -101,7 +117,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
             <Eyebrow>{t(lang, "Priser", "Prices")}</Eyebrow>
-            <h2 className={s.priserH2}>{t(lang, "Fra 100 kr.", "From 100 kr.")}</h2>
+            <h2 className={s.priserH2}>{t(lang, `Fra ${HALV_MIN} kr.`, `From ${HALV_MIN} kr.`)}</h2>
             <p className={s.priserLead}>
               {t(
                 lang,
@@ -121,16 +137,16 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
                   {t(lang, "avhengig av tidspunkt og senter", "depends on time and venue")}
                 </span>
               </span>
-              <span className={s.priceValue}>100–200 kr</span>
+              <span className={s.priceValue}>{krRange(PRISER.sim.halvtimeMin, PRISER.sim.halvtimeMax)}</span>
             </div>
             <div className={s.priceRow}>
               <span className={s.priceLabel}>{t(lang, "Golfsim · 60 min", "Bay · 60 min")}</span>
-              <span className={s.priceValue}>200–400 kr</span>
+              <span className={s.priceValue}>{krRange(PRISER.sim.timeMin, PRISER.sim.timeMax)}</span>
             </div>
             <div className={s.priceRow}>
               <span className={`${s.priceLabel} ${s.priceLabelAccent}`}>{t(lang, "Medlem", "Member")}</span>
               <span className={`${s.priceValue} ${s.priceValueAccent}`}>
-                {t(lang, `${MINUS}20${THIN}% på alt`, `${MINUS}20${THIN}% off`)}
+                {t(lang, `${MINUS}${RABATT}${THIN}% på alt`, `${MINUS}${RABATT}${THIN}% off`)}
               </span>
             </div>
             <div className={s.priceIncluded}>
@@ -138,8 +154,8 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
               <span className={s.priceIncludedItem}>
                 {t(
                   lang,
-                  "Gratis lånekøller, baller og tees — herre, dame og junior",
-                  "Free loaner clubs, balls, tees — men’s, women’s, junior",
+                  "Gratis lånekøller og tees — høyre og venstre, herre, dame og junior",
+                  "Free loaner clubs and tees — right and left, men’s, women’s, junior",
                 )}
               </span>
             </div>
@@ -168,10 +184,10 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
                       {t(lang, "Velg Åsane eller Sandviken ved kjøp", "Pick Åsane or Sandviken at checkout")}
                     </span>
                   </div>
-                  <span className={s.stepPrice}>{t(lang, "1 kr/år", "1 kr/yr")}</span>
+                  <span className={s.stepPrice}>{t(lang, `${KLUBB} kr/år`, `${KLUBB} kr/yr`)}</span>
                 </div>
                 <div className={s.stepBenefit}>
-                  <span className={s.stepBenefitPct}>{`20${THIN}%`}</span>
+                  <span className={s.stepBenefitPct}>{`${RABATT}${THIN}%`}</span>
                   <span className={s.stepBenefitText}>
                     {t(lang, "på alle simulatortimer", "on all simulator hours")}
                   </span>
@@ -196,7 +212,7 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
                 </p>
                 <div className={s.stepCtaWrap}>
                   <Button as="a" href={SITE.membership} variant="secondary" size="lg">
-                    {t(lang, "BLI MEDLEM (1 KR)", "JOIN NOW (1 KR)")}
+                    {t(lang, `BLI MEDLEM (${KLUBB} KR)`, `JOIN NOW (${KLUBB} KR)`)}
                   </Button>
                 </div>
               </div>
@@ -210,16 +226,16 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
                     <span className={s.stepBadge}>{t(lang, "Mest verdi", "Best value")}</span>
                     <h3 className={s.stepTitle}>{t(lang, "Årsmedlemskap", "Annual plan")}</h3>
                   </div>
-                  <span className={s.stepPrice}>{t(lang, `1${NNBSP}800 kr/år`, `1${NNBSP}800 kr/yr`)}</span>
+                  <span className={s.stepPrice}>{t(lang, `${AARS} kr/år`, `${AARS} kr/yr`)}</span>
                 </div>
                 <div className={s.valueGrid}>
                   <div className={s.valueCell}>
                     <span className={s.valueCellLabel}>{t(lang, "Pris du betaler", "You pay")}</span>
-                    <span className={s.valueCellNum}>{`1${NNBSP}800 kr`}</span>
+                    <span className={s.valueCellNum}>{`${AARS} kr`}</span>
                   </div>
                   <div className={s.valueCell}>
                     <span className={s.valueCellLabel}>{t(lang, "Verdikort du mottar", "Voucher you receive")}</span>
-                    <span className={`${s.valueCellNum} ${s.valueCellNumAccent}`}>{`2${NNBSP}800 kr`}</span>
+                    <span className={`${s.valueCellNum} ${s.valueCellNumAccent}`}>{`${VERDI} kr`}</span>
                   </div>
                 </div>
                 <p className={s.stepCopy}>
@@ -232,8 +248,8 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
                 <p className={s.stepCopy}>
                   {t(
                     lang,
-                    "Medlemskapet tilsvarer ca. 7 simulatortimer i ordinær tid, eller opptil 17,5 timer på våre billigste tider. Ingen timer som brenner inne.",
-                    "The plan equals about 7 simulator hours at standard times, or up to 17.5 hours at our cheapest. No hours go to waste.",
+                    `Medlemskapet tilsvarer ca. ${TIMER_ORD} simulatortimer i ordinær tid, eller opptil ${TIMER_NO} timer på våre billigste tider. Ingen timer som brenner inne.`,
+                    `The plan equals about ${TIMER_ORD} simulator hours at standard times, or up to ${TIMER_EN} hours at our cheapest. No hours go to waste.`,
                   )}
                 </p>
                 <div>
@@ -414,8 +430,8 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
               <p className={sub.faqA}>
                 {t(
                   lang,
-                  `Ja. Både verdikortet og ${MINUS}20${THIN}% på timer gjelder i både Åsane og Sandviken.`,
-                  `Yes. Both the voucher and ${MINUS}20${THIN}% on hours apply in Åsane and Sandviken.`,
+                  `Ja. Både verdikortet og ${MINUS}${RABATT}${THIN}% på timer gjelder i både Åsane og Sandviken.`,
+                  `Yes. Both the voucher and ${MINUS}${RABATT}${THIN}% on hours apply in Åsane and Sandviken.`,
                 )}
               </p>
             </details>
@@ -477,13 +493,13 @@ export default async function MedlemskapPage({ params }: { params: Promise<{ lan
         <div data-st="true" className={`container ${sub.copperInner}`}>
           <div className={sub.copperText}>
             <h2 className={sub.copperH2}>
-              {t(lang, `Betal 1${NNBSP}800. Få 2${NNBSP}800.`, `Pay 1${NNBSP}800. Get 2${NNBSP}800.`)}
+              {t(lang, `Betal ${AARS}. Få ${VERDI}.`, `Pay ${AARS}. Get ${VERDI}.`)}
             </h2>
             <p className={sub.copperCopy}>
               {t(
                 lang,
-                `150 kr i måneden — verdikort på 2${NNBSP}800 kr og partnerfordeler i hele byen.`,
-                `150 kr a month — a 2${NNBSP}800 kr voucher and partner perks across town.`,
+                `${MND} kr i måneden — verdikort på ${VERDI} kr og partnerfordeler i hele byen.`,
+                `${MND} kr a month — a ${VERDI} kr voucher and partner perks across town.`,
               )}
             </p>
           </div>

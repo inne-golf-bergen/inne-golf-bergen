@@ -2,24 +2,20 @@
 
 import { useState } from "react";
 import Eyebrow from "@/components/Eyebrow";
+import { kr } from "@/lib/format";
 import { type Lang, t } from "@/lib/i18n";
+import { PRISER } from "@/lib/prices";
 import { SITE } from "@/lib/site";
 import s from "./gavekort.module.css";
 
-/* U+202F narrow no-break space (thousands groups) and U+00A0 no-break space
-   (before the unit) — a price can never line-break internally. Escape form on
-   purpose so an editor can't silently swap them for plain spaces. */
-const NNBSP = "\u202f";
-const NBSP = "\u00a0";
-const kr = (num: string) => `${num}${NBSP}kr`;
-
-const CARDS: { value: string; pays: string; bonus: string; featured?: boolean }[] = [
-  { value: kr(`1${NNBSP}000`), pays: kr("820"), bonus: `+${kr("180")}` },
-  { value: kr(`1${NNBSP}500`), pays: kr(`1${NNBSP}200`), bonus: `+${kr("300")}` },
-  { value: kr(`3${NNBSP}000`), pays: kr(`2${NNBSP}310`), bonus: `+${kr("690")}`, featured: true },
-  { value: kr(`5${NNBSP}000`), pays: kr(`3${NNBSP}750`), bonus: `+${kr(`1${NNBSP}250`)}` },
-  { value: kr(`7${NNBSP}500`), pays: kr(`5${NNBSP}250`), bonus: `+${kr(`2${NNBSP}250`)}` },
-];
+/* Card values come from content/priser.json (owner-edited in /admin); the
+   bonus is derived so it can never drift from value − pays. */
+const CARDS = PRISER.gavekort.cards.map((card) => ({
+  value: kr(card.value),
+  pays: kr(card.pays),
+  bonus: `+${kr(card.value - card.pays)}`,
+  featured: card.featured,
+}));
 
 export default function GavekortVelger({ lang }: { lang: Lang }) {
   const [centre, setCentre] = useState<"asane" | "sandviken">("asane");

@@ -1,0 +1,23 @@
+# Runs the same gates a developer runs locally, on every push — including the
+# owner's commits from /admin. Vercel already keeps the last good deploy when a
+# build breaks; this workflow makes the failure email say exactly what broke.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: node scripts/check-i18n-lengths.mjs

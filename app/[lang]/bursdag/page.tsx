@@ -5,9 +5,15 @@ import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
 import { asLang, type Lang, langAlternates, t } from "@/lib/i18n";
+import { PRISER } from "@/lib/prices";
 import sub from "../subpage.module.css";
 import BursdagForm from "./BursdagForm";
 import s from "./bursdag.module.css";
+
+/* From content/priser.json — identical tokens in the NO/EN t() pairs keep
+   scripts/check-i18n-lengths.mjs fair. */
+const BARN = String(PRISER.bursdag.prisPerBarn); // 450
+const MINB = String(PRISER.bursdag.minBarn); // 6
 
 export async function generateMetadata({
   params,
@@ -19,8 +25,8 @@ export async function generateMetadata({
     title: t(lang, "Bursdag — INNE Golf Bergen", "Birthday — INNE Golf Bergen"),
     description: t(
       lang,
-      "Bursdag hos INNE Golf Bergen — 2 timer simulatorgolf med vert, alt utstyr, pizza og brus. 450 kr per barn, minimum 6 barn.",
-      "Birthdays at INNE Golf Bergen — 2 hours of golf with host, all gear, pizza and soda. 450 kr per kid, minimum 6 kids.",
+      `Bursdag hos INNE Golf Bergen — 2 timer simulatorgolf med vert, alt utstyr, pizza og brus. ${BARN} kr per barn, minimum ${MINB} barn.`,
+      `Birthdays at INNE Golf Bergen — 2 hours of golf with host, all gear, pizza and soda. ${BARN} kr per kid, minimum ${MINB} kids.`,
     ),
     alternates: langAlternates("/bursdag"),
   };
@@ -75,10 +81,10 @@ export default async function BursdagPage({ params }: { params: Promise<{ lang: 
           <div data-fade="true" className={s.badgeWrap}>
             <span className={s.badge}>
               <span className={s.desktopCopy}>
-                {t(lang, "450 kr per barn · alt inkludert · min. 6 barn", "450 kr per kid · all included · min. 6 kids")}
+                {t(lang, `${BARN} kr per barn · alt inkludert · min. ${MINB} barn`, `${BARN} kr per kid · all included · min. ${MINB} kids`)}
               </span>
               <span className={s.mobileCopy}>
-                {t(lang, "450 kr per barn · min. 6 barn", "450 kr per kid · min. 6 kids")}
+                {t(lang, `${BARN} kr per barn · min. ${MINB} barn`, `${BARN} kr per kid · min. ${MINB} kids`)}
               </span>
             </span>
           </div>

@@ -1,0 +1,30 @@
+{
+  "rundeLabel": { "no": "Første runde · 2025", "en": "Round one · 2025" },
+  "status": "ferdigspilt",
+  "golfvinduTekst": { "no": "22. okt – 4. des", "en": "22 Oct – 4 Dec" },
+  "pokerkveldTekst": {
+    "no": "Fredag 5. des · kl. 19:00 · hos INNE Golf Bergen",
+    "en": "Friday 5 Dec · 19:00 · at INNE Golf Bergen"
+  },
+  "entry": 200,
+  "bounty": 200,
+  "avgift": 600,
+  "vipps": "963257",
+  "pottTrinn": [
+    {
+      "spillere": 30,
+      "belop": 21000,
+      "utbetaling": { "no": "Utbetaling 1.–4. plass", "en": "Payouts 1st–4th" }
+    },
+    {
+      "spillere": 60,
+      "belop": 42000,
+      "utbetaling": { "no": "Utbetaling 1.–8. plass", "en": "Payouts 1st–8th" }
+    },
+    {
+      "spillere": 90,
+      "belop": 63000,
+      "utbetaling": { "no": "Utbetaling 1.–12. plass", "en": "Payouts 1st–12th" }
+    }
+  ]
+}

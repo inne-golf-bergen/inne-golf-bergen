@@ -1,0 +1,32 @@
+{
+  "sim": {
+    "halvtimeMin": 100,
+    "halvtimeMax": 200,
+    "timeMin": 200,
+    "timeMax": 400
+  },
+  "medlemskap": {
+    "aarspris": 1800,
+    "verdikort": 2800,
+    "klubbPris": 1,
+    "rabattProsent": 20
+  },
+  "gavekort": {
+    "cards": [
+      { "value": 1000, "pays": 820, "featured": false },
+      { "value": 1500, "pays": 1200, "featured": false },
+      { "value": 3000, "pays": 2310, "featured": true },
+      { "value": 5000, "pays": 3750, "featured": false },
+      { "value": 7500, "pays": 5250, "featured": false }
+    ]
+  },
+  "bursdag": {
+    "prisPerBarn": 450,
+    "minBarn": 6
+  },
+  "vtg": {
+    "junior": 3000,
+    "voksen": 3500,
+    "depositum": 2000
+  }
+}

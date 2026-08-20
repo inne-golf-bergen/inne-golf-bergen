@@ -7,6 +7,11 @@
  *
  * JSX arguments (t(lang, <>…</>, <>…</>)) can't be measured here — keep those
  * pairs short-or-equal by hand.
+ *
+ * Price tokens: t() template pairs interpolate ${TOKEN} consts fed from
+ * content/ JSON (see lib/prices). Unknown ${…} text counts literally, so a
+ * token must be character-identical in the NO and EN strings — or at least
+ * equal-length, e.g. ${TIMER_NO}/${TIMER_EN} — for the comparison to stay fair.
  */
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
@@ -20,13 +25,17 @@ const ROOTS = ["app", "components", "lib"];
  */
 const ALLOWED = new Map([
   ["Birthday", "menu item / card title; container min-width far exceeds text"],
-  ["From 100 kr.", "display heading in a half-width grid column"],
+  ["From ${HALV_MIN} kr.", "display heading in a half-width grid column"],
   ["Get", "single heading word before a CountUp figure"],
   ["as the tour.", "h2 second line; the full heading is equal length"],
   ["Practice", "wrapping chip; the chip row total is shorter than Norwegian"],
   ["Theory", "step-card title; card width is set by far longer siblings"],
   ["Pre-party", "occasion grid cell; cell width sized by 10-char Norwegian max"],
-  ["Get 2 800.", "hero h1 line; the English block is narrower than the Norwegian"],
+  ["Get ${VERDI}.", "hero h1 line; the English block is narrower than the Norwegian"],
+  [
+    "Tournament · Season ${VINTER.sesong.en}",
+    "eyebrow; the rendered EN season (2025/26 style) is shorter than the NO (2025/2026)",
+  ],
   ["Close", "aria-label only — never rendered"],
   ["Birthday — INNE Golf Bergen", "browser-tab <title>, no layout box"],
   ["Sending…", "transient submit-button label; buttons auto-size"],

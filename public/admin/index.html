@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The admin is access-controlled by GitHub permissions, not by hiding it —
+         but there is no reason for it to appear in search results either. -->
+    <meta name="robots" content="noindex" />
+    <title>Admin — INNE Golf Bergen</title>
+    <link rel="icon" href="/assets/logo-ball.png" />
+    <!-- Absolute config path: works whether the page is served as /admin
+         (rewrite in next.config.ts) or /admin/index.html. -->
+    <link rel="cms-config-url" type="application/yaml" href="/admin/config.yml" />
+  </head>
+  <body>
+    <!-- Sveltia CMS, pinned (pre-1.0 — bump deliberately, see content/README.md).
+         Per the Sveltia docs: plain script tag, no type="module", no CSS link. -->
+    <script src="https://unpkg.com/@sveltia/cms@0.193.2/dist/sveltia-cms.js"></script>
+  </body>
+</html>

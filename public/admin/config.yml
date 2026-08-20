@@ -1,0 +1,369 @@
+# Sveltia CMS — innholdsadministrasjon for innegolfbergen.no
+#
+# Alt innhold lagres som filer i GitHub-repoet (content/ og public/media/).
+# Hver lagring blir en commit på preview-grenen → Vercel bygger forhåndsvisningen
+# (~2 min). Den ekte nettsiden endres først når redaktøren publiserer, se
+# samlingen «Publisering» nederst i denne filen og content/README.md.
+#
+# YAML-felle: "no" uten anførselstegn kan tolkes som false — alltid "no" i
+# locale-sammenheng i denne filen.
+
+backend:
+  name: github
+  repo: inne-golf-bergen/inne-golf-bergen
+  # Alt som lagres her havner på preview-grenen, ikke på den live nettsiden.
+  # Vercel bygger preview-grenen til en egen forhåndsvisnings-URL. Først når
+  # redaktøren skrur på "Publiser endringene nå" flyttes alt over til main
+  # (se .github/workflows/publiser.yml).
+  branch: preview
+  # Innlogging med GitHub-knappen krever sveltia-cms-auth på Cloudflare Workers
+  # (se content/README.md). Frem til den er satt opp: bruk "Sign in with Token".
+  # base_url: https://sveltia-cms-auth.<konto>.workers.dev
+
+site_url: https://innegolfbergen.no
+
+media_folder: public/media
+public_folder: /media
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+editor:
+  preview: false
+
+i18n:
+  structure: multiple_files
+  locales: ["no", "en"]
+  default_locale: "no"
+  # Redaktøren kan skru av engelsk per sak — nettsiden viser da norsk tekst
+  # også på den engelske siden.
+  save_all_locales: false
+
+collections:
+  # ------------------------------------------------------------ Publisering
+  - name: publisering
+    label: Publisering
+    files:
+      - name: publiser
+        label: Publiser til nettsiden
+        file: content/publisering.json
+        description: >-
+          Alt du endrer lagres først på forhåndsvisningen. Her sender du det
+          videre til den ekte nettsiden.
+        fields:
+          - name: publiser
+            label: Publiser endringene nå
+            widget: boolean
+            default: false
+            hint: >-
+              Skru på og trykk Save. Endringene går live på innegolfbergen.no
+              etter ca. 2 minutter. Bryteren slår seg av igjen automatisk.
+          - name: sistPublisert
+            label: Sist publisert
+            widget: string
+            required: false
+            hint: Fylles ut automatisk. Du trenger ikke endre denne.
+
+  # ---------------------------------------------------------------- Aktuelt
+  - name: aktuelt
+    label: Aktuelt
+    label_singular: Sak
+    description: Nyheter og oppdateringer. Vises på /aktuelt — nyeste øverst.
+    folder: content/aktuelt
+    create: true
+    delete: true
+    format: frontmatter
+    extension: md
+    i18n: true
+    summary: "{{title}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - name: title
+        label: Tittel
+        widget: string
+        i18n: true
+        required: ["no"]
+      - name: date
+        label: Dato
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+        i18n: duplicate
+      - name: description
+        label: Ingress
+        widget: text
+        i18n: true
+        required: ["no"]
+        hint: 1–2 setninger. Vises på kortet i oversikten og i Google-treff.
+      - name: hero
+        label: Toppbilde
+        widget: image
+        required: false
+        i18n: duplicate
+        hint: Valgfritt. Liggende bilde (16:9) ser best ut.
+      - name: draft
+        label: Kladd
+        widget: boolean
+        default: false
+        i18n: duplicate
+        hint: Kladd vises ikke på nettsiden før du skrur den av.
+      - name: body
+        label: Brødtekst
+        widget: markdown
+        i18n: true
+        required: ["no"]
+
+  # ------------------------------------------------------------ Turneringer
+  - name: turneringer
+    label: Turneringer (egne sider)
+    label_singular: Turnering
+    description: >-
+      Nye turneringssider under /turneringer. Vinterturneringen og POLF har
+      egne faste sider — de redigeres under «Priser og innstillinger».
+    folder: content/turneringer
+    create: true
+    delete: true
+    format: frontmatter
+    extension: md
+    i18n: true
+    summary: "{{title}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - name: title
+        label: Navn
+        widget: string
+        i18n: true
+        required: ["no"]
+      - name: date
+        label: Startdato
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+        i18n: duplicate
+        hint: Brukes til sortering — nyeste øverst.
+      - name: status
+        label: Status
+        widget: select
+        i18n: duplicate
+        default: kommende
+        options:
+          - { label: Kommende, value: kommende }
+          - { label: "Pågår", value: pagaende }
+          - { label: Arkivert, value: arkivert }
+      - name: datoTekst
+        label: Datoer (tekst)
+        widget: string
+        i18n: true
+        required: ["no"]
+        hint: Slik det skal stå på siden, f.eks. «15. januar – 1. mars 2027».
+      - name: prisTekst
+        label: Pris (tekst)
+        widget: string
+        required: false
+        i18n: true
+        hint: Valgfritt, f.eks. «500 kr per spiller».
+      - name: description
+        label: Ingress
+        widget: text
+        i18n: true
+        required: ["no"]
+      - name: hero
+        label: Toppbilde
+        widget: image
+        required: false
+        i18n: duplicate
+      - name: premier
+        label: Premier
+        widget: list
+        required: false
+        i18n: duplicate
+        hint: Valgfri premieliste — vises som egen tabell på siden.
+        fields:
+          - { name: plass, label: Plass, widget: string, hint: "F.eks. «1.»" }
+          - { name: belop, label: "Beløp (kr)", widget: number, value_type: int }
+          - { name: note, label: Merknad, widget: string, required: false }
+      - name: pameldingApen
+        label: "Påmelding åpen"
+        widget: boolean
+        default: false
+        i18n: duplicate
+        hint: "Viser en «MELD DEG PÅ»-knapp på siden."
+      - name: pameldingUrl
+        label: "Påmeldingslenke"
+        widget: string
+        required: false
+        i18n: duplicate
+        hint: Valgfri. Uten lenke åpner knappen en e-post til post@innegolfbergen.no.
+      - name: draft
+        label: Kladd
+        widget: boolean
+        default: false
+        i18n: duplicate
+      - name: body
+        label: Om turneringen
+        widget: markdown
+        i18n: true
+        required: ["no"]
+
+  # ------------------------------------------- Priser og faste innstillinger
+  - name: innstillinger
+    label: Priser og innstillinger
+    description: Faste tall og tekster som brukes over hele nettsiden.
+    files:
+      - name: priser
+        label: Priser (hele nettsiden)
+        file: content/priser.json
+        fields:
+          - name: sim
+            label: Simulatorpriser
+            widget: object
+            fields:
+              - { name: halvtimeMin, label: "30 min — fra (kr)", widget: number, value_type: int }
+              - { name: halvtimeMax, label: "30 min — til (kr)", widget: number, value_type: int }
+              - { name: timeMin, label: "60 min — fra (kr)", widget: number, value_type: int }
+              - { name: timeMax, label: "60 min — til (kr)", widget: number, value_type: int }
+          - name: medlemskap
+            label: Medlemskap
+            widget: object
+            fields:
+              - { name: aarspris, label: "Årsmedlemskap (kr/år)", widget: number, value_type: int }
+              - { name: verdikort, label: "Verdikort du får (kr)", widget: number, value_type: int }
+              - { name: klubbPris, label: "Golfklubb-medlem (kr/år)", widget: number, value_type: int }
+              - { name: rabattProsent, label: "Medlemsrabatt (%)", widget: number, value_type: int }
+          - name: gavekort
+            label: Verdikort
+            widget: object
+            fields:
+              - name: cards
+                label: Kort
+                widget: list
+                hint: Bonusen («+180 kr» osv.) regnes ut automatisk av verdi minus pris.
+                fields:
+                  - { name: value, label: "Verdi (kr)", widget: number, value_type: int }
+                  - { name: pays, label: "Du betaler (kr)", widget: number, value_type: int }
+                  - { name: featured, label: "Mest kjøpt", widget: boolean, default: false }
+          - name: bursdag
+            label: Bursdag
+            widget: object
+            fields:
+              - { name: prisPerBarn, label: "Pris per barn (kr)", widget: number, value_type: int }
+              - { name: minBarn, label: Minimum antall barn, widget: number, value_type: int }
+          - name: vtg
+            label: Veien til Golf
+            widget: object
+            fields:
+              - { name: junior, label: "Junior (kr)", widget: number, value_type: int }
+              - { name: voksen, label: "Voksen (kr)", widget: number, value_type: int }
+              - { name: depositum, label: "Ved påmelding (kr)", widget: number, value_type: int }
+
+      - name: kontakt
+        label: Kontakt og lenker
+        file: content/kontakt.json
+        fields:
+          - { name: email, label: E-post, widget: string }
+          - name: phones
+            label: Telefonnumre
+            widget: list
+            field: { name: phone, label: Nummer, widget: string, pattern: ["^\\d{8}$", "Skriv 8 sifre uten mellomrom"] }
+          - { name: instagram, label: Instagram-lenke, widget: string }
+          - { name: facebook, label: Facebook-lenke, widget: string }
+          - { name: bookAsane, label: "Booking Åsane (Alba)", widget: string }
+          - { name: bookSandviken, label: "Booking Sandviken (Alba)", widget: string }
+          - { name: membership, label: Medlemskapslenke (Alba), widget: string }
+          - { name: gavekortBase, label: "Verdikort Åsane (Alba)", widget: string }
+          - { name: gavekortSandviken, label: "Verdikort Sandviken (Alba)", widget: string }
+
+      - name: vinter
+        label: Vinterturneringen
+        file: content/turnering-vinter.json
+        fields:
+          - name: status
+            label: Status
+            widget: select
+            options:
+              - { label: "Påmelding åpen", value: pamelding }
+              - { label: "Sesongen spilles", value: pagaende }
+              - { label: Ferdigspilt, value: ferdigspilt }
+            hint: Styrer hele påmeldingsdelen på /vinterturnering.
+          - name: sesong
+            label: Sesong
+            widget: object
+            fields:
+              - { name: "no", label: "Norsk (f.eks. 2026/2027)", widget: string }
+              - { name: en, label: "Engelsk (f.eks. 2026/27)", widget: string }
+          - { name: nesteSesong, label: Neste sesong, widget: string, hint: "F.eks. 2027/28" }
+          - name: datoTekst
+            label: Datoer
+            widget: object
+            fields:
+              - { name: "no", label: Norsk, widget: string }
+              - { name: en, label: Engelsk, widget: string }
+          - { name: prisPerSpiller, label: "Pris per spiller (kr)", widget: number, value_type: int }
+          - { name: vipps, label: Vipps-nummer, widget: string, pattern: ["^\\d+$", "Bare sifre"] }
+          - { name: premiepott, label: "Premiepott (kr)", widget: number, value_type: int }
+          - name: jakkeNote
+            label: Jakkenotis (under premiepotten)
+            widget: object
+            fields:
+              - { name: "no", label: Norsk, widget: string }
+              - { name: en, label: Engelsk, widget: string }
+          - name: premier
+            label: Premier
+            widget: list
+            fields:
+              - { name: plass, label: Plass, widget: string }
+              - { name: belop, label: "Beløp (kr)", widget: number, value_type: int }
+              - name: note
+                label: Merknad
+                widget: object
+                fields:
+                  - { name: "no", label: Norsk, widget: string }
+                  - { name: en, label: Engelsk, widget: string }
+
+      - name: polf
+        label: POLF
+        file: content/turnering-polf.json
+        fields:
+          - name: status
+            label: Status
+            widget: select
+            options:
+              - { label: "Påmelding åpen", value: pamelding }
+              - { label: "Runden spilles", value: pagaende }
+              - { label: Ferdigspilt, value: ferdigspilt }
+            hint: Styrer hele påmeldingsdelen på /polf.
+          - name: rundeLabel
+            label: Rundenavn
+            widget: object
+            fields:
+              - { name: "no", label: "Norsk (f.eks. Andre runde · 2027)", widget: string }
+              - { name: en, label: Engelsk, widget: string }
+          - name: golfvinduTekst
+            label: Golfvindu (datoer)
+            widget: object
+            fields:
+              - { name: "no", label: Norsk, widget: string }
+              - { name: en, label: Engelsk, widget: string }
+          - name: pokerkveldTekst
+            label: Pokerkveld (dato og sted)
+            widget: object
+            fields:
+              - { name: "no", label: Norsk, widget: string }
+              - { name: en, label: Engelsk, widget: string }
+          - { name: entry, label: "Entry (kr)", widget: number, value_type: int }
+          - { name: bounty, label: "Bounty (kr)", widget: number, value_type: int }
+          - { name: avgift, label: "Total påmeldingsavgift (kr)", widget: number, value_type: int }
+          - { name: vipps, label: Vipps-nummer, widget: string, pattern: ["^\\d+$", "Bare sifre"] }
+          - name: pottTrinn
+            label: Premiepott etter felt
+            widget: list
+            fields:
+              - { name: spillere, label: Antall spillere, widget: number, value_type: int }
+              - { name: belop, label: "Pott (kr)", widget: number, value_type: int }
+              - name: utbetaling
+                label: Utbetalingstekst
+                widget: object
+                fields:
+                  - { name: "no", label: Norsk, widget: string }
+                  - { name: en, label: Engelsk, widget: string }
