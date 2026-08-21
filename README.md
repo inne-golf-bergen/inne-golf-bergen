@@ -57,7 +57,10 @@ Disse venter på innhold/avklaring fra INNE og er markert i UI-et:
 Alle seks skjemaene (bedrift, bursdag, veien-til-golf, POLF, vinterturnering og
 nyhetsbrevet i footeren) sender via [Web3Forms](https://web3forms.com) — gratis
 inntil 250 innsendinger/mnd — og leveres som e-post til adressen
-tilgangsnøkkelen er utstedt for. Delt flyt i [lib/forms.ts](lib/forms.ts):
+tilgangsnøkkelen er utstedt for. **Nåværende nøkkel går til siva@noteless.com**,
+ikke post@innegolfbergen.no — bekreftet med ekte innsending 21.08.2026. En nøkkel
+er bundet til adressen den ble opprettet med, så ny mottaker = ny nøkkel.
+Delt flyt i [lib/forms.ts](lib/forms.ts):
 
 - **Nøkkel:** `NEXT_PUBLIC_FORMS_KEY` i `.env.local` (lokalt) og i Vercel →
   Settings → Environment Variables. Nøkkelen er offentlig med vilje — den er

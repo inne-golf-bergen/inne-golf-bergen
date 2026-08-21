@@ -12,7 +12,10 @@ export type SendStatus = "idle" | "sending" | "sent" | "error";
 
 /**
  * Web3Forms delivers each submission as an email to the address its access
- * key was issued for (post@innegolfbergen.no) — see README «Skjema-backend».
+ * key was issued for. NOTE: the current key resolves to siva@noteless.com,
+ * NOT post@innegolfbergen.no — verified by live submission 2026-08-21. A key
+ * is bound to the address used to create it, so changing recipient means
+ * issuing a new key. See README «Skjema-backend».
  * Their free plan is browser-side by design and the key is public on purpose:
  * it is only an alias for the recipient address, never a secret.
  */
