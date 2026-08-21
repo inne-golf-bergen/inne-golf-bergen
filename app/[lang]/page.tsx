@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Button";
+import ComingSoonTile from "@/components/ComingSoonTile";
 import CompareSlider from "@/components/CompareSlider";
 import Eyebrow from "@/components/Eyebrow";
 import Faq from "@/components/Faq";
@@ -77,6 +78,13 @@ const sandvikenRows = (lang: Lang): [string, string][] => [
   ["Kiosk", t(lang, "Selvbetjent", "Self-serve")],
   [t(lang, "Kollektiv", "Transit"), t(lang, "Buss 40 m unna", "Bus 40 m away")],
   [t(lang, "Parkering", "Parking"), t(lang, "Gratis, rett utenfor", "Free, right outside")],
+  [t(lang, "Åpent", "Open"), t(lang, "Hele døgnet", "24/7")],
+];
+
+const laksevagRows = (lang: Lang): [string, string][] => [
+  [t(lang, "Simulatorer", "Simulators"), "2 × Simulator Lounge"],
+  [t(lang, "Inngang", "Entry"), t(lang, "Egen, vis-à-vis Baker Brun", "Own, opposite Baker Brun")],
+  [t(lang, "Parkering", "Parking"), t(lang, "Gratis", "Free")],
   [t(lang, "Åpent", "Open"), t(lang, "Hele døgnet", "24/7")],
 ];
 
@@ -190,7 +198,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <section id="sentre" className={`${s.section} ${s.bg950}`}>
         <div className="container">
           <FadeUp>
-            <Eyebrow>{t(lang, "To sentre i Bergen", "Two Bergen venues")}</Eyebrow>
+            <Eyebrow>{t(lang, "Tre sentre i Bergen", "Three Bergen venues")}</Eyebrow>
             <h2 className={s.h2}>{t(lang, "Velg ditt senter.", "Pick your venue.")}</h2>
           </FadeUp>
           <Cascade className={s.sentreGrid}>
@@ -240,6 +248,21 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 <Button as="a" href={SITE.bookSandviken} size="lg" fullWidth>
                   BOOK SANDVIKEN
                 </Button>
+              </div>
+            </CascadeItem>
+            {/* Laksevåg opens Oct 1 — no booking link anywhere until then;
+                the poster tile stands where the venue photo will go */}
+            <CascadeItem id="laksevag" index={2} className={s.centreCard}>
+              <div className={s.centreMedia}>
+                <ComingSoonTile lang={lang} />
+              </div>
+              <div className={s.centreBody}>
+                <div className={s.centreTitleWrap}>
+                  <h3 className={s.centreName}>Laksevåg</h3>
+                  <span className={s.centreTag}>2 × Simulator Lounge</span>
+                </div>
+                <CentreRows rows={laksevagRows(lang)} />
+                <div className={s.soonBar}>{t(lang, "Åpner 1. oktober", "Opens October 1")}</div>
               </div>
             </CascadeItem>
           </Cascade>

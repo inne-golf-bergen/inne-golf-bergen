@@ -370,6 +370,23 @@
   color: var(--text-strong);
 }
 
+/* Laksevåg: stands where BOOK stands on the open venues — the same 52px
+   footprint as .btn--lg, deliberately not a button until October 1 */
+.soonBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  border: 1px solid rgba(214, 147, 109, 0.38);
+  background: rgba(214, 147, 109, 0.07);
+  color: var(--orange-400);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 /* ================= Priser ================= */
 .priserH2 {
   font-size: clamp(64px, 9.4vw, 139px);

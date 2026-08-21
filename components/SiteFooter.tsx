@@ -26,8 +26,8 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
             <p className={styles.brandText}>
               {t(
                 lang,
-                "Golf. Hele året. To selvbetjente TrackMan-sentre i Bergen — åpne hele døgnet.",
-                "Golf. All year. Two self-serve TrackMan venues in Bergen — open 24/7.",
+                "Golf. Hele året. To selvbetjente TrackMan-sentre i Bergen — og nytt senter på Laksevåg fra 1. oktober.",
+                "Golf. All year. Two self-serve TrackMan venues in Bergen — and a new Laksevåg venue from October 1.",
               )}
             </p>
           </div>
@@ -62,6 +62,22 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
             <a data-sweep="true" href={SITE.bookSandviken} className={styles.bookLink}>
               Book Sandviken →
             </a>
+          </div>
+
+          <div className={styles.col}>
+            <span className={styles.colLabel}>Laksevåg</span>
+            <span className={styles.colText}>
+              Laksevåg Senter
+              <br />
+              2 × Simulator Lounge
+              <br />
+              {t(lang, "Egen inngang vis-à-vis Baker Brun", "Own entrance opposite Baker Brun")}
+              <br />
+              {t(lang, "Gratis parkering", "Free parking")}
+            </span>
+            {/* no booking yet — the slot the other columns spend on their
+                book link states the opening instead */}
+            <span className={styles.soonNote}>{t(lang, "Åpner 1. oktober", "Opens October 1")}</span>
           </div>
 
           <div className={styles.col}>

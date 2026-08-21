@@ -3,6 +3,7 @@ import Image from "next/image";
 import praktiskAsaneAerial from "@/public/assets/praktisk-asane-aerial.jpg";
 import praktiskSandviken1 from "@/public/assets/praktisk-sandviken-1.png";
 import praktiskSandviken2 from "@/public/assets/praktisk-sandviken-2.png";
+import ComingSoonTile from "@/components/ComingSoonTile";
 import Eyebrow from "@/components/Eyebrow";
 import SiteFx from "@/components/SiteFx";
 import { asLang, langAlternates, t } from "@/lib/i18n";
@@ -20,8 +21,8 @@ export async function generateMetadata({
     title: t(lang, "Parkering, adgang & kontakt — INNE Golf Bergen", "Parking, access & contact — INNE Golf Bergen"),
     description: t(
       lang,
-      "Parkering, adgang og kontakt for INNE Golf Bergen i Åsane og Sandviken. Selvbetjente sentre, åpne hele døgnet.",
-      "Parking, access and contact for INNE Golf Bergen in Åsane and Sandviken. Self-serve venues, open 24/7.",
+      "Parkering, adgang og kontakt for INNE Golf Bergen i Åsane, Sandviken — og snart Laksevåg. Selvbetjente sentre, åpne hele døgnet.",
+      "Parking, access and contact for INNE Golf Bergen in Åsane, Sandviken — and soon Laksevåg. Self-serve venues, open 24/7.",
     ),
     alternates: langAlternates("/praktisk"),
   };
@@ -44,8 +45,8 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
           <p data-fade="true" className={s.heroLead}>
             {t(
               lang,
-              "Begge sentre er selvbetjente og åpne hele døgnet. Her finner du frem — og inn.",
-              "Both venues are self-serve and open 24/7. Here’s how to find us — and get in.",
+              "Sentrene er selvbetjente og åpne hele døgnet. Her finner du frem — og inn.",
+              "The venues are self-serve, open 24/7. Here’s how to find us — and get in.",
             )}
           </p>
         </div>
@@ -191,8 +192,65 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
         </div>
       </section>
 
-      {/* ============ Adgang ============ */}
+      {/* ============ Laksevåg (åpner 1. oktober) ============ */}
       <section className={`${sub.bg950} ${sub.sectionShort}`}>
+        <div className={`container ${s.centreGrid}`}>
+          <div data-st="true">
+            <div className={s.photoFrame}>
+              <div className={s.photoFrameHead}>
+                <span className={s.photoFrameLabel}>Laksevåg Senter</span>
+                <span className={s.photoFrameNote}>{t(lang, "Nytt senter", "New venue")}</span>
+              </div>
+              <div className={s.photoMedia}>
+                <ComingSoonTile lang={lang} />
+              </div>
+            </div>
+          </div>
+          <div data-st="true" className={s.centreCol}>
+            <h2 className={s.centreH2}>Laksevåg</h2>
+            <div className={s.centreRows}>
+              <div className={s.centreRow}>
+                <span className={s.centreRowLabel}>{t(lang, "Adresse", "Address")}</span>
+                <a
+                  data-sweep="true"
+                  href="https://maps.google.com/?q=Laksev%C3%A5g+Senter,+Bergen"
+                  target="_blank"
+                  rel="noopener"
+                  className={s.centreRowValue}
+                >
+                  Laksevåg Senter
+                </a>
+              </div>
+              <div className={s.centreRow}>
+                <span className={s.centreRowLabel}>{t(lang, "Inngang", "Entry")}</span>
+                <span className={s.centreRowValue}>
+                  {t(lang, "Egen, vis-à-vis Baker Brun", "Own, opposite Baker Brun")}
+                </span>
+              </div>
+              <div className={s.centreRow}>
+                <span className={s.centreRowLabel}>{t(lang, "Parkering", "Parking")}</span>
+                <span className={s.centreRowValue}>{t(lang, "Gratis", "Free")}</span>
+              </div>
+              <div className={`${s.centreRow} ${s.centreRowLast}`}>
+                <span className={s.centreRowLabel}>{t(lang, "Åpner", "Opens")}</span>
+                <span className={s.centreRowValue}>{t(lang, "1. oktober · døgnåpent", "October 1 · open 24/7")}</span>
+              </div>
+            </div>
+            <div className={sub.noteBox}>
+              <p className={sub.noteBoxText}>
+                {t(
+                  lang,
+                  "Vi åpner på Laksevåg Senter 1. oktober — egen inngang vis-à-vis Baker Brun gjør at du kommer inn hele døgnet. Booking åpner nærmere datoen.",
+                  "We open at Laksevåg Senter on October 1 — our own entrance opposite Baker Brun lets you in 24/7. Booking opens closer to the date.",
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ Adgang ============ */}
+      <section className={`${sub.bg900} ${sub.sectionShort}`}>
         <div className={`container ${sub.splitGrid}`}>
           <div data-st="true">
             <Eyebrow>{t(lang, "Adgang", "Access")}</Eyebrow>
@@ -221,7 +279,7 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
       </section>
 
       {/* ============ Kontakt ============ */}
-      <section className={`${sub.bg900} ${sub.sectionShort}`}>
+      <section className={`${sub.bg950} ${sub.sectionShort}`}>
         <div className="container">
           <div data-st="true">
             <Eyebrow>{t(lang, "Kontakt", "Contact")}</Eyebrow>
@@ -251,7 +309,9 @@ export default async function PraktiskPage({ params }: { params: Promise<{ lang:
             </div>
             <div data-st="true" className={s.kontaktCell}>
               <span className={s.kontaktLabel}>{t(lang, "Åpningstid", "Open hours")}</span>
-              <span className={s.kontaktOpen}>{t(lang, "Hele døgnet · begge sentre", "24/7 · both venues")}</span>
+              <span className={s.kontaktOpen}>
+                {t(lang, "Hele døgnet · Åsane og Sandviken", "24/7 · Åsane & Sandviken")}
+              </span>
             </div>
           </div>
         </div>
