@@ -6,7 +6,9 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+  /* 210px min: five columns (brand + 3 venues + contact) fit inside the
+     1328px container a 1440 viewport leaves — 230px forced a 4+1 wrap */
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
   gap: clamp(32px, 4vw, 56px);
 }
 
@@ -103,6 +105,17 @@
   align-self: flex-start;
   font-size: 14px;
   color: var(--text-mid);
+}
+
+/* Laksevåg's stand-in for a book link — muted grey so it never reads as a
+   CTA next to the orange booking links */
+.soonNote {
+  align-self: flex-start;
+  font-size: 13px;
+  letter-spacing: var(--label-track-m);
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
 }
 
 /* 44px touch targets on mobile: pad the hit area, cancel with margin so the

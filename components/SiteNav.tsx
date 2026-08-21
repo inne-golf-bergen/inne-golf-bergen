@@ -39,6 +39,7 @@ export default function SiteNav({ lang }: { lang: Lang }) {
   const logoHref = home === "" ? "#top" : homePath;
   const asaneHref = `${home}#asane`;
   const sandvikenHref = `${home}#sandviken`;
+  const laksevagHref = `${home}#laksevag`;
 
   // The same page in the other language, for the NO/EN switch.
   const stripped = pathname === "/en" ? "/" : pathname.startsWith("/en/") ? pathname.slice(3) : pathname;
@@ -242,6 +243,9 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                 <Link data-sweep-in="true" href={sandvikenHref} className={styles.dropdownItem} onClick={closeAllNav}>
                   Sandviken
                 </Link>
+                <Link data-sweep-in="true" href={laksevagHref} className={styles.dropdownItem} onClick={closeAllNav}>
+                  Laksevåg <span className={styles.soonTag}>{t(lang, "Åpner snart", "Coming soon")}</span>
+                </Link>
                 <Link
                   data-sweep-in="true"
                   href={langHref(lang, "/praktisk")}
@@ -409,6 +413,9 @@ export default function SiteNav({ lang }: { lang: Lang }) {
             <Link href={sandvikenHref} onClick={closeAllNav} className={styles.mobileLink}>
               Sandviken
             </Link>
+            <Link href={laksevagHref} onClick={closeAllNav} className={styles.mobileLink}>
+              Laksevåg <span className={styles.soonTag}>{t(lang, "Åpner snart", "Coming soon")}</span>
+            </Link>
             <Link href={langHref(lang, "/praktisk")} onClick={closeAllNav} className={styles.mobileLink}>
               {t(lang, <>Parkering &amp; adgang</>, <>Parking &amp; access</>)}
             </Link>
@@ -518,6 +525,15 @@ export default function SiteNav({ lang }: { lang: Lang }) {
                   </span>
                 </span>
               </a>
+              {/* Laksevåg is not bookable yet — a card, not a link, so the
+                  sheet tells the whole story without promising a booking */}
+              <div className={`${styles.sheetCard} ${styles.sheetCardSoon}`}>
+                <div className={styles.sheetCardTop}>
+                  <span className={styles.sheetCardKicker}>2 × Simulator Lounge</span>
+                  <span className={styles.sheetCardName}>Laksevåg</span>
+                </div>
+                <span className={styles.sheetCardFoot}>{t(lang, "Åpner 1. oktober", "Opens October 1")}</span>
+              </div>
             </div>
             <p className={styles.sheetNote}>
               {t(

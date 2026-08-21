@@ -19,7 +19,7 @@ export async function generateMetadata({
     title: t(lang, "Aktuelt — INNE Golf Bergen", "News — INNE Golf Bergen"),
     description: t(
       lang,
-      "Siste nytt fra INNE Golf Bergen — turneringer, tilbud og oppdateringer fra sentrene i Åsane og Sandviken.",
+      "Siste nytt fra INNE Golf Bergen — turneringer, tilbud og oppdateringer fra sentrene våre i Bergen.",
       "News from INNE Golf Bergen — tournaments, offers and updates from our venues.",
     ),
     alternates: langAlternates("/aktuelt"),

@@ -1,0 +1,95 @@
+/* Poster tile standing in for a venue photo until Laksevåg opens. Fills a
+   position:relative media box (the forside centre card, the praktisk photo
+   frame) — same ink + kobber glow language as the rest of the room. */
+.tile {
+  position: absolute;
+  inset: 0;
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 100% at 84% -12%, rgba(214, 147, 109, 0.18), transparent 56%),
+    radial-gradient(110% 90% at 10% 114%, rgba(214, 147, 109, 0.12), transparent 58%),
+    var(--ink-900);
+}
+
+/* inner hairline — reads as a poster, not a missing image */
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--line-12);
+  pointer-events: none;
+}
+
+/* oversized outline word behind the lockup */
+.ghost {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -52%);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(110px, 44cqw, 230px);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 237, 230, 0.09);
+  user-select: none;
+}
+
+.lockup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 3cqw, 16px);
+  padding: 16px;
+  text-align: center;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--label-size-s);
+  letter-spacing: var(--label-track-s);
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+}
+
+/* same pulse as the hero ticker dot — keyframes are global (globals.css),
+   and the global reduced-motion rule already stills it */
+.dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  background: var(--orange-500);
+  border-radius: 50%;
+  animation: inne-pulse 2.6s ease-in-out infinite;
+}
+
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 130, 92, 0.55);
+  animation: inne-ring 2.6s ease-in-out infinite;
+}
+
+.date {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(38px, 13cqw, 64px);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--white);
+}

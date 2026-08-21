@@ -151,6 +151,20 @@
   background: var(--ink-800);
 }
 
+/* "coming soon" affordance on the Laksevåg entries — quieter than the venue
+   name, loud enough that nobody expects a booking page yet. Sized in em so
+   it tracks both the 12px dropdown items and the 24px mobile links. */
+.soonTag {
+  margin-left: 0.6em;
+  font-family: var(--font-body);
+  font-size: max(10.5px, 0.52em);
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--orange-400);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .topLink {
   font-size: var(--label-size-m);
   letter-spacing: var(--label-track-m);
@@ -489,6 +503,21 @@
   .sheetCard:hover .sheetCardArrow {
     transform: translateX(5px);
   }
+}
+
+/* Laksevåg placeholder card: same family as the venue cards, dead action —
+   no hover invite, and the foot is a date in muted grey, not an orange CTA */
+.sheetCardSoon {
+  cursor: default;
+}
+
+.sheetCardSoon:hover {
+  border-color: var(--line-14);
+  background: var(--ink-900);
+}
+
+.sheetCardSoon .sheetCardFoot {
+  color: var(--gray-400);
 }
 
 /* quiet footnote — must not compete with the venue cards above it. Centred
