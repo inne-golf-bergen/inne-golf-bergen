@@ -55,28 +55,20 @@ Disse venter på innhold/avklaring fra INNE og er markert i UI-et:
 ## Skjema-backend
 
 Alle seks skjemaene (bedrift, bursdag, veien-til-golf, POLF, vinterturnering og
-nyhetsbrevet i footeren) sendes via [Resend](https://resend.com) — gratis inntil
-3 000 e-poster/mnd — til adressen i `content/kontakt.json` (`post@innegolfbergen.no`),
-som eieren kan endre i /admin. Delt flyt i [lib/forms.ts](lib/forms.ts).
+nyhetsbrevet i footeren) sender via [Web3Forms](https://web3forms.com) — gratis
+inntil 250 innsendinger/mnd — og leveres som e-post til adressen
+tilgangsnøkkelen er utstedt for. Delt flyt i [lib/forms.ts](lib/forms.ts):
 
-**Merk — dette er nettsidens eneste serverless-funksjon.** Resend krever en
-hemmelig API-nøkkel, som aldri kan ligge i nettleseren, så innsendinger går via
-[app/api/skjema/route.ts](app/api/skjema/route.ts). Alle *sider* er fortsatt
-forhåndsgenerert og serveres fra CDN; funksjonen kjører kun når noen sender inn
-et skjema.
-
-- **Nøkkel:** `RESEND_API_KEY` i `.env.local` (lokalt) og i Vercel → Settings →
-  Environment Variables. Dette er en **ekte hemmelighet** — den skal aldri ha
-  `NEXT_PUBLIC_`-prefiks og aldri commites.
-- **Avsender:** `RESEND_FROM` (valgfri, standard
-  `INNE Golf Bergen <skjema@innegolfbergen.no>`). Resend nekter å sende fra et
-  domene som ikke er verifisert i kontoen — legg inn DNS-postene Resend oppgir
-  for innegolfbergen.no først.
-- **Mottaker:** hentes fra `content/kontakt.json` — endres i /admin, ikke i kode.
-- **Misbruk:** ruten godtar bare POST fra egne verter (Origin-sjekk), og har
-  honeypot-felt ([components/BotField.tsx](components/BotField.tsx)); treff
-  vises et falskt suksesskort og sender aldri e-post.
-- **Feil:** ved nedetid/manglende nøkkel viser skjemaet en feilmelding
+- **Nøkkel:** `NEXT_PUBLIC_FORMS_KEY` i `.env.local` (lokalt) og i Vercel →
+  Settings → Environment Variables. Nøkkelen er offentlig med vilje — den er
+  bare et alias for mottakeradressen, aldri en hemmelighet. Ny nøkkel (eller
+  ny mottaker): web3forms.com → «Create Access Key» → nøkkelen sendes til
+  mottaker-innboksen.
+- **Spam:** honeypot-felt ([components/BotField.tsx](components/BotField.tsx));
+  treff vises et falskt suksesskort og bruker aldri kvote.
+- **Feil:** ved nedetid/blokkering viser skjemaet en feilmelding
   ([components/SendFailed.tsx](components/SendFailed.tsx)) med et ferdig
   utfylt `mailto:`-utkast som reserve — svarene i skjemaet beholdes, og ingen
   henvendelse går tapt stille.
+- **Dev uten nøkkel:** vellykket sending simuleres og innholdet logges i
+  nettleserkonsollen.
